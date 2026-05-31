@@ -60,7 +60,7 @@ if not os.path.exists(config.dbpath):
             db.session.add(new_role)
 
         for category_name in config.categories:
-            new_category = JobCategory(name=category_name)
+            new_category = JobCategory(category_name=category_name)
             db.session.add(new_category)
 
         db.session.commit()
