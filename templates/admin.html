@@ -59,7 +59,7 @@
     <form action="{{ admin_uri }}" method="POST" id="modify_user">
         <div class="row">
             <div class="col-md-2">
-                <select name="user_role" class="btn">
+                <select name="user_role" class="btn select-button">
                 {% for option in modify_options %}
                 <option value="{{ option[0] }}">{{ option[1] }}</option>
                 {% endfor %}
@@ -88,7 +88,7 @@
     <form action="{{ admin_uri }}" method="POST" id="delete_ban_user">
         <div class="row">
             <div class="col-md-2">
-                <select name="user_option" class="btn">
+                <select name="user_option" class="btn select-button">
                 {% for option in delete_options %}
                 <option value="{{ option[0] }}">{{ option[1] }}</option>
                 {% endfor %}

@@ -67,7 +67,7 @@
             </p>
             <div class="row">
                 <div class="col-md-5">
-                    <select style="text-align: left;" name="new_category" class="btn" form="edit_job">
+                    <select style="text-align: left;" name="new_category" class="btn select-button" form="edit_job">
                     {% for option in categories %}
                     <option value="{{ option[0] }}" {% if form_category_id|int == option[0]|int %}selected{% endif %}>{{ option[1] }}</option>
                     {% endfor %}

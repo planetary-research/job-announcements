@@ -207,7 +207,7 @@ def home():
                 ]
             sum_category[row.category_id] += 1
 
-        mask = sum_category > 0
+    mask = sum_category > 0
 
     data = {
         "jobs_list": jobs_list,

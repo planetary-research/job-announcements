@@ -261,6 +261,9 @@ main p.my-job-entries {
   margin-top: 0;
   font-size: 0.9em;
 }
+main .select-button {
+  background-color: #e4e4e4;
+}
 
 /* Change how the Quill editor box text appears */
 main .quill-editor {
