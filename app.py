@@ -20,6 +20,7 @@ from utils import get_orcid_name, checksum
 
 
 """ ORCID API """
+
 if config.orcid_member:
     api = orcid.MemberAPI(config.client_ID, config.client_secret, sandbox=config.sandbox)
 else:
@@ -126,6 +127,7 @@ base_data = {
     "header_title": config.site_title,
     "header_subtitle": config.site_subtitle,
     "header_path": config.site_path,
+    "category_names": config.categories,
 }
 
 base_alerts = {
@@ -206,7 +208,6 @@ def home():
         "jobs_list": jobs_list,
         "page": "home",
         "role_id": role_id,
-        "category_names": config.categories,
     }
 
     return render_template("index.html", **(base_data | data))
@@ -985,20 +986,61 @@ def page_not_found(e):
 @app.route('/feed/')
 def feeds():
     fg = FeedGenerator()
-    fg.id(os.path.join(config.site_path, "feeds"))
+    fg.id(os.path.join(config.job_announcements_url, config.site_path[1:], "feed"))
     fg.title(config.site_title)
     fg.subtitle(config.site_subtitle)
-    fg.link(href=config.site_path, rel='alternate')
+    fg.link(href=os.path.join(config.job_announcements_url, config.site_path[1:], "feed"), rel='alternate')
     fg.language('en')
 
     # Create list of feed entries
-    for row in Jobs.query.filter_by(is_active=True).order_by(Jobs.creation_date.asc()).all():
+    for row in Jobs.query.filter_by(is_active=True).order_by(Jobs.post_date.asc()).all():
         fe = fg.add_entry()
         fe.id(os.path.join(config.site_path, row.job_slug))
         fe.title(row.title)
         fe.summary(config.categories[row.category_id])
         fe.link(href=os.path.join(config.site_path, row.job_slug))
-        fe.published(row.creation_date.replace(tzinfo=datetime.UTC))
+        fe.published(row.post_date.replace(tzinfo=datetime.UTC))
+        fe.content(row.description)
+
+    # Generate the feed as bytes
+    feed_data = fg.atom_str(pretty=True)
+
+    # Create a BytesIO object
+    feed_io = BytesIO(feed_data)
+
+    # Return as downloadable file
+    return send_file(
+        feed_io,
+        as_attachment=False,
+        download_name='atom.xml',
+        mimetype='application/atom+xml'
+    )
+
+
+@app.route('/feed/category/<feed_category_string>/')
+def feed_category(feed_category_string):
+    if feed_category_string.isdigit():
+        feed_num = int(feed_category_string)
+        if feed_num >= len(config.categories):
+            return render_template("404.html", **base_data), 404
+    else:
+        return render_template("404.html", **base_data), 404
+
+    fg = FeedGenerator()
+    fg.id(os.path.join(config.job_announcements_url, config.site_path[1:], "feed/category", feed_category_string))
+    fg.title(config.site_title + " - " + config.categories[feed_num])
+    fg.subtitle(config.site_subtitle)
+    fg.link(href=os.path.join(config.job_announcements_url, config.site_path[1:], "feed/category", feed_category_string), rel='alternate')
+    fg.language('en')
+
+    # Create list of feed entries
+    for row in Jobs.query.filter_by(is_active=True).filter_by(category_id=feed_num).order_by(Jobs.post_date.asc()).all():
+        fe = fg.add_entry()
+        fe.id(os.path.join(config.site_path, row.job_slug))
+        fe.title(row.title)
+        fe.summary(config.categories[row.category_id])
+        fe.link(href=os.path.join(config.site_path, row.job_slug))
+        fe.published(row.post_date.replace(tzinfo=datetime.UTC))
         fe.content(row.description)
 
     # Generate the feed as bytes

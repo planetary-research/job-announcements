@@ -10,13 +10,13 @@ if (public_domain := os.getenv("public_domain")) is not None:
     sandbox = False
     code_callback_URI = f"{public_domain}/authorization-code-callback"
     orcid_url = "https://orcid.org/"
-    job_announcements_url = os.path.join(public_domain, os.getenv("site_path"))
+    job_announcements_url = os.path.join(public_domain, os.getenv("site_path")[1:])
 
 else:
     sandbox = True
     code_callback_URI = f"http://127.0.0.1:{port}/authorization-code-callback"
     orcid_url = "https://sandbox.orcid.org/"
-    job_announcements_url = os.getenv("site_path")
+    job_announcements_url = os.path.join(f"http://127.0.0.1:{port}", os.getenv("site_path")[1:])
 
 # Load ORCID and admin parameters from .env file
 cookie_secret = os.getenv("cookie_secret")

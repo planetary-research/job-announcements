@@ -47,6 +47,23 @@
       announcement database.
     </p>
 
+    <h3>How to follow: RSS/Atom feeds</h3>
+    <p>
+      One way to keep up to date with content on this website is by adding our
+      Atom feeds to your feed reader. We offer a feed for all job announcements
+    </p>
+    <ul>
+      <li><a href="{{ job_announcements_url}}/feed">All content</a></li>
+    </ul>
+    <p>
+    as well as feeds for each job category
+    </p>
+    <ul>
+      {% for category in category_names %}
+      <li><a href="{{ job_announcements_url}}/feed/category/{{ loop.index0 }}">{{ category }}</a></li>
+      {% endfor %}
+    </ul>
+
     <h3>Can I see the source code?</h3>
     <p>
       Yes! The code that we use is available on
