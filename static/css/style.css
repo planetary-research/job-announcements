@@ -154,7 +154,7 @@ main .job-summary-box td {
    padding-right: 2em;
 }
 main .job-content {
-  width: 900px;
+  max-width: 900px;
   padding-bottom: 4em;
 }
 main .link {
