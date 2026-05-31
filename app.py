@@ -101,7 +101,7 @@ editor_URI = os.path.join(config.site_path, "editor")
 edit_URI = os.path.join(config.site_path, "<slug>", "edit")
 banned_URI = os.path.join(config.site_path, "user-banned")
 
-job_template = "job-single-column.html"  # default template for actions
+job_template = "job-single-column.html"  # default template for job announcements
 
 base_data = {
     "site_title": config.site_title,
@@ -241,6 +241,10 @@ def action(slug):
     result = Jobs.query.filter_by(job_slug=slug).first()
     if not result:
         return render_template("job-announcement-not-found.html", **base_data)
+
+    # check if the job announcement is open
+    if result.is_active is False:
+        return render_template("job-announcement-closed.html", **base_data)
 
     job = Jobs.query.filter_by(job_slug=slug).first()
 

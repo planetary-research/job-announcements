@@ -15,7 +15,7 @@ was developed by the
 # Dependencies
 
 ```
-conda create -n job-announcements python=3.13 python-dotenv flask flask-sqlalchemy sqlalchemy-utils orcid waitress feedgen -c conda-forge
+conda create -n job-announcements python=3.13 numpy python-dotenv flask flask-sqlalchemy sqlalchemy-utils orcid waitress feedgen -c conda-forge
 ```
 
 # Instructions
