@@ -692,11 +692,18 @@ def create():
                 db.session.add(new_job)
                 db.session.commit()
 
+                location = new_job.city
+                if new_job.country != '':
+                    if location != '':
+                        location = location + ', ' + new_job.country
+                    else:
+                        location = new_job.country
+
                 if mastodon_api and new_job.is_active:
                     mastodon.toot(
-                        "NEW JOB ANNOUNCEMENT\n" +
+                        "NEW JOB ANNOUNCEMENT\nCategory: " +
                         config.categories[new_job.category_id] + "\n\n" +
-                        new_job.title + "\n" +
+                        new_job.title + "\n" + location + "\n\n" +
                         os.path.join(config.job_announcements_url, new_job.job_slug)
                     )
 
@@ -841,11 +848,18 @@ def edit(slug):
             edit_job.is_active = is_active
             db.session.commit()
 
+            location = edit_job.city
+            if edit_job.country != '':
+                if location != '':
+                    location = location + ', ' + edit_job.country
+                else:
+                    location = edit_job.country
+
             if mastodon_api and edit_job.is_active and not published:
                 mastodon.toot(
-                    "NEW JOB ANNOUNCEMENT\n" +
+                    "NEW JOB ANNOUNCEMENT\nCategory: " +
                     config.categories[edit_job.category_id] + "\n\n" +
-                    edit_job.title + "\n" +
+                    edit_job.title + "\n" + location + "\n\n" +
                     os.path.join(config.job_announcements_url, edit_job.job_slug)
                 )
 
