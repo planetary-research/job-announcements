@@ -818,14 +818,6 @@ def edit(slug):
             else:
                 db.session.commit()
 
-                if mastodon_api and edit_job.is_active and not published:
-                    mastodon.toot(
-                        "NEW JOB ANNOUNCEMENT\n" +
-                        config.categories[edit_job.category_id] + "\n\n" +
-                        edit_job.title + "\n" +
-                        os.path.join(config.job_announcements_url, edit_job.job_slug)
-                    )
-
                 base_data["redirect_alerts"] = {
                     "success": "Job announcement updated.",
                     "danger": None,
@@ -848,6 +840,14 @@ def edit(slug):
 
             edit_job.is_active = is_active
             db.session.commit()
+
+            if mastodon_api and edit_job.is_active and not published:
+                mastodon.toot(
+                    "NEW JOB ANNOUNCEMENT\n" +
+                    config.categories[edit_job.category_id] + "\n\n" +
+                    edit_job.title + "\n" +
+                    os.path.join(config.job_announcements_url, edit_job.job_slug)
+                )
 
             base_data["redirect_alerts"] = {
                 "success": alert_text,
