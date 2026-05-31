@@ -68,3 +68,9 @@ if os.getenv("thank_prc").lower() == "true":
 else:
     thank_prc = False
 contact_email = os.getenv("contact_email")
+
+# Mastodon API credentials
+mastodon_client_id = os.getenv("mastodon_client_id")
+mastodon_client_secret = os.getenv("mastodon_client_secret")
+mastodon_access_token = os.getenv("mastodon_access_token")
+mastodon_api_base_url = os.getenv("mastodon_api_base_url")

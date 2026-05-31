@@ -14,6 +14,7 @@ from waitress import serve
 import orcid
 from feedgen.feed import FeedGenerator
 import numpy as np
+from mastodon import Mastodon
 
 import config
 from db_models import db, Jobs, JobCategory, Admin, UserRole, Block
@@ -102,6 +103,25 @@ edit_URI = os.path.join(config.site_path, "<slug>", "edit")
 banned_URI = os.path.join(config.site_path, "user-banned")
 
 job_template = "job-single-column.html"  # default template for job announcements
+
+# Check if Mastodon API credentials are present
+if (
+    config.mastodon_client_id is not None and
+    config.mastodon_client_secret is not None and
+    config.mastodon_access_token is not None and
+    config.mastodon_api_base_url is not None
+):
+    try:
+        mastodon = Mastodon(
+            client_id=config.mastodon_client_id,
+            client_secret=config.mastodon_client_secret,
+            access_token=config.mastodon_access_token,
+            api_base_url=config.mastodon_api_base_url)
+        mastodon_api = True
+    except:
+        mastodon_api = False
+else:
+    mastodon_api = False
 
 base_data = {
     "site_title": config.site_title,
@@ -672,6 +692,14 @@ def create():
                 db.session.add(new_job)
                 db.session.commit()
 
+                if mastodon_api and new_job.is_active:
+                    mastodon.toot(
+                        "NEW JOB ANNOUNCEMENT\n" +
+                        config.categories[new_job.category_id] + "\n\n" +
+                        new_job.title + "\n" +
+                        os.path.join(config.job_announcements_url, new_job.job_slug)
+                    )
+
                 base_data["redirect_alerts"] = {
                     "success": "Job created.",
                     "danger": None,
@@ -750,6 +778,7 @@ def edit(slug):
     # Default alerts (= None)
     alerts = base_alerts.copy()
 
+    published = edit_job.is_active
     # If an update is pushed
     if request.method == "POST":
         if request.form.get("mode") == "edit_job":
@@ -788,6 +817,14 @@ def edit(slug):
                 alerts["danger"] = "You must enter a job title."
             else:
                 db.session.commit()
+
+                if mastodon_api and edit_job.is_active and not published:
+                    mastodon.toot(
+                        "NEW JOB ANNOUNCEMENT\n" +
+                        config.categories[edit_job.category_id] + "\n\n" +
+                        edit_job.title + "\n" +
+                        os.path.join(config.job_announcements_url, edit_job.job_slug)
+                    )
 
                 base_data["redirect_alerts"] = {
                     "success": "Job announcement updated.",
