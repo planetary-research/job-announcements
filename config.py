@@ -6,17 +6,25 @@ load_dotenv()
 port = os.getenv('port')
 sandbox = True
 
+site_path = os.getenv("site_path")
+
 if (public_domain := os.getenv("public_domain")) is not None:
     sandbox = False
     code_callback_URI = f"{public_domain}/authorization-code-callback"
     orcid_url = "https://orcid.org/"
-    job_announcements_url = os.path.join(public_domain, os.getenv("site_path")[1:])
+    if site_path == '/':
+        job_announcements_url = public_domain
+    else:
+        job_announcements_url = os.path.join(public_domain, os.getenv("site_path")[1:])
 
 else:
     sandbox = True
     code_callback_URI = f"http://127.0.0.1:{port}/authorization-code-callback"
     orcid_url = "https://sandbox.orcid.org/"
-    job_announcements_url = os.path.join(f"http://127.0.0.1:{port}", os.getenv("site_path")[1:])
+    if site_path == '/':
+        job_announcements_url = f"http://127.0.0.1:{port}"
+    else:
+        job_announcements_url = os.path.join(f"http://127.0.0.1:{port}", os.getenv("site_path")[1:])
 
 # Load ORCID and admin parameters from .env file
 cookie_secret = os.getenv("cookie_secret")
@@ -47,7 +55,6 @@ favicon = os.getenv("favicon")
 site_title = os.getenv("site_title")
 site_subtitle = os.getenv("site_subtitle")
 site_title_footer = os.getenv("site_title_footer")
-site_path = os.getenv("site_path")
 
 # Job listing categories
 raw_categories = os.getenv("categories")

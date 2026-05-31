@@ -13,6 +13,7 @@ from markupsafe import escape
 from waitress import serve
 import orcid
 from feedgen.feed import FeedGenerator
+import numpy as np
 
 import config
 from db_models import db, Jobs, JobCategory, Admin, UserRole, Block
@@ -167,6 +168,7 @@ def home():
             role_id = user.role_id
 
     jobs_list = dict()
+    sum_category = np.zeros(len(config.categories))
     # Create list of job announcements
     for row in Jobs.query.filter_by(is_active=True).order_by(Jobs.creation_date.desc()).all():
         if row.deadline_date is None:
@@ -203,11 +205,15 @@ def home():
                 deadline_date,
                 row.post_date.strftime('%Y-%m-%d')
                 ]
+            sum_category[row.category_id] += 1
+
+        mask = sum_category > 0
 
     data = {
         "jobs_list": jobs_list,
         "page": "home",
         "role_id": role_id,
+        "category_mask": mask,
     }
 
     return render_template("index.html", **(base_data | data))

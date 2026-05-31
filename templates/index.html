@@ -12,7 +12,9 @@
 <div class="category-list">
   <ul>
     {% for id in range(category_names | length) %}
+    {% if category_mask[id] == true %}
     <li><a href="#{{ id }}">{{ category_names[id] }}</a></li>
+    {% endif %}
     {% endfor %}
   </ul>
 </div>
@@ -20,6 +22,7 @@
 <div class="job-list">
     {% for id in range(category_names | length) %}
       {% set counter = namespace(value=0) %}
+      {% if category_mask[id] == true %}
       <p class="job-category" id="{{ id }}">
         <b>{{ category_names[id] }}</b>
       </p>
@@ -47,6 +50,7 @@
           {% endif %}
         {% endfor %}
       </table>
+      {% endif %}
   {% endfor %}
 </div>
 
