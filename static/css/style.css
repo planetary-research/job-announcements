@@ -3,8 +3,11 @@
     width: 1200px;
   }
 }
-@media(max-width: 700px) {
+@media(max-width: 500px) {
   td {
+    display: table-row;
+  }
+  th {
     display: table-row;
   }
 }
