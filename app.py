@@ -703,7 +703,8 @@ def create():
                     mastodon.toot(
                         "NEW JOB ANNOUNCEMENT\nCategory: " +
                         config.categories[new_job.category_id] + "\n\n" +
-                        new_job.title + "\n" + location + "\n\n" +
+                        new_job.title + "\n" + new_job.institution + "\n" +
+                        location + "\n\n" +
                         os.path.join(config.job_announcements_url, new_job.job_slug)
                     )
 
@@ -859,7 +860,8 @@ def edit(slug):
                 mastodon.toot(
                     "NEW JOB ANNOUNCEMENT\nCategory: " +
                     config.categories[edit_job.category_id] + "\n\n" +
-                    edit_job.title + "\n" + location + "\n\n" +
+                    edit_job.title + "\n" + edit_job.institution + "\n" +
+                    location + "\n\n" +
                     os.path.join(config.job_announcements_url, edit_job.job_slug)
                 )
 
