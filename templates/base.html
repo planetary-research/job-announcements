@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}" />
+    <!-- <link href='//fonts.googleapis.com/css?family=Source+Code+Pro:300' rel='stylesheet' type='text/css'> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+
+    <script src="{{ url_for('static', filename='js/jquery-2.0.3.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+    {% include "controls.html" %}
+
+    <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <h1><a href="{{ header_path }}"><b>{{ header_title | safe }}</b></a></h1>
+            <h3 class="short">{{ header_subtitle | safe }}</h3>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            {% block alert %}{% endblock %}
+            {% block nav %}{% endblock %}
+            <div class="margin-before-content" id="content">{% block content %}{% endblock %}</div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <table width="100%">
+                <td width="85%" style="vertical-align: top;">
+                    <h4><a href="{{ job_announcements_url }}"><b>{{ site_title_footer }}</b></a></h4>
+                    <p class="footer-small">
+                        <a href="{{ footer_url }}" target="_blank">{{ footer_url_name }}</a>
+                    </p>
+                    {% if thank_prc is true %}
+                    <p class="footer-small">
+                        Created by the <a href="https://coop.planetary-research.org">Planetary Research Cooperative</a>
+                    </p>
+                    {% endif %}
+                    <p class="social">
+                        <a href="https://github.com/planetary-research/job-announcements" title="Github"><i class="bi bi-github"></i></a> <a href="mailto:{{ contact_email }}" title="Contact"><i class="bi bi-envelope"></i></a> <a href="/feed" title="Atom feed"><i class="bi bi-rss"></i></a>
+                    </p>
+                </td>
+                <td style="text-align: left; vertical-align: top;">
+                    <p class="footer-small"><a href="{{ job_announcements_url }}">Home</a></p>
+                    <p class="footer-small"><a href="{{ faq_uri }}">FAQ</a></p>
+                    <p class="footer-small"><a href="{{ privacy_uri }}">Privacy Policy</a></p>
+                    <p class="footer-small"><a href="{{ authorization_uri_admin }}">Sign in</a></p>
+                </td>
+            </table>
+        </div>
+    </footer>
+
+</body>
+</html>

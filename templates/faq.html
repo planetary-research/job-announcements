@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}{{ site_title_footer }} - Frequently asked questions{% endblock %}
+
+{% block nav %}{% include "nav-admin.html" %}{% endblock %}
+
+{% block content %}
+
+<div class="margin-bottom">
+    <h3>FREQUENTLY ASKED QUESTIONS</h3>
+
+    <h3>How do I create a job announcement?</h3>
+    <p>
+      To create a job announcment, click on the link to
+      <a href="{{ authorization_uri_admin }}">sign in</a> and then
+      authenticate with your <a href="https://orcid.org">ORCID</a> account.
+      After signing in, you will see list of administration tasks at the top of
+      the screen, and just click the link "create" to make a new job announcement.
+      From this page, you will be asked to provide some standard information about
+      the job announcement in a form, and then to also to provide a job
+      description using a text editor. If the job description was already
+      written elsewhere, it should only take about two minutes to publish your announcement.
+    </p>
+    <p>
+      All job announcments will expire one day after the application deadline.
+      If no deadline was provided, the job announcment will expire after 1 year.
+      The job database will be periodically purged of expired announcments.
+    </p>
+
+    <h3>How do I modify a job announcement?</h3>
+    <p>
+      To modify a job announcment, it is only necessary to sign in and then
+      click on the "Edit/Delete" link in the adminstration tasks at the top of
+      the screen. From this page you will be able to modify all the fields
+      that you entered previously when creating the announcment. You also have the option to
+      close the announcement, which will keep the announcement in the database,
+      but not show it on the home page. For closed announcements, you can choose
+      to publish them, which will make them visible on the home page. You also
+      have the option to delete the annoucement from the database.
+    </p>
+
+    <h3>Are any data stored with ORCID?</h3>
+    <p>
+      No. Authenticating with ORCID is used only to allow users to create
+      a new job announcement or to manage their previously created announcements.
+      No data are stored on ORCID servers and ORCID can not access the job
+      announcement database.
+    </p>
+
+    <h3>Can I see the source code?</h3>
+    <p>
+      Yes! The code that we use is available on
+      <a href="https://github.com/planetary-research/job-announcements" class="external">Github</a> and
+      everyone is free to inspect it. We encourage users to inform us of
+      any bugs, and we are open to contributions that will improve the
+      functionality of the application.
+    </p>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}{{ site_title_footer }} - Job announcement{% endblock %}
+{% block nav %}{% include "nav-admin.html" %}{% endblock %}
+
+{% block content %}
+<div class="job-content">
+
+<div>
+    <h2>{{ job_title | safe }}</h2>
+</div>
+
+<div class="job-summary-box">
+
+<table style="margin-bottom: 1em; " >
+  <tr style="vertical-align: top;">
+    <td style="width: 60%;">
+      <p class="job-label">
+        <b>Category:</b> {{ job_category }}
+      </p>
+
+      {%if job_institution != '' %}
+      <p class="job-label">
+        <b>Institution:</b> {{ job_institution }}
+      </p>
+      {% endif %}
+
+      {%if job_department != '' %}
+      <p class="job-label">
+        <b>Department:</b> {{ job_department }}
+      </p>
+      {% endif %}
+
+      {%if job_location != '' %}
+      <p class="job-label">
+        <b>Location:</b> {{ job_location }}
+      </p>
+      {% endif %}
+
+      {%if job_work_arrangement != '' %}
+      <p class="job-label">
+        <b>Work arrangement:</b> {{ job_work_arrangement}}
+      </p>
+      {% endif %}
+
+      {%if job_duration != '' %}
+      <p class="job-label">
+        <b>Duration:</b> {{ job_duration }}
+      </p>
+      {% endif %}
+
+      {%if job_can_extend != '' %}
+      <p class="job-label">
+        <b>Can be extended:</b> {{ job_can_extend }}
+      </p>
+      {% endif %}
+
+      {%if job_salary != '' %}
+      <p class="job-label">
+        <b>Salary:</b> {{ job_salary }}
+      </p>
+      {% endif %}
+    </td>
+    <td>
+      {%if job_number_positions != '' %}
+      <p class="job-label">
+        <b>Number of positions:</b> {{ job_number_positions }}
+      </p>
+      {% endif %}
+
+      {%if job_deadline_date != '' %}
+      <p class="job-label">
+        <b>Application deadline:</b> {{ job_deadline_date }}
+      </p>
+      {% endif %}
+
+      {%if job_start_date != '' %}
+      <p class="job-label">
+        <b>Start date:</b> {{ job_start_date }}
+      </p>
+      {% endif %}
+
+      {%if job_official_announcement_url != '' %}
+      <p class="job-label">
+        <b>Official announcement:</b> <a href="{{ job_official_announcement_url }}">external link</a>
+      </p>
+      {% endif %}
+
+      {%if job_reference_code != '' %}
+      <p class="job-label">
+        <b>Reference code:</b> {{ job_reference_code }}
+      </p>
+      {% endif %}
+
+      {%if job_inquiries_email != '' %}
+      <p class="job-label">
+        <b>Inquiries:</b>
+        {%if job_inquiries_name != '' %}
+        <a href="mailto:{{ job_inquiries_email }}">{{ job_inquiries_name }}</a>
+        {% else %}
+        <a href="mailto:{{ job_inquiries_email }}">{{ job_inquiries_email }}</a>
+        {% endif %}
+      </p>
+      {% endif %}
+
+      {%if job_post_date != '' %}
+      <p class="job-label">
+        <b>Posted:</b> {{ job_post_date }}
+      </p>
+      {% endif %}
+
+      <p class="job-label">
+        <b>Posted by:</b> <a href="https://orcid.org/{{ job_owner_orcid }}">{{ job_owner_orcid }}</a>
+      </p>
+    </td>
+  </tr>
+</table>
+</div>
+
+
+<div>
+  {%if job_description != '' %}
+  <h3>Job Description</h3>
+  <p class="job-description">
+    {{ job_description | safe}}
+  </p>
+  {% endif %}
+</div>
+
+{% endblock %}
+
+</div>

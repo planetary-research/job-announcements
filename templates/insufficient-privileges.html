@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Insufficient privileges{% endblock %}
+
+{% block nav %}
+  {% include "nav-admin.html" %}
+{% endblock %}
+
+{% block content %}
+
+<div class="margin-bottom">
+    <h2>Insufficient privileges</h2>
+    <p>
+        You do not have sufficient privileges to access the administration settings.
+    </p>
+    <p>
+        If you would like to create a job announcement, please provide the
+        <a href="mailto:{{ contact_email }}">site administrator</a> with your
+        ORCID iD. After you are added to the administrator
+        database, you will be able to create announcements and modify, delete or close
+        those for which you are the owner.
+    </p>
+    <div class="return-to-home">
+        <a class="btn btn-primary btn-md" href="{{ home_uri }}">Return to the home page</a>
+    </div>
+</div>
+
+{% endblock %}

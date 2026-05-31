@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block title %}{{ site_title_footer }} - Admin page{% endblock %}
+
+{% block nav %}{% include "nav-admin.html" %}{% endblock %}
+
+{% block alert %}
+
+{% if alert.info is not none %}
+<div class="alert alert-info alert-dismissable" role="alert">
+    {{ alert.info }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+
+{% if alert.success is not none %}
+<div class="alert alert-success alert-dismissable" role="alert">
+    {{ alert.success }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+
+{% if alert.warning is not none %}
+<div class="alert alert-warning alert-dismissable" role="alert">
+    {{ alert.warning }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+
+{% if alert.danger is not none %}
+<div class="alert alert-danger alert-dismissable" role="alert">
+    {{ alert.danger }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="margin-section">
+    <h3>Add, remove, or update access permissions</h3>
+    <p>
+        Add, update or remove a user's access permissions using their ORCID iD.
+        If the ORCID iD does not exist in the admin database, a new entry will be created.
+    </p>
+
+    <form action="{{ admin_uri }}" method="POST" id="modify_user">
+        <div class="row">
+            <div class="col-md-2">
+                <select name="user_role" class="btn">
+                {% for option in modify_options %}
+                <option value="{{ option[0] }}">{{ option[1] }}</option>
+                {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="hidden" name="mode" value="modify_user">
+                <input type="text" class="form-control" name="user_id" placeholder="User ORCID iD">
+            </div>
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<hr />
+
+<div class="margin-section">
+    <h3>Delete job announcements or ban a user</h3>
+    <p>
+        Delete all job announcements associated with a given ORCID iD, ban a user from
+        signing in, or remove a user ban.
+    </p>
+
+    <form action="{{ admin_uri }}" method="POST" id="delete_ban_user">
+        <div class="row">
+            <div class="col-md-2">
+                <select name="user_option" class="btn">
+                {% for option in delete_options %}
+                <option value="{{ option[0] }}">{{ option[1] }}</option>
+                {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="hidden" name="mode" value="delete_ban_user">
+                <input type="text" class="form-control" name="user_id" placeholder="User ORCID iD">
+            </div>
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% if orphans > 0 %}
+<hr />
+
+<div class="margin-section">
+    <h3>Database orphans</h3>
+    <p>
+        The database has job announcements where the job slug is an empty string.
+    </p>
+
+    <form action="{{ admin_uri }}" method="POST" id="delete_orphans">
+        {% if orphans == 1 %}
+        <button type="submit" class="btn btn-danger" name="mode" value="delete_orphans">Delete {{ orphans }} orphan</button>
+        {% else %}
+        <button type="submit" class="btn btn-danger" name="mode" value="delete_orphans">Delete {{ orphans }} orphans</button>
+        {% endif %}
+     </form>
+</div>
+{% endif %}
+
+<hr />
+
+<div class="margin-section">
+    <h3>Backup database</h3>
+    <p>
+        Download a copy of the complete database.
+    </p>
+
+    <form action="{{ admin_uri }}" method="POST" id="backup_db">
+        <button type="submit" class="btn btn-success" name="mode" value="backup_db">Backup DB</button>
+    </form>
+</div>
+
+<hr />
+
+<div class="margin-bottom">
+    <h3>Inspect database</h3>
+    <button data-toggle="collapse" aria-expanded="false" data-target="#show-admins" aria-controls="show-admins" class="btn btn-primary btn-sm">Show admins: {{ admins | length }}</button>
+    <button data-toggle="collapse" aria-expanded="false" data-target="#show-editors" aria-controls="show-editors" class="btn btn-primary btn-sm">Show editors: {{ editors | length }}</button>
+    <button data-toggle="collapse" aria-expanded="false" data-target="#show-blocked" aria-controls="show-blocked" class="btn btn-primary btn-sm">Show banned: {{ blocked | length }}</button>
+
+    <div class="collapse admin-list" id="show-admins">
+        <div class="row">
+            <div class="col-md-6">
+                <p>Administrators</p>
+            </div>
+        </div>
+        {% for result in admins %}
+        <div class="row admin-row">
+            <div class="col-md-3">
+                <a href="{{ orcid_url }}{{ result.orcid }}" target="_blank" class="user-name"><b>{{ result.name | safe }}</b></a>
+            </div>
+            <div class="col-md-3">
+                {{ result.orcid }} &nbsp;
+                <a href="{{ orcid_url }}{{ result.orcid }}" target="_blank"><img src="{{ url_for('static', filename='img/orcid.svg') }}" style="width: 1.5em; margin-right: 0.5em;" /></a>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <div class="collapse admin-list" id="show-editors">
+        <div class="row">
+            <div class="col-md-6">
+                <p>Editors</p>
+            </div>
+        </div>
+        {% for result in editors %}
+        <div class="row admin-row">
+            <div class="col-md-3">
+                <a href="{{ orcid_url }}{{ result.orcid }}" target="_blank" class="user-name"><b>{{ result.name | safe }}</b></a>
+            </div>
+            <div class="col-md-3">
+                {{ result.orcid }} &nbsp;
+                <a href="{{ orcid_url }}{{ result.orcid }}" target="_blank"><img src="{{ url_for('static', filename='img/orcid.svg') }}" style="width: 1.5em; margin-right: 0.5em;" /></a>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <div class="collapse admin-list" id="show-blocked">
+        <div class="row">
+            <div class="col-md-6">
+                <p>Banned</p>
+            </div>
+        </div>
+        {% for result in blocked %}
+        <div class="row admin-row">
+            <div class="col-md-3">
+                <a href="{{ orcid_url }}{{ result.orcid }}" target="_blank" class="user-name"><b>{{ result.name | safe }}</b></a>
+            </div>
+            <div class="col-md-3">
+                {{ result.orcid }} &nbsp;
+                <a href="{{ orcid_url }}{{ result.orcid }}" target="_blank"><img src="{{ url_for('static', filename='img/orcid.svg') }}" style="width: 1.5em; margin-right: 0.5em;" /></a>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{{ site_title_footer }} - User banned{% endblock %}
+
+{% block nav %}
+  {% include "nav-admin.html" %}
+{% endblock %}
+
+{% block content %}
+
+<div class="margin-botttom">
+    <h2>User banned</h2>
+    <p>
+        This user has been banned from signing into this server. If you think
+        that this is a mistake, please contact the
+        <a href="mailto:{{ contact_email }}">site administrator</a>.
+    </p>
+</div>
+
+{% endblock %}

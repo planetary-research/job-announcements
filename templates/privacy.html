@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ site_title_footer }} - Privacy policy{% endblock %}
+{% block nav %}{% include "nav-admin.html" %}{% endblock %}
+
+{% block content %}
+
+<div class="margin-bottom">
+    <h3>PRIVACY POLICY</h3>
+    <p>
+        When a user signs in via ORCID, a cookie will be stored on their
+        computer that will be used to identify the user and to enable the
+        basic website functionalities. This cookie will expire after the user
+        logs out.
+    </p>
+    <p>
+        When a job announcement is created, this application will store the
+        person's ORCID, full name, and all information provided regarding
+        the announcment. No information is stored for users who visit the site.
+    </p>
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block title %}{{ site_title_footer }} - Create a new announcement{% endblock %}
+{% block nav %}{% include "nav-admin.html" %}{% endblock %}
+
+{% block alert %}
+
+{% if alert.info is not none %}
+<div class="alert alert-info alert-dismissable" role="alert">
+    {{ alert.info }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+
+{% if alert.success is not none %}
+<div class="alert alert-success alert-dismissable" role="alert">
+    {{ alert.success }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+
+{% if alert.warning is not none %}
+<div class="alert alert-warning alert-dismissable" role="alert">
+    {{ alert.warning }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+
+{% if alert.danger is not none %}
+<div class="alert alert-danger alert-dismissable" role="alert">
+    {{ alert.danger }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="margin-bottom">
+    <h3>CREATE A NEW JOB ANNOUNCEMENT</h3>
+    <p>
+        Fill in the following fields and then click on the button "Create".
+        All fields are optional with the exception of the announcement title
+        and job announcement slug. Any fields that are left blank will not be
+        shown on the announcement. You will be able to edit this announcement
+        later by signing in with your ORCID account.
+    </p>
+
+    <form action="{{ create_uri }}" method="POST" id="create_job">
+        <input type="hidden" name="mode" value="create_job">
+        <div>
+            <p class="create-item">
+                <b>Job category</b>
+            </p>
+            <div class="row">
+                <div class="col-md-5">
+                    <select style="text-align: left;" name="new_category" class="btn">
+                    {% for option in categories %}
+                    <option value="{{ option[0] }}" {% if form_category_id == option[0] %}selected{% endif %}>{{ option[1] }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <p class="create-item">
+                <b>Job announcement slug (used as part of the URL)</b><br>Use either the provided random list of characters or enter a unique string.
+            </p>
+            <input type="text" class="form-control" name="job_slug" placeholder="" value="{{ form_slug }}">
+        </div>
+
+        <div>
+            <p class="create-item">
+                <b>Announcement title</b>
+            </p>
+            <input type="text" class="form-control" name="title" placeholder="" value="{{ form_title }}">
+        </div>
+
+        <div>
+            <p class="create-item">
+                <b>Institution</b>
+            </p>
+            <input type="text" class="form-control" name="institution" placeholder="" value="{{ form_institution }}">
+        </div>
+
+        <div>
+            <p class="create-item">
+                <b>Department</b>
+            </p>
+            <input type="text" class="form-control" name="department" placeholder="" value="{{ form_department }}">
+        </div>
+
+        <div>
+            <p class="create-item">
+                <b>City, state, and/or province</b>
+            </p>
+            <input type="text" class="form-control" name="city" placeholder="" value="{{ form_city }}">
+        </div>
+
+        <div>
+            <p class="create-item">
+                <b>Country</b>
+            </p>
+            <input type="text" class="form-control" name="country" placeholder="" value="{{ form_country }}">
+        </div>
+
+        <div>
+            <p class="create-item">
+                <b>Work arrangement</b><br>In person, remote, other
+            </p>
+            <input type="text" class="form-control" name="work_arrangement" placeholder="" value="{{ form_work_arrangement }}">
+        </div>
+
+        <div>
+            <p class="create-item">
+                <b>Duration</b>
+            </p>
+            <input type="text" class="form-control" name="duration" placeholder="" value="{{ form_duration }}">
+        </div>
+
+        <div>
+            <p class="create-item">
+                <b>Can the duration be extended?</b><br>For fixed duration positions only
+            </p>
+            <input type="text" class="form-control" name="can_extend" placeholder="" value="{{ form_can_extend }}">
+        </div>
+
+        <div>
+            <p class="create-item">
+                <b>Salary</b>
+            </p>
+            <input type="text" class="form-control" name="salary" placeholder="" value="{{ form_salary }}">
+        </div>
+
+        <div>
+            <p class="create-item">
+                <b>Number of positions</b>
+            </p>
+            <input type="text" class="form-control" name="number_positions" placeholder="" value="{{ form_number_positions }}">
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <p class="create-item">
+                    <b>Application deadline</b>
+                </p>
+                <input type="date" class="form-control" name="deadline_date" placeholder="" value="{{ form_deadline_date }}">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <p class="create-item">
+                    <b>Start date</b>
+                </p>
+                <input type="date" class="form-control" name="start_date" placeholder="" value="{{ form_start_date }}">
+            </div>
+        </div>
+
+        <div>
+            <p class="create-item">
+                <b>Official URL of the announcement</b>
+            </p>
+            <input type="text" class="form-control" name="official_announcement_url" placeholder="" value="{{ form_official_announcement_url}}">
+        </div>
+
+        <div>
+            <p class="create-item">
+                <b>Reference code</b>
+            </p>
+            <input type="text" class="form-control" name="reference_code" placeholder="" value="{{ form_reference_code}}">
+        </div>
+
+        <div>
+            <p class="create-item">
+                <b>Inquiries</b><br>Contact name
+            </p>
+            <input type="text" class="form-control" name="inquiries_name" placeholder="" value="{{ form_inquiries_name}}">
+        </div>
+
+        <div>
+            <p class="create-item">
+                <b>Inquiries</b><br>Contact email address
+            </p>
+            <input type="text" class="form-control" name="inquiries_email" placeholder="" value="{{ form_inquiries_email}}">
+        </div>
+
+        <div>
+            <p class="create-item">
+                <b>Job description</b>
+            </p>
+
+            <div class="quill-editor" id="editor"></div>
+            <input type="hidden" name="description" id="description">
+
+            <script>
+                const toolbarOptions = [
+                    [{ 'header': [1, 2, 3, 4, false] }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['link'],
+                    ['blockquote'],
+                    [{ 'list': 'bullet' }, { 'list': 'ordered' }],
+                    [{ 'indent': '-1' }, { 'indent': '+1' }],
+                    [{ 'color': [] }],
+                    [{ 'script': 'sub' }, { 'script': 'super' }],
+                    ['clean']
+                ];
+                const quill = new Quill('#editor', {
+                    modules: {
+                        toolbar: toolbarOptions
+                    },
+                    theme: 'snow'
+                });
+                document.querySelector('form').onsubmit = function() {
+                    var hiddenField = document.getElementById('description');
+                    hiddenField.value = document.querySelector('.ql-editor').innerHTML;
+                };
+            </script>
+        </div>
+
+        <div class="form-choice">
+            <p class="create-item">
+                <b>Publish announcement on creation</b><br>If False, you will be able to make modifications before publishing the announcement. The announcement will need to be activated later from the editor controls.
+            </p>
+            <input type="radio" id="no-sort" name="activate_job" value="False" required {% if form_activate is false %}checked{% endif %}>
+            <label style="font-size: 0.85em;" for="no-sort">False</label><br>
+            <input type="radio" id="sort" name="activate_job" value="True" {% if form_activate is true %}checked{% endif %}>
+            <label style="font-size: 0.85em;" for="sort">True</label><br>
+        </div>
+
+        <div>
+          <button type="submit" class="btn btn-success">Create</button>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

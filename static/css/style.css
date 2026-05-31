@@ -1,0 +1,329 @@
+@media (min-width: 1200px) {
+  .container {
+    width: 1200px;
+  }
+}
+@media(max-width: 700px) {
+  td {
+    display: table-row;
+  }
+}
+
+body {
+  padding: 0;
+  font: 13pt "Open Sans", "Liberation sans", "Noto sans", Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.4em;
+}
+
+header {
+  background-color: #5367b0;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  padding-top: 2em;
+  padding-bottom: 3em;
+  color: white;
+  background-image: url("../img/splash.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+header a {
+  color: white;
+  text-decoration: none;
+}
+header a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+footer {
+  margin-top: auto;
+  background-color: #666;
+  color: white;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  padding-top: 2.5em;
+  padding-bottom: 3em;
+}
+footer a {
+  color: white;
+  text-decoration: none;
+}
+footer a:hover {
+  color: white;
+  text-decoration: underline;
+}
+footer .footer-small {
+  font-size: 0.9em;
+  margin-bottom: 0.3em;
+}
+footer .social {
+  margin-top: 1em;
+  margin-bottom: 0.3em;
+}
+footer .social i {
+  margin-right: 0.5em;
+}
+
+main {
+  flex: 1;
+  margin-top: 1.2em;
+  margin-bottom: 1.2em;
+}
+main a {
+  color: #007799;
+  text-decoration: none;
+}
+main a:hover {
+  color: #007799;
+  text-decoration: underline;
+}
+main p {
+  margin-bottom: 0.8em;
+}
+main .job-list {
+  margin-bottom: 4em;
+  margin-top: 0em;
+}
+main .intro {
+  font-size: 0.9em;
+  padding: 0.8em 1em 0em 1em;
+  margin-botom: 0;
+  margin-left: 0em;
+  margin-right: 0em;
+  background-color: #f5f5ff;
+  border: 1px solid #aaa;
+  border-radius: 0.5em;
+  color: #444;
+}
+main .category-list {
+  font-size: 0.9em;
+  padding-top: 1.8em;
+  padding-bottom: 1.5em;
+}
+main .job-category {
+  font-size: 0.9em;
+  margin-bottom: 0.5em;
+}
+main table.job-table {
+  width: 100%;
+  font-size: 0.8em;
+  border-bottom: 2px solid #aaa;
+  layout: auto;
+}
+main .job-table th {
+  border-right: 1px solid #ddd;
+  text-align: left;
+  padding: 0.3em 0.8em 0.3em 0.8em;
+  background-color: #3176b1;
+  color: #ffffff;
+}
+main .job-table tr {
+  vertical-align: top;
+}
+main .job-table td {
+  border: 1px solid #ddd;
+  text-align: left;
+  padding: 0.3em 0.8em 0.3em 0.8em;
+}
+main .job-table tr:nth-of-type(even) {
+  background-color: #f5f5f5;
+}
+main .job-label {
+  font-size: 1em;
+  margin-bottom: 0.2em;
+}
+main .job-attribute {
+  font-size: 1em;
+}
+main .job-summary-box {
+  font-size: 0.9em;
+  margin: 0;
+  padding: 1.2em 0em 0em 0em;
+  background-color: #f9f9f9;
+  border: 1px solid #aaa;
+  border-radius: 0.5em;
+}
+main .job-summary-box td {
+   padding-left: 2em;
+   padding-right: 2em;
+}
+main .job-content {
+  width: 900px;
+  padding-bottom: 4em;
+}
+main .link {
+  color: #007799;
+  text-decoration: none;
+}
+main .link:hover {
+  color: #007799;
+  text-decoration: underline;
+}
+main .orcid-box {
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+main .user-list {
+  font-size: 0.8em;
+  margin-left: 1em;
+  margin-right: 0;
+  margin-bottom: 0em;
+  padding: 0;
+  margin-top: 0;
+}
+main .user-row {
+  line-height: 1.4em;
+  padding-bottom: 0.4em;
+}
+main a.user-name {
+  font-weight: bold;
+  color: #444444;
+}
+main a.user-name:hover {
+  font-weight: bold;
+  color: #444444;
+  text-decoratoon: underline;
+}
+main table {
+  margin-bottom: 3.5em;
+}
+main .margin-bottom {
+  margin-bottom: 4em;
+}
+main .margin-section {
+  margin-bottom: 3em;
+}
+main .create-item {
+  margin-top: 2em;
+  margin-bottom: 0.35em;
+  font-size: 0.85em;
+  line-height: 1.4em;
+}
+main .form-choice {
+  font-size: 1em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+main .return-to-home {
+  margin-top: 2em;
+}
+main .sign {
+  margin-top: 5em;
+}
+main .remove {
+  margin-top: 4em;
+}
+main .margin-before-content {
+  margin-top: 1.2em;
+}
+main .extra-margin {
+  margin-top: 1.2em;
+  margin-bottom: 1.2em;
+}
+main .extra-margin-top {
+  margin-top: 1.2em;
+  margin-bottom: 0em;
+}
+main .nav-links a {
+  color: white;
+  text-decoration: none;
+}
+main .nav-links a:hover {
+  color: white;
+  text-decoration: none;
+}
+main .admin-list {
+  margin-top: 2.5em;
+  margin-bottom: 0em;
+  font-size: 0.9em;
+}
+main .admin-row {
+  margin-top: 0em;
+  margin-bottom: 0.25em;
+}
+main .my-job-list {
+  margin-bottom: 4em;
+  margin-top: 0em;
+}
+main p.my-job-entries {
+  margin-left: 0em;
+  margin-right: 1em;
+  margin-bottom: 0.5em;
+  margin-top: 0;
+  font-size: 0.9em;
+}
+
+/* Change how the Quill editor box text appears */
+main .quill-editor {
+  font-size: 0.9em;
+}
+main .quill-editor p {
+  padding-top: 1em;
+}
+main .quill-editor blockquote {
+  padding-top: 1em;
+  font-size: 0.9em
+}
+main .quill-editor ol {
+  padding-top: 1em;
+}
+main .quill-editor li[data-list="bullet"] {
+  list-style-type: disc!important;
+  padding-left: 0px;
+  margin-left: 1.5em;
+}
+main .quill-editor li[data-list=bullet] > .ql-ui:before {
+	content: "";
+	text-align: center;
+}
+/* Reformat list style for html page when html is generated by Quill */
+li[data-list="bullet"] {
+  list-style-type: disc!important;
+  padding-left: 0px;
+}
+
+hr {
+  border-top: 1px solid #000;
+}
+
+h1 {
+  font-size: 2.6em;
+  margin-bottom: 0;
+}
+h2 {
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+h2.orcid {
+  padding-top: 0em;
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+h3 {
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+h3.short {
+  color: #fff;
+  margin-bottom: 0;
+  margin-top: 0.6em;
+  font-size: 1.3em;
+}
+h3.orcid {
+  padding-top: 0em;
+  margin-top: 0.25em;
+  margin-bottom: 0em;
+}
+h4 {
+  margin-bottom: 0.5em;
+  margin-top: 0em;
+}
+h4.orcid {
+  margin-top: 0.5em;
+}

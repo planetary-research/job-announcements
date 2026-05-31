@@ -1,0 +1,6 @@
+.env
+db/jobs.db
+__pycache__/
+admins.txt
+banned.txt
+jobs.txt

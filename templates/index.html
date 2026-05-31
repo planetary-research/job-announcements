@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}{{ site_title_footer }} - Home{% endblock %}
+{% block nav %}{% include "nav-admin.html" %}{% endblock %}
+
+{% block content %}
+<div class="intro">
+  <p>Anyone can create a job announcement on this website for free. It is only necessary to <a href="{{ authorization_uri_admin }}">sign in</a> using your ORCID account and fill out a short form.</p>
+
+</div>
+
+<div class="category-list">
+  <ul>
+    {% for id in range(category_names | length) %}
+    <li><a href="#{{ id }}">{{ category_names[id] }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="job-list">
+    {% for id in range(category_names | length) %}
+      {% set counter = namespace(value=0) %}
+      <p class="job-category" id="{{ id }}">
+        <b>{{ category_names[id] }}</b>
+      </p>
+      <table class="job-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th style="width: 22em;">Institution</th>
+            <th style="width: 15em;">Location</th>
+            <th style="width: 7em;">Deadline</th>
+            <th style="width: 7em;">Posted</th>
+          </tr>
+        </thead>
+
+        {% for name, desc in jobs_list.items() %}
+          {% if desc[0] == id %}
+            {% set counter.value = counter.value + 1 %}
+            <tr>
+              <td><a href="{{ desc[1] }}">{{ desc[2] }}</a></td>
+              <td>{{ desc[3] }}</td>
+              <td>{{ desc[4] }}</td>
+              <td>{{ desc[5] }}</td>
+              <td>{{ desc[6] }}</td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </table>
+  {% endfor %}
+</div>
+
+{% endblock %}
