@@ -434,6 +434,10 @@ def faq():
 
     data = {
         "role_id": role_id,
+        "mastodon_account_name": config.mastodon_account_name,
+        "mastodon_account_url": config.mastodon_account_url,
+        "bluesky_account_name": config.bluesky_account_name,
+        "bluesky_account_url": config.bluesky_account_url,
     }
     return render_template("faq.html", **(base_data | data))
 

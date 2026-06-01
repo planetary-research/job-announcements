@@ -74,7 +74,11 @@ mastodon_client_id = os.getenv("mastodon_client_id")
 mastodon_client_secret = os.getenv("mastodon_client_secret")
 mastodon_access_token = os.getenv("mastodon_access_token")
 mastodon_api_base_url = os.getenv("mastodon_api_base_url")
+mastodon_account_name = os.getenv("mastodon_account_name")
+mastodon_account_url = os.getenv("mastodon_account_url")
 
 # Bluesky API credentials
 bluesky_username = os.getenv("bluesky_username")
 bluesky_app_password = os.getenv("bluesky_app_password")
+bluesky_account_name = os.getenv("bluesky_account_name")
+bluesky_account_url = os.getenv("bluesky_account_url")

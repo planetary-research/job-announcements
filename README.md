@@ -4,13 +4,25 @@
 create job announcements. Designed for academics, it is only necessary to
 authenticate with an Open Researcher and Contributor ID account
 ([ORCID](https://orcid.org)) to create a new job announcement. All branding for
-the website is contained in a single `.env` file, allowing it to be adapted for
+the website is contained in a single file, allowing it to be adapted for
 any discipline.
 
 This code was developed from a fork of the
 [Signatories](https://github.com/planetary-research/signatories) project that
 was developed by the
 [Planetary Research Cooperative](https://coop.planetary.research.org).
+
+# Features
+
+* Create a job announcement effortlessly by filling out a simple form.
+* Add a job description using a graphical editor.
+* Edit an announcement later, or close the announcement when it has been filled.
+* Automatically post new job announcements to Mastodon and Bluesky.
+* Generate RSS/Atom feeds for all jobs, or for individual job categories.
+* Allow anyone with an ORCID account to post an announcement, or restrict who is allowed to post.
+* Create as many job categories as you would like.
+* All branding is placed in a single file, so there is no need to edit the code.
+* Administrator controls to ban users, delete posts, and more.
 
 # Dependencies
 
@@ -65,10 +77,18 @@ client_secret = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 orcid_member = 0
 
 # Mastodon API. If present, each new announcement will be posted to Mastodon
-# mastodon_client_id='...'
-# mastodon_client_secret='...'
-# mastodon_access_token='...'
-# mastodon_api_base_url='...'
+# mastodon_client_id = "...""
+# mastodon_client_secret = "...
+# mastodon_access_token = "..."
+# mastodon_api_base_url = "..."
+# mastodon_account_name = "@...@..."
+# mastodon_account_url = "..."
+
+# Bluesky API. If present, each new announcement will be posted to Bluesky
+# bluesky_username = "..."
+# bluesky_app_password = "..."
+# bluesky_account_name = "@..."
+# bluesky_account_url = "..."
 
 # Uncomment and provide a public URL when used in production. When public_domain
 # is not set, the app will use the ORCID sandbox API.
