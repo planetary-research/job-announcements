@@ -701,7 +701,7 @@ def create():
 
                 if mastodon_api and new_job.is_active:
                     mastodon.toot(
-                        "NEW JOB ANNOUNCEMENT\nCategory: " +
+                        "PLANETARY SCIENCE JOB ANNOUNCEMENT\nCategory: " +
                         config.categories[new_job.category_id] + "\n\n" +
                         new_job.title + "\n" + new_job.institution + "\n" +
                         location + "\n\n" +
@@ -858,7 +858,7 @@ def edit(slug):
 
             if mastodon_api and edit_job.is_active and not published:
                 mastodon.toot(
-                    "NEW JOB ANNOUNCEMENT\nCategory: " +
+                    "PLANETARY SCIENCE JOB ANNOUNCEMENT\nCategory: " +
                     config.categories[edit_job.category_id] + "\n\n" +
                     edit_job.title + "\n" + edit_job.institution + "\n" +
                     location + "\n\n" +
