@@ -15,6 +15,7 @@ import orcid
 from feedgen.feed import FeedGenerator
 import numpy as np
 from mastodon import Mastodon
+from atproto import Client
 
 import config
 from db_models import db, Jobs, JobCategory, Admin, UserRole, Block
@@ -122,6 +123,20 @@ if (
         mastodon_api = False
 else:
     mastodon_api = False
+
+# Check if Bluesky API credentials are present
+if (
+    config.bluesky_username is not None and
+    config.bluesky_app_password is not None
+):
+    try:
+        client = Client()
+        client.login(config.bluesky_username, config.bluesky_app_password)
+        bluesky_api = True
+    except:
+        bluesky_api = False
+else:
+    bluesky_api = False
 
 base_data = {
     "site_title": config.site_title,
@@ -449,7 +464,7 @@ def admin():
 
     orphans = len(Jobs.query.filter_by(job_slug='').all())
 
-    # If an update is pushed
+    # If an update is pushedclient.send_post(text='Hello World!')
     if request.method == "POST":
 
         # Add or modify a user
@@ -699,14 +714,17 @@ def create():
                     else:
                         location = new_job.country
 
-                if mastodon_api and new_job.is_active:
-                    mastodon.toot(
+                social_post = (
                         "PLANETARY SCIENCE JOB ANNOUNCEMENT\nCategory: " +
                         config.categories[new_job.category_id] + "\n\n" +
                         new_job.title + "\n" + new_job.institution + "\n" +
                         location + "\n\n" +
                         os.path.join(config.job_announcements_url, new_job.job_slug)
-                    )
+                        )
+                if mastodon_api and new_job.is_active:
+                    mastodon.toot(social_post)
+                if bluesky_api and new_job.is_active:
+                    client.send_post(text=social_post)
 
                 base_data["redirect_alerts"] = {
                     "success": "Job created.",
@@ -856,14 +874,17 @@ def edit(slug):
                 else:
                     location = edit_job.country
 
+            social_post = (
+                "PLANETARY SCIENCE JOB ANNOUNCEMENT\nCategory: " +
+                config.categories[edit_job.category_id] + "\n\n" +
+                edit_job.title + "\n" + edit_job.institution + "\n" +
+                location + "\n\n" +
+                os.path.join(config.job_announcements_url, edit_job.job_slug)
+            )
             if mastodon_api and edit_job.is_active and not published:
-                mastodon.toot(
-                    "PLANETARY SCIENCE JOB ANNOUNCEMENT\nCategory: " +
-                    config.categories[edit_job.category_id] + "\n\n" +
-                    edit_job.title + "\n" + edit_job.institution + "\n" +
-                    location + "\n\n" +
-                    os.path.join(config.job_announcements_url, edit_job.job_slug)
-                )
+                mastodon.toot(social_post)
+            if bluesky_api and edit_job.is_active:
+                client.send_post(text=social_post)
 
             base_data["redirect_alerts"] = {
                 "success": alert_text,
