@@ -82,7 +82,7 @@
 
       {%if job_official_announcement_url != '' %}
       <p class="job-label">
-        <b>Official announcement:</b> <a href="{{ job_official_announcement_url }}">external link</a>
+        <b>Official announcement:</b> <a href="{{ job_official_announcement_url }}" target="_blank">external link</a>
       </p>
       {% endif %}
 
@@ -110,7 +110,7 @@
       {% endif %}
 
       <p class="job-label">
-        <b>Posted by:</b> <a href="https://orcid.org/{{ job_owner_orcid }}">{{ job_owner_orcid }}</a>
+        <b>Posted by:</b> <a href="https://orcid.org/{{ job_owner_orcid }}" target="_blank">{{ job_owner_orcid }}</a>
       </p>
     </td>
   </tr>
