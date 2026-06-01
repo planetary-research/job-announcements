@@ -46,7 +46,7 @@
       Atom feeds to your feed reader. We offer a feed for all job announcements
     </p>
     <ul>
-      <li><a href="{{ job_announcements_url}}/feed">All content</a></li>
+      <li><a href="{{ job_announcements_url}}/feed">All jobs</a></li>
     </ul>
     <p>
     as well as feeds for each job category
@@ -56,6 +56,13 @@
       <li><a href="{{ job_announcements_url}}/feed/category/{{ loop.index0 }}">{{ category }}</a></li>
       {% endfor %}
     </ul>
+
+    <h3>How to keep up to date: Mastodon</h3>
+    <p>All new job announcements are posted immediately to our jobs account on Mastodon.
+      To keep up to date, it is only necessary to follow the account
+      <a href="https://solarsystem.social/@planetary_research_jobs">
+        @planetary_research_jobs@solarsystem.social</a>.
+      </p>
 
     <h3>Are any data stored with ORCID?</h3>
     <p>
