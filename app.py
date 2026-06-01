@@ -15,7 +15,7 @@ import orcid
 from feedgen.feed import FeedGenerator
 import numpy as np
 from mastodon import Mastodon
-from atproto import Client
+from atproto import Client, client_utils
 
 import config
 from db_models import db, Jobs, JobCategory, Admin, UserRole, Block
@@ -718,12 +718,15 @@ def create():
                         "PLANETARY SCIENCE JOB ANNOUNCEMENT\nCategory: " +
                         config.categories[new_job.category_id] + "\n\n" +
                         new_job.title + "\n" + new_job.institution + "\n" +
-                        location + "\n\n" +
-                        os.path.join(config.job_announcements_url, new_job.job_slug)
+                        location + "\n\n"
                         )
+                social_link = os.path.join(config.job_announcements_url, new_job.job_slug)
                 if mastodon_api and new_job.is_active:
-                    mastodon.toot(social_post)
+                    mastodon.toot(social_post + social_link)
                 if bluesky_api and new_job.is_active:
+                    text_builder = client_utils.TextBuilder()
+                    text_builder.text(social_post)
+                    text_builder.link(social_link, social_link)
                     client.send_post(text=social_post)
 
                 base_data["redirect_alerts"] = {
@@ -878,12 +881,15 @@ def edit(slug):
                 "PLANETARY SCIENCE JOB ANNOUNCEMENT\nCategory: " +
                 config.categories[edit_job.category_id] + "\n\n" +
                 edit_job.title + "\n" + edit_job.institution + "\n" +
-                location + "\n\n" +
-                os.path.join(config.job_announcements_url, edit_job.job_slug)
+                location + "\n\n"
             )
+            social_link = os.path.join(config.job_announcements_url, edit_job.job_slug)
             if mastodon_api and edit_job.is_active and not published:
-                mastodon.toot(social_post)
+                mastodon.toot(social_post + social_link)
             if bluesky_api and edit_job.is_active:
+                text_builder = client_utils.TextBuilder()
+                text_builder.text(social_post)
+                text_builder.link(social_link, social_link)
                 client.send_post(text=social_post)
 
             base_data["redirect_alerts"] = {
