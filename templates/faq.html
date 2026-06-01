@@ -9,7 +9,16 @@
 <div class="margin-bottom">
     <h3>FREQUENTLY ASKED QUESTIONS</h3>
 
-    <h3>How do I create a job announcement?</h3>
+    <ul>
+      <li><a href="#create">How do I create a job announcement?</a></li>
+      <li><a href="#modify">How do I modify a job announcement?</a></li>
+      <li><a href="#feeds">How to keep up to date: RSS/Atom feeds</a></li>
+      <li><a href="#social">How to keep up to date: Mastodon and Bluesky</a></li>
+      <li><a href="#data">Are any data stored with ORCID?</a></li>
+      <li><a href="#code">Can I see the source code?</a></li>
+    </ul>
+
+    <h3 id="create">How do I create a job announcement?</h3>
     <p>
       To create a job announcment, click on the link to
       <a href="{{ authorization_uri_admin }}">sign in</a> and then
@@ -27,7 +36,7 @@
       The job database will be periodically purged of expired announcments.
     </p>
 
-    <h3>How do I modify a job announcement?</h3>
+    <h3 id="modify">How do I modify a job announcement?</h3>
     <p>
       To modify a job announcment, it is only necessary to sign in and then
       click on the "Edit/Delete" link in the adminstrator options at the top of
@@ -40,7 +49,7 @@
       have the option to delete the annoucement from the database.
     </p>
 
-    <h3>How to keep up to date: RSS/Atom feeds</h3>
+    <h3 id="feeds">How to keep up to date: RSS/Atom feeds</h3>
     <p>
       One way to keep up to date with new announcements on this website is by adding our
       Atom feeds to your feed reader. We offer a feed for all job announcements
@@ -57,7 +66,7 @@
       {% endfor %}
     </ul>
 
-    <h3>How to keep up to date: Mastodon and Bluesky</h3>
+    <h3 id="social">How to keep up to date: Mastodon and Bluesky</h3>
     <p>All new job announcements are posted immediately to our jobs accounts on
       Mastodon and Bluesky. To keep up to date, it is only necessary to follow
       the accounts</p>
@@ -68,7 +77,7 @@
         @jobs.planetary-research.org</a> (Bluesky)</li>
     </ul>
 
-    <h3>Are any data stored with ORCID?</h3>
+    <h3 id="data">Are any data stored with ORCID?</h3>
     <p>
       No. Authenticating with ORCID is used only to allow users to create
       a new job announcement or to manage their previously created announcements.
@@ -76,7 +85,7 @@
       announcement database.
     </p>
 
-    <h3>Can I see the source code?</h3>
+    <h3 id="code">Can I see the source code?</h3>
     <p>
       Yes! The code that we use is available on
       <a href="https://github.com/planetary-research/job-announcements" class="external">Github</a> and

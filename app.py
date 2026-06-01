@@ -676,7 +676,7 @@ def create():
                 country=escape(request.form["country"]),
                 city=escape(request.form["city"]),
                 work_arrangement=escape(request.form["work_arrangement"]),
-                official_announcement_url=escape(request.form["official_announcement_url"]),
+                official_announcement_url=request.form["official_announcement_url"],
                 duration=escape(request.form["duration"]),
                 can_extend=escape(request.form["can_extend"]),
                 salary=escape(request.form["salary"]),
@@ -833,7 +833,7 @@ def edit(slug):
             edit_job.country = escape(request.form["country"])
             edit_job.city = escape(request.form["city"])
             edit_job.work_arrangement = escape(request.form["work_arrangement"])
-            edit_job.official_announcement_url = escape(request.form["official_announcement_url"])
+            edit_job.official_announcement_url = request.form["official_announcement_url"]
             edit_job.duration = escape(request.form["duration"])
             edit_job.can_extend = escape(request.form["can_extend"])
             edit_job.salary = escape(request.form["salary"])
