@@ -30,9 +30,6 @@ header {
   padding-top: 2em;
   padding-bottom: 3em;
   color: white;
-  background-image: url("../img/splash.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
 }
 header a {
   color: white;
@@ -71,6 +68,12 @@ footer .social {
 }
 footer .social i {
   margin-right: 0.5em;
+}
+footer .social a:link {
+  color: white;
+}
+footer .social a:visited {
+  color: white;
 }
 
 main {

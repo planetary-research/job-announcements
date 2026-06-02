@@ -13,7 +13,9 @@
       <li><a href="#create">How do I create a job announcement?</a></li>
       <li><a href="#modify">How do I modify a job announcement?</a></li>
       <li><a href="#feeds">How to keep up to date: RSS/Atom feeds</a></li>
-      <li><a href="#social">How to keep up to date: Mastodon and Bluesky</a></li>
+      {% if mastodon_account_url is not none or bluesky_account_url is not none %}
+      <li><a href="#social">How to keep up to date: {% if mastodon_account_url is not none %}Mastodon{% endif %}{% if (mastodon_account_url or bluesky_account_url) and not (mastodon_account_url and bluesky_account_url) %}{% else %} and {% endif %}{% if bluesky_account_url is not none %}Bluesky{% endif %}</a></li>
+      {% endif %}
       <li><a href="#data">Are any data stored with ORCID?</a></li>
       <li><a href="#code">Can I see the source code?</a></li>
     </ul>
@@ -66,16 +68,18 @@
       {% endfor %}
     </ul>
 
-    <h3 id="social">How to keep up to date: Mastodon and Bluesky</h3>
-    <p>All new job announcements are posted immediately to our jobs accounts on
-      Mastodon and Bluesky. To keep up to date, it is only necessary to follow
-      the accounts</p>
+    {% if mastodon_account_url is not none or bluesky_account_url is not none %}
+    <h3 id="social">How to keep up to date: {% if mastodon_account_url is not none %}Mastodon{% endif %}{% if (mastodon_account_url or bluesky_account_url) and not (mastodon_account_url and bluesky_account_url) %}{% else %} and {% endif %}{% if bluesky_account_url is not none %}Bluesky{% endif %}</h3>
+    <p>All new job announcements are posted immediately on
+      {% if mastodon_account_url is not none %}Mastodon{% endif %}{% if (mastodon_account_url or bluesky_account_url) and not (mastodon_account_url and bluesky_account_url) %}{% else %} and {% endif %}{% if bluesky_account_url is not none %}Bluesky{% endif %}. To keep up to date, it is only necessary to follow
+     </p>
     <ul>
-      <li> <a href="{{ mastodon_account_url }}">
-        {{ mastodon_account_name }}</a> (Mastodon)</li>
-      <li><a href="{{ bluesky_account_url }}">
-        {{ bluesky_account_name }}</a> (Bluesky)</li>
+      {% if mastodon_account_url is not none %}<li> <a href="{{ mastodon_account_url }}">
+        {{ mastodon_account_name }}</a> (Mastodon)</li>{% endif %}
+      {% if bluesky_account_url is not none %}<li><a href="{{ bluesky_account_url }}">
+        {{ bluesky_account_name }}</a> (Bluesky)</li>{% endif %}
     </ul>
+    {% endif %}
 
     <h3 id="data">Are any data stored with ORCID?</h3>
     <p>

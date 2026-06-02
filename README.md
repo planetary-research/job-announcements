@@ -53,9 +53,13 @@ everyone_is_editor = True
 # Set favicon (use "" for none). File name is with respect to static/img
 favicon = "favicon.ico"
 
+# Set header background image (use "" for none). File name is with respect to static/img
+background = "splash.png"
+
 # Default parameters for the home page
-site_title = "Job Announcements"
-site_subtitle = "An open source job announcement platform"
+site_title = "Job Announcements"  # used in the header
+site_subtitle = "An open source job announcement platform"  # used in the header
+site_title_footer = "Job Announcements"  # used in the footer and for the webpage title
 site_path = "/"
 site_header = "About"
 

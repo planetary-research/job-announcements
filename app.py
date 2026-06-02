@@ -141,6 +141,7 @@ else:
 base_data = {
     "site_title": config.site_title,
     "site_title_footer": config.site_title_footer,
+    "background_image": config.background,
     "home_uri": home_URI,
     "logout_uri": logout_URI,
     "privacy_uri": privacy_URI,
@@ -164,6 +165,8 @@ base_data = {
     "header_subtitle": config.site_subtitle,
     "header_path": config.site_path,
     "category_names": config.categories,
+    "mastodon_url": config.mastodon_account_url,
+    "bluesky_url": config.bluesky_account_url,
 }
 
 base_alerts = {
