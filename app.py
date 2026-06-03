@@ -724,7 +724,7 @@ def create():
                 social_post = (
                         "PLANETARY SCIENCE JOB ANNOUNCEMENT\nCategory: " +
                         config.categories[new_job.category_id] + "\n\n" +
-                        new_job.title + "\n" + new_job.institution + "\n" +
+                        new_job.title + "\n" + new_job.institution + ", " +
                         location + "\n\n"
                         )
                 social_link = os.path.join(config.job_announcements_url, new_job.job_slug)
@@ -887,7 +887,7 @@ def edit(slug):
             social_post = (
                 "PLANETARY SCIENCE JOB ANNOUNCEMENT\nCategory: " +
                 config.categories[edit_job.category_id] + "\n\n" +
-                edit_job.title + "\n" + edit_job.institution + "\n" +
+                edit_job.title + "\n" + edit_job.institution + ", " +
                 location + "\n\n"
             )
             social_link = os.path.join(config.job_announcements_url, edit_job.job_slug)
