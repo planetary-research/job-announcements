@@ -734,7 +734,7 @@ def create():
                     text_builder = client_utils.TextBuilder()
                     text_builder.text(social_post)
                     text_builder.link(social_link, social_link)
-                    client.send_post(social_post)
+                    client.send_post(text_builder)
 
                 base_data["redirect_alerts"] = {
                     "success": "Job created.",
