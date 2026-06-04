@@ -86,9 +86,13 @@ bluesky_account_url = os.getenv("bluesky_account_url")
 
 # Email digest parameters
 email_digest = os.getenv("email_digest")
-start_weekday = int(os.getenv("start_weekday"))
+start_weekday = os.getenv("start_weekday")
+if start_weekday is not None:
+    start_weekday = int(start_weekday)
 smtp_email = os.getenv("smtp_email")
 smtp_reply_email = os.getenv("smtp_reply_email")
 smtp_password = os.getenv("smtp_password")
 smtp_server = os.getenv("smtp_server")
-smtp_port = int(os.getenv("smtp_port"))
+smtp_port = os.getenv("smtp_port")
+if smtp_port is not None:
+    smtp_port = int(smtp_port)
