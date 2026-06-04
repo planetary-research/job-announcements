@@ -138,7 +138,7 @@ with app.app_context():
                 )
 
         message += '</div>'
-
+        print(f'{datetime.datetime.now(datetime.UTC)}: {start.strftime("%B %d, %Y")} to {(stop - relativedelta(days=1)).strftime("%B %d, %Y")}. {sum_category.sum()} announcements')
         # Send email
         msg = EmailMessage()
         msg['From'] = config.site_title + " <" + config.smtp_email + ">"
@@ -157,6 +157,9 @@ with app.app_context():
                     server.starttls()  # Secure the connection
                     server.login(config.smtp_email, config.smtp_password)
                     server.send_message(msg)
-            print("Email sent successfully!")
+            print(f'{datetime.datetime.now(datetime.UTC)}: Email sent')
         except Exception as e:
-            print(f"Failed to send email: {e}")
+            print(f'{datetime.datetime.now(datetime.UTC)}: Email failed')
+
+    else:
+        print(f'{datetime.datetime.now(datetime.UTC)}: {start.strftime("%B %d, %Y")} to {(stop - relativedelta(days=1)).strftime("%B %d, %Y")}. No announcements')
