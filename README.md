@@ -19,6 +19,7 @@ was developed by the
 * Edit an announcement later, or close the announcement when it has been filled.
 * Automatically post new job announcements to Mastodon and Bluesky.
 * Generate RSS/Atom feeds for all jobs, or for individual job categories.
+* Send a weekly digest by email to a mailing list
 * Allow anyone with an ORCID account to post an announcement, or restrict who is allowed to post.
 * Create as many job categories as you would like.
 * All branding is placed in a single file, so there is no need to edit the code.
@@ -81,7 +82,7 @@ client_secret = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 orcid_member = 0
 
 # Mastodon API. If present, each new announcement will be posted to Mastodon
-# mastodon_client_id = "...""
+# mastodon_client_id = "..."
 # mastodon_client_secret = "...
 # mastodon_access_token = "..."
 # mastodon_api_base_url = "..."
@@ -93,6 +94,15 @@ orcid_member = 0
 # bluesky_app_password = "..."
 # bluesky_account_name = "@..."
 # bluesky_account_url = "..."
+
+# Uncomment if using the script send_digest.py to send a weekly email digest
+# email_digest = "..."  # email to send the digest
+# start_weekday = 5  # include all job announcements starting of this data (0 = monday, 6 = sunday)
+# smtp_email = "email@example.com"
+# smtp_reply_email = "no-reply@example.com"
+# smtp_password = "..."
+# smtp_server = "..."
+# smtp_port = 587
 
 # Uncomment and provide a public URL when used in production. When public_domain
 # is not set, the app will use the ORCID sandbox API.
@@ -108,7 +118,7 @@ Then modify the following variables:
 > In production use the main [ORCID API credentials](https://orcid.org/developer-tools).
 
 3. Add a public domain if the application is used in production (not required for local development in sandbox mode).
-4. Update the parameters `favicon`, `footer_url_name`, `footer_url`, `thank_prc`, and `contact_email`.
+4. Update the other branding parameters.
 
 Finally, to run the app, use:
 ```bash

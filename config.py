@@ -83,3 +83,12 @@ bluesky_username = os.getenv("bluesky_username")
 bluesky_app_password = os.getenv("bluesky_app_password")
 bluesky_account_name = os.getenv("bluesky_account_name")
 bluesky_account_url = os.getenv("bluesky_account_url")
+
+# Email digest parameters
+email_digest = os.getenv("email_digest")
+start_weekday = int(os.getenv("start_weekday"))
+smtp_email = os.getenv("smtp_email")
+smtp_reply_email = os.getenv("smtp_reply_email")
+smtp_password = os.getenv("smtp_password")
+smtp_server = os.getenv("smtp_server")
+smtp_port = int(os.getenv("smtp_port"))
