@@ -1,7 +1,8 @@
 """
 This script will send an email that contains a digest of all job
 announcements that were published over a 1 week time period. All personalized
-options are set in the project's .env file.
+options are set in the project's .env file. This script should be run
+on a weekly basis as a cron.
 """
 import os
 import datetime
@@ -53,7 +54,7 @@ with app.app_context():
         if post_date >= start and post_date < stop:
             jobs_list[row.job_slug] = [
                 row.category_id,
-                os.path.join(config.site_path, row.job_slug),
+                os.path.join(config.job_announcements_url, row.job_slug),
                 row.title,
                 row.institution,
                 location,
