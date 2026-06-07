@@ -3,7 +3,7 @@
 **Job Announcements** is a simple web-based program that allows you to browse and
 create job announcements. Designed for academics, it is only necessary to
 authenticate with an Open Researcher and Contributor ID account
-([ORCID](https://orcid.org)) to create a new job announcement. All branding for
+([ORCID](https://orcid.org)) to create a new announcement. All branding for
 the website is contained in a single file, allowing it to be adapted for
 any discipline.
 
@@ -18,12 +18,12 @@ was developed by the
 * Add a job description using a graphical editor.
 * Edit an announcement later, or close the announcement when it has been filled.
 * Automatically post new job announcements to Mastodon and Bluesky.
-* Generate RSS/Atom feeds for all jobs, or for individual job categories.
-* Send a weekly digest by email to a mailing list
-* Allow anyone with an ORCID account to post an announcement, or restrict who is allowed to post.
+* Generate RSS/Atom feeds for all jobs and for individual job categories.
+* Send a weekly digest by email to a mailing list,
+* Allow anyone with an ORCID account to create an announcement, or restrict who is allowed to post.
 * Create as many job categories as you would like.
-* All branding is placed in a single file, so there is no need to edit the code.
-* Administrator controls to ban users, delete posts, and more.
+* Branding is placed in a single file, so there is no need to edit the code.
+* Administrator controls to ban users, delete posts, edit posts, and more.
 
 # Dependencies
 
@@ -62,10 +62,12 @@ preview = ""
 
 # Default parameters for the home page
 site_title = "Job Announcements"  # used in the header
-site_subtitle = "An open source job announcement platform"  # used in the header
+site_subtitle = "An open source job announcement platform"  # used in the header and as the site description
 site_title_footer = "Job Announcements"  # used in the footer and for the webpage title
 site_path = "/"
-site_header = "About"
+
+# Subject categories, separated by semicolons
+categories =  Tenure and tenure-track faculty;Non-tenure track faculty;Visiting positions;Postdocs and fellowships;Ph.D.;Master;Internships;Science management;Scientific and technical staff;Engineering;Outreach and education;Other
 
 # URL and name of a link displayed in the website footer, such as the association website
 footer_url_name = "My-Organization"
@@ -121,7 +123,7 @@ Then modify the following variables:
 > In production use the main [ORCID API credentials](https://orcid.org/developer-tools).
 
 3. Add a public domain if the application is used in production (not required for local development in sandbox mode).
-4. Update the other branding parameters.
+4. Update the other branding parameters and add favicon, preview and background images to `static/img`.
 
 Finally, to run the app, use:
 ```bash
@@ -192,5 +194,5 @@ a2ensite job-announcements.conf
 
 ## Notes
 
-* The database is by default located at `db/jobs.db`.
+* The database is located at `db/jobs.db`.
 * If you change from sandbox to production modes (by setting `public_domain`), you should re-initialize the database. Otherwise sandbox accounts will appear in the production database.

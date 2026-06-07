@@ -57,7 +57,7 @@
     <div class="my-job-list">
         {% for name, desc in my_jobs.items() %}
         <p class="my-job-entries">
-            <a href="/{{ name }}"><i class="bi {% if desc[2] %}bi-eye{% else %}bi-eye-slash{% endif %}" style="margin-right: 1.2em;"></i></a><a href="{{ desc[1] }}/edit"><b>{{ desc[0] | safe }}</b></a>
+            <a href="/{{ name }}"><i class="bi {% if desc[2] %}bi-eye{% else %}bi-eye-slash{% endif %}" style="margin-right: 1.2em;"></i></a><a href="{{ desc[1] }}/edit">{{ desc[0] | safe }}</a>
         </p>
         {% endfor %}
         {% if my_jobs.items()|length == 0 %}
@@ -71,7 +71,7 @@
     <div class="my-job-list">
         {% for name, desc in all_jobs.items() %}
         <p class="my-job-entries">
-            <a href="/{{ name }}"><i class="bi {% if desc[2] %}bi-eye{% else %}bi-eye-slash{% endif %}" style="margin-right: 1.2em;"></i></a><a href="{{ desc[1] }}/edit"><b>{{ desc[0] | safe }}</b></a>
+            <a href="/{{ name }}"><i class="bi {% if desc[2] %}bi-eye{% else %}bi-eye-slash{% endif %}" style="margin-right: 1.2em;"></i></a><a href="{{ desc[1] }}/edit">{{ desc[0] | safe }}</a>
         </p>
         {% endfor %}
         {% if my_jobs.items()|length == 0 %}

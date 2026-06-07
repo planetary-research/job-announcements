@@ -51,9 +51,9 @@
 <div class="margin-bottom">
     <h3>CREATE A NEW JOB ANNOUNCEMENT</h3>
     <p>
-        Fill in the following fields and then click on the button "Create".
-        All fields are optional with the exception of the announcement title
-        and job announcement slug. Any fields that are left blank will not be
+        Fill in the following fields and then click on the button <b>Submit</b>.
+        All fields are optional with the exception of the job category, announcement
+        title and job announcement slug. Any fields that are left blank will not be
         shown on the announcement. You will be able to edit this announcement
         later by signing in with your ORCID account.
     </p>
@@ -62,11 +62,12 @@
         <input type="hidden" name="mode" value="create_job">
         <div>
             <p class="create-item">
-                <b>Job category</b>
+                <span style="color: red">*</span> <b>Job category</b>
             </p>
             <div class="row">
                 <div class="col-md-5">
-                    <select style="text-align: left;" name="new_category" class="btn select-button">
+                    <select style="text-align: left;" name="new_category" class="btn select-button" required>
+                    <option value="" disabled selected>Please select...</option>
                     {% for option in categories %}
                     <option value="{{ option[0] }}" {% if form_category_id == option[0] %}selected{% endif %}>{{ option[1] }}</option>
                     {% endfor %}
@@ -77,14 +78,14 @@
 
         <div>
             <p class="create-item">
-                <b>Job announcement slug (used as part of the URL)</b><br>Use either the provided random list of characters or enter a unique string.
+                <span style="color: red">*</span> <b>Job announcement slug (used as part of the URL)</b><br>Use either the provided random list of characters or enter a unique string.
             </p>
             <input type="text" class="form-control" name="job_slug" placeholder="" value="{{ form_slug }}">
         </div>
 
         <div>
             <p class="create-item">
-                <b>Announcement title</b>
+                <span style="color: red">*</span> <b>Announcement title</b>
             </p>
             <input type="text" class="form-control" name="title" placeholder="" value="{{ form_title }}">
         </div>
@@ -119,7 +120,7 @@
 
         <div>
             <p class="create-item">
-                <b>Work arrangement</b><br>In person, remote, other
+                <b>Work arrangement</b><br>In person, hybrid, remote, other
             </p>
             <input type="text" class="form-control" name="work_arrangement" placeholder="" value="{{ form_work_arrangement }}">
         </div>
@@ -242,7 +243,7 @@
         </div>
 
         <div>
-          <button type="submit" class="btn btn-success">Create</button>
+          <button type="submit" class="btn btn-success">Submit</button>
         </div>
     </form>
 

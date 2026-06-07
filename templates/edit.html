@@ -51,7 +51,7 @@
 <div class="margin-section">
     <h3>EDIT JOB ANNOUNCEMENT</h3>
     <p>
-        To edit this job announcement, update the fields below and then click on the button "Update".
+        To edit this job announcement, modify the fields below and then click on the button <b>Update</b>.
     </p>
     <p>
         <br />Owner: <a href="{{ orcid_url }}{{ owner_orcid }}">{{ owner_name }}</a><br />
@@ -63,7 +63,7 @@
 
         <div>
             <p class="create-item">
-                <b>Job category</b>
+                <span style="color: red">*</span> <b>Job category</b>
             </p>
             <div class="row">
                 <div class="col-md-5">
@@ -78,7 +78,7 @@
 
         <div>
             <p class="create-item">
-                <b>Announcement title</b>
+                <span style="color: red">*</span> <b>Announcement title</b>
             </p>
             <input type="text" class="form-control" name="title" placeholder="" value="{{ form_title }}">
         </div>
@@ -113,7 +113,7 @@
 
         <div>
             <p class="create-item">
-                <b>Work arrangement</b><br>In person, remote, other
+                <b>Work arrangement</b><br>In person, hybrid, remote, other
             </p>
             <input type="text" class="form-control" name="work_arrangement" placeholder="" value="{{ form_work_arrangement }}">
         </div>
