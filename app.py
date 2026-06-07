@@ -138,10 +138,18 @@ if (
 else:
     bluesky_api = False
 
+if config.preview is None:
+    print('No preview image')
+    preview_url = ""
+else:
+    preview_url = os.path.join(config.job_announcements_url, "static/img", config.preview)
+    print("preview path: ", preview_url)
+
 base_data = {
     "site_title": config.site_title,
     "site_title_footer": config.site_title_footer,
     "background_image": config.background,
+    "preview_url": preview_url,
     "home_uri": home_URI,
     "logout_uri": logout_URI,
     "privacy_uri": privacy_URI,

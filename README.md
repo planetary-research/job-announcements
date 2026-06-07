@@ -52,10 +52,13 @@ admin_orcid = 'xxxx-xxxx-xxxx-xxxx'
 everyone_is_editor = True
 
 # Set favicon (use "" for none). File name is with respect to static/img
-favicon = "favicon.ico"
+favicon = ""
 
 # Set header background image (use "" for none). File name is with respect to static/img
-background = "splash.png"
+background = ""
+
+# Set a preview image used for social media posts (use "" for none). File name is with respect to static/img
+preview = ""
 
 # Default parameters for the home page
 site_title = "Job Announcements"  # used in the header
