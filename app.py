@@ -140,11 +140,9 @@ else:
     bluesky_api = False
 
 if config.preview is None:
-    print('No preview image')
     preview_url = ""
 else:
     preview_url = os.path.join(config.job_announcements_url, "static/img", config.preview)
-    print("preview path: ", preview_url)
 
 base_data = {
     "site_title": config.site_title,
@@ -1159,19 +1157,9 @@ def feed_category(feed_category_string):
         fe.published(row.post_date.replace(tzinfo=datetime.UTC))
         fe.content(row.description)
 
-    # Generate the feed as bytes
-    feed_data = fg.atom_str(pretty=True)
-
-    # Create a BytesIO object
-    feed_io = BytesIO(feed_data)
-
-    # Return as downloadable file
-    return send_file(
-        feed_io,
-        as_attachment=False,
-        download_name='atom.xml',
-        mimetype='application/atom+xml'
-    )
+    response = make_response(fg.atom_str(pretty=True))
+    response.headers.set('Content-Type', 'application/atom+xml; charset=utf-8')
+    return response
 
 
 if __name__ == "__main__":
