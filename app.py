@@ -728,19 +728,29 @@ def create():
                         location + "\n\n"
                         )
                 social_link = os.path.join(config.job_announcements_url, new_job.job_slug)
+                social_warning = None
                 if mastodon_api and new_job.is_active:
-                    mastodon.toot(social_post + social_link)
+                    try:
+                        mastodon.toot(social_post + social_link)
+                    except:
+                        social_warning = "Could not post to Mastodon (contact admin). "
                 if bluesky_api and new_job.is_active:
                     text_builder = client_utils.TextBuilder()
                     text_builder.text(social_post)
                     text_builder.link(social_link, social_link)
-                    client.send_post(text_builder)
+                    try:
+                        client.send_post(text_builder)
+                    except:
+                        if social_warning is None:
+                            social_warning = "Could not post to Bluesky (contact admin)."
+                        else:
+                            social_warning += "Could not post to Bluesky (contact admin)."
 
                 base_data["redirect_alerts"] = {
                     "success": "Job created.",
                     "danger": None,
                     "info": None,
-                    "warning": None,
+                    "warning": social_warning,
                 }
                 return redirect(editor_URI)
 
@@ -891,19 +901,29 @@ def edit(slug):
                 location + "\n\n"
             )
             social_link = os.path.join(config.job_announcements_url, edit_job.job_slug)
+            social_warning = None
             if mastodon_api and edit_job.is_active and not published:
-                mastodon.toot(social_post + social_link)
+                try:
+                    mastodon.toot(social_post + social_link)
+                except:
+                    social_warning = "Could not post to Mastodon (contact admin). "
             if bluesky_api and edit_job.is_active:
                 text_builder = client_utils.TextBuilder()
                 text_builder.text(social_post)
                 text_builder.link(social_link, social_link)
-                client.send_post(text_builder)
+                try:
+                    client.send_post(text_builder)
+                except:
+                    if social_warning is None:
+                        social_warning = "Could not post to Bluesky (contact admin)."
+                    else:
+                        social_warning += "Could not post to Bluesky (contact admin)."
 
             base_data["redirect_alerts"] = {
                 "success": alert_text,
                 "danger": None,
                 "info": None,
-                "warning": None,
+                "warning": social_warning,
             }
             return redirect(editor_URI)
 
