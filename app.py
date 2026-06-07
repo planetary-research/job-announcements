@@ -6,6 +6,7 @@ from dateutil.relativedelta import relativedelta
 from io import BytesIO
 import secrets
 from flask import Flask
+from flask import make_response
 from flask import request, session
 from flask import redirect, render_template
 from flask import send_from_directory, send_file
@@ -1127,19 +1128,9 @@ def feeds():
         fe.published(row.post_date.replace(tzinfo=datetime.UTC))
         fe.content(row.description)
 
-    # Generate the feed as bytes
-    feed_data = fg.atom_str(pretty=True)
-
-    # Create a BytesIO object
-    feed_io = BytesIO(feed_data)
-
-    # Return as downloadable file
-    return send_file(
-        feed_io,
-        as_attachment=False,
-        download_name='atom.xml',
-        mimetype='application/atom+xml'
-    )
+    response = make_response(fg.atom_str(pretty=True))
+    response.headers.set('Content-Type', 'application/atom+xml; charset=utf-8')
+    return response
 
 
 @app.route('/feed/category/<feed_category_string>/')
