@@ -1114,8 +1114,9 @@ def feeds():
     fg.id(os.path.join(config.job_announcements_url, "feed"))
     fg.title(config.site_title)
     fg.subtitle(config.site_subtitle)
-    fg.link(href=os.path.join(config.job_announcements_url, "feed"), rel='alternate')
+    fg.link(href=os.path.join(config.job_announcements_url, "feed"), rel='self')
     fg.language('en')
+    fg.author(name=config.site_title)
 
     # Create list of feed entries
     for row in Jobs.query.filter_by(is_active=True).order_by(Jobs.post_date.asc()).all():
@@ -1125,7 +1126,7 @@ def feeds():
         fe.summary(config.categories[row.category_id])
         fe.link(href=os.path.join(config.job_announcements_url, row.job_slug))
         fe.published(row.post_date.replace(tzinfo=datetime.UTC))
-        fe.content(row.description)
+        fe.content(row.description, type='html')
 
     response = make_response(fg.atom_str(pretty=True))
     response.headers.set('Content-Type', 'application/atom+xml; charset=utf-8')
@@ -1146,8 +1147,9 @@ def feed_category(feed_category_string):
     fg.id(os.path.join(config.job_announcements_url, "feed/category", feed_category_string))
     fg.title(config.site_title + " - " + config.categories[feed_num])
     fg.subtitle(config.site_subtitle)
-    fg.link(href=os.path.join(config.job_announcements_url, "feed/category", feed_category_string), rel='alternate')
+    fg.link(href=os.path.join(config.job_announcements_url, "feed/category", feed_category_string), rel='self')
     fg.language('en')
+    fg.author(name=config.site_title)
 
     # Create list of feed entries
     for row in Jobs.query.filter_by(is_active=True).filter_by(category_id=feed_num).order_by(Jobs.post_date.asc()).all():
@@ -1157,7 +1159,7 @@ def feed_category(feed_category_string):
         fe.summary(config.categories[row.category_id])
         fe.link(href=os.path.join(config.job_announcements_url, row.job_slug))
         fe.published(row.post_date.replace(tzinfo=datetime.UTC))
-        fe.content(row.description)
+        fe.content(row.description, type='html')
 
     response = make_response(fg.atom_str(pretty=True))
     response.headers.set('Content-Type', 'application/atom+xml; charset=utf-8')
