@@ -117,7 +117,6 @@
 </table>
 </div>
 
-
 <div>
   {%if job_description != '' %}
   <h3>Job Description</h3>
@@ -127,6 +126,9 @@
   {% endif %}
 </div>
 
-{% endblock %}
+<div class="back-button">
+<p><a href="{{ job_announcements_url }}"><i class="bi bi-arrow-left"></i> Back</a></p>
+</div>
 
 </div>
+{% endblock %}

@@ -23,7 +23,7 @@ body {
 }
 
 header {
-  background-color: #5367b0;
+  background-color: #4d7489;
   width: 100%;
   margin-left: 0;
   margin-right: 0;
@@ -50,9 +50,12 @@ footer {
   padding-top: 2.5em;
   padding-bottom: 3em;
 }
-footer a {
+footer a:link {
   color: white;
   text-decoration: none;
+}
+footer a:visited {
+  color: white;
 }
 footer a:hover {
   color: white;
@@ -266,6 +269,9 @@ main p.my-job-entries {
 }
 main .select-button {
   background-color: #e4e4e4;
+}
+main .back-button {
+  padding-top: 2em;
 }
 
 /* Change how the Quill editor box text appears */

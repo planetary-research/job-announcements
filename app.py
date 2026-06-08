@@ -3,7 +3,6 @@ import re
 import datetime
 from datetime import timedelta
 from dateutil.relativedelta import relativedelta
-from io import BytesIO
 import secrets
 from flask import Flask
 from flask import make_response
@@ -78,6 +77,7 @@ reserved_slugs = [
     "insufficient-privileges",
     "create",
     "editor",
+    "edit",
     "user-banned",
     "feed",
     "feeds",
@@ -215,7 +215,7 @@ def home():
     jobs_list = dict()
     sum_category = np.zeros(len(config.categories))
     # Create list of job announcements
-    for row in Jobs.query.filter_by(is_active=True).order_by(Jobs.creation_date.desc()).all():
+    for row in Jobs.query.filter_by(is_active=True).order_by(Jobs.post_date.desc()).all():
         if row.deadline_date is None:
             deadline_date = ''
         else:
@@ -1043,7 +1043,7 @@ def editor():
     my_jobs = dict()
     all_jobs = dict()
     # Create list of jobs
-    for row in Jobs.query.order_by(Jobs.title.asc()).all():
+    for row in Jobs.query.order_by(Jobs.post_date.desc()).all():
         if row.owner_orcid == session["orcid"]:
             my_jobs[row.job_slug] = [
                 row.title,
@@ -1052,7 +1052,7 @@ def editor():
             ]
 
     if role_id == 3:
-        for row in Jobs.query.order_by(Jobs.title.asc()).all():
+        for row in Jobs.query.order_by(Jobs.post_date.desc()).all():
             all_jobs[row.job_slug] = [
                 row.title,
                 os.path.join(config.site_path, row.job_slug),
@@ -1109,6 +1109,7 @@ def page_not_found(e):
 
 @app.route('/feed/')
 def feeds():
+    # atom feeds of all announcements
     fg = FeedGenerator()
     fg.id(os.path.join(config.job_announcements_url, config.site_path[1:], "feed"))
     fg.title(config.site_title)
@@ -1133,6 +1134,7 @@ def feeds():
 
 @app.route('/feed/category/<feed_category_string>/')
 def feed_category(feed_category_string):
+    # atom feeds for each announcement category
     if feed_category_string.isdigit():
         feed_num = int(feed_category_string)
         if feed_num >= len(config.categories):
