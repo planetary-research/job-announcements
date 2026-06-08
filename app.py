@@ -1115,6 +1115,7 @@ def feeds():
     fg.title(config.site_title)
     fg.subtitle(config.site_subtitle)
     fg.link(href=os.path.join(config.job_announcements_url, "feed"), rel='self')
+    fg.link(href=config.job_announcements_url, rel='alternate')
     fg.language('en')
     fg.author(name=config.site_title)
 
@@ -1148,6 +1149,7 @@ def feed_category(feed_category_string):
     fg.title(config.site_title + " - " + config.categories[feed_num])
     fg.subtitle(config.site_subtitle)
     fg.link(href=os.path.join(config.job_announcements_url, "feed/category", feed_category_string), rel='self')
+    fg.link(href=config.job_announcements_url, rel='alternate')
     fg.language('en')
     fg.author(name=config.site_title)
 
