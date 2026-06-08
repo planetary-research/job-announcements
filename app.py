@@ -1107,7 +1107,7 @@ def page_not_found(e):
     return render_template("404.html", **base_data), 404
 
 
-@app.route('/feed/')
+@app.route('/feed')
 def feeds():
     # atom feeds of all announcements
     fg = FeedGenerator()
@@ -1133,7 +1133,7 @@ def feeds():
     return response
 
 
-@app.route('/feed/category/<feed_category_string>/')
+@app.route('/feed/category/<feed_category_string>')
 def feed_category(feed_category_string):
     # atom feeds for each announcement category
     if feed_category_string.isdigit():
