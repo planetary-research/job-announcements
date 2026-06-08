@@ -1111,19 +1111,19 @@ def page_not_found(e):
 def feeds():
     # atom feeds of all announcements
     fg = FeedGenerator()
-    fg.id(os.path.join(config.job_announcements_url, config.site_path[1:], "feed"))
+    fg.id(os.path.join(config.job_announcements_url, "feed"))
     fg.title(config.site_title)
     fg.subtitle(config.site_subtitle)
-    fg.link(href=os.path.join(config.job_announcements_url, config.site_path[1:], "feed"), rel='alternate')
+    fg.link(href=os.path.join(config.job_announcements_url, "feed"), rel='alternate')
     fg.language('en')
 
     # Create list of feed entries
     for row in Jobs.query.filter_by(is_active=True).order_by(Jobs.post_date.asc()).all():
         fe = fg.add_entry()
-        fe.id(os.path.join(config.site_path, row.job_slug))
+        fe.id(os.path.join(config.job_announcements_url, row.job_slug))
         fe.title(row.title)
         fe.summary(config.categories[row.category_id])
-        fe.link(href=os.path.join(config.site_path, row.job_slug))
+        fe.link(href=os.path.join(config.job_announcements_url, row.job_slug))
         fe.published(row.post_date.replace(tzinfo=datetime.UTC))
         fe.content(row.description)
 
@@ -1143,19 +1143,19 @@ def feed_category(feed_category_string):
         return render_template("404.html", **base_data), 404
 
     fg = FeedGenerator()
-    fg.id(os.path.join(config.job_announcements_url, config.site_path[1:], "feed/category", feed_category_string))
+    fg.id(os.path.join(config.job_announcements_url, "feed/category", feed_category_string))
     fg.title(config.site_title + " - " + config.categories[feed_num])
     fg.subtitle(config.site_subtitle)
-    fg.link(href=os.path.join(config.job_announcements_url, config.site_path[1:], "feed/category", feed_category_string), rel='alternate')
+    fg.link(href=os.path.join(config.job_announcements_url, "feed/category", feed_category_string), rel='alternate')
     fg.language('en')
 
     # Create list of feed entries
     for row in Jobs.query.filter_by(is_active=True).filter_by(category_id=feed_num).order_by(Jobs.post_date.asc()).all():
         fe = fg.add_entry()
-        fe.id(os.path.join(config.site_path, row.job_slug))
+        fe.id(os.path.join(config.job_announcements_url, row.job_slug))
         fe.title(row.title)
         fe.summary(config.categories[row.category_id])
-        fe.link(href=os.path.join(config.site_path, row.job_slug))
+        fe.link(href=os.path.join(config.job_announcements_url, row.job_slug))
         fe.published(row.post_date.replace(tzinfo=datetime.UTC))
         fe.content(row.description)
 
