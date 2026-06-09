@@ -731,7 +731,7 @@ def create():
                 social_post = (
                         "Planetary Science Job Announcement\n" +
                         config.categories[new_job.category_id] + "\n\n" +
-                        new_job.title + ", " + new_job.institution + ", " +
+                        new_job.title + ". " + new_job.institution + ", " +
                         location + "\n\n"
                         )
                 social_link = os.path.join(config.job_announcements_url, new_job.job_slug)
@@ -904,7 +904,7 @@ def edit(slug):
             social_post = (
                 "Planetary Science Job Announcement\n" +
                 config.categories[edit_job.category_id] + "\n\n" +
-                edit_job.title + ", " + edit_job.institution + ", " +
+                edit_job.title + ". " + edit_job.institution + ", " +
                 location + "\n\n"
             )
             social_link = os.path.join(config.job_announcements_url, edit_job.job_slug)
@@ -1133,8 +1133,10 @@ def feeds():
         fe.published(row.post_date.strftime('%Y-%m-%dT%H:%M:%S') + 'Z')
         fe.content(row.description, type='html')
 
-    response = make_response(fg.atom_str(pretty=True))
-    response.headers.set('Content-Type', 'application/atom+xml')
+    response = make_response(fg.rss_str(pretty=True))
+    response.headers.set('Content-Type', 'application/rss+xml')
+    # response = make_response(fg.atom_str(pretty=True))
+    # response.headers.set('Content-Type', 'application/atom+xml')
     return response
 
 
@@ -1173,8 +1175,10 @@ def feed_category(feed_category_string):
         fe.updated(now.strftime('%Y-%m-%dT%H:%M:%S') + 'Z')
         fe.content(row.description, type='html')
 
-    response = make_response(fg.atom_str(pretty=True))
-    response.headers.set('Content-Type', 'application/atom+xml')
+    response = make_response(fg.rss_str(pretty=True))
+    response.headers.set('Content-Type', 'application/rss+xml')
+    # response = make_response(fg.atom_str(pretty=True))
+    # response.headers.set('Content-Type', 'application/atom+xml')
     return response
 
 
