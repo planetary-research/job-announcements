@@ -1115,7 +1115,7 @@ def feeds():
     fg.title(config.site_title)
     fg.subtitle(config.site_subtitle)
     fg.link(href=os.path.join(config.job_announcements_url, "feed"), rel='self', type="application/atom+xml")
-    fg.link(href=config.job_announcements_url, rel='alternate')
+    fg.link(href=config.job_announcements_url, rel='alternate', type='text/html')
     fg.language('en')
     fg.author(name=config.site_title)
 
@@ -1130,7 +1130,7 @@ def feeds():
         fe.content(row.description, type='html')
 
     response = make_response(fg.atom_str(pretty=True))
-    response.headers.set('Content-Type', 'application/atom+xml; charset=utf-8')
+    response.headers.set('Content-Type', 'application/atom+xml')
     return response
 
 
@@ -1150,7 +1150,7 @@ def feed_category(feed_category_string):
     fg.subtitle(config.site_subtitle)
     fg.link(href=os.path.join(config.job_announcements_url, "feed/category",
         feed_category_string), rel='self', type="application/atom+xml" )
-    fg.link(href=config.job_announcements_url, rel='alternate')
+    fg.link(href=config.job_announcements_url, type='text/html', rel='alternate')
     fg.language('en')
     fg.author(name=config.site_title)
 
@@ -1165,7 +1165,7 @@ def feed_category(feed_category_string):
         fe.content(row.description, type='html')
 
     response = make_response(fg.atom_str(pretty=True))
-    response.headers.set('Content-Type', 'application/atom+xml; charset=utf-8')
+    response.headers.set('Content-Type', 'application/atom+xml')
     return response
 
 
