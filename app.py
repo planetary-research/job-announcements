@@ -1110,6 +1110,8 @@ def page_not_found(e):
 @app.route('/feed')
 def feeds():
     # atom feeds of all announcements
+    now = datetime.datetime.now()
+
     fg = FeedGenerator()
     fg.id(os.path.join(config.job_announcements_url, "feed"))
     fg.title(config.site_title)
@@ -1118,6 +1120,7 @@ def feeds():
     fg.link(href=config.job_announcements_url, rel='alternate', type='text/html')
     fg.language('en')
     fg.author(name=config.site_title)
+    fg.updated(now.strftime('%Y-%m-%dT%H:%M:%S') + 'Z')
 
     # Create list of feed entries
     for row in Jobs.query.filter_by(is_active=True).order_by(Jobs.post_date.asc()).all():
@@ -1126,7 +1129,8 @@ def feeds():
         fe.title(row.title)
         fe.summary(config.categories[row.category_id])
         fe.link(href=os.path.join(config.job_announcements_url, row.job_slug))
-        fe.published(row.post_date.replace(tzinfo=datetime.UTC))
+        fe.updated(now.strftime('%Y-%m-%dT%H:%M:%S') + 'Z')
+        fe.published(row.post_date.strftime('%Y-%m-%dT%H:%M:%S') + 'Z')
         fe.content(row.description, type='html')
 
     response = make_response(fg.atom_str(pretty=True))
@@ -1137,6 +1141,8 @@ def feeds():
 @app.route('/feed/category/<feed_category_string>')
 def feed_category(feed_category_string):
     # atom feeds for each announcement category
+    now = datetime.datetime.now()
+
     if feed_category_string.isdigit():
         feed_num = int(feed_category_string)
         if feed_num >= len(config.categories):
@@ -1148,11 +1154,13 @@ def feed_category(feed_category_string):
     fg.id(os.path.join(config.job_announcements_url, "feed/category", feed_category_string))
     fg.title(config.site_title + " - " + config.categories[feed_num])
     fg.subtitle(config.site_subtitle)
-    fg.link(href=os.path.join(config.job_announcements_url, "feed/category",
-        feed_category_string), rel='self', type="application/atom+xml" )
+    fg.link(
+        href=os.path.join(config.job_announcements_url, "feed/category", feed_category_string),
+        rel='self', type="application/atom+xml")
     fg.link(href=config.job_announcements_url, type='text/html', rel='alternate')
     fg.language('en')
     fg.author(name=config.site_title)
+    fg.updated(now.strftime('%Y-%m-%dT%H:%M:%S') + 'Z')
 
     # Create list of feed entries
     for row in Jobs.query.filter_by(is_active=True).filter_by(category_id=feed_num).order_by(Jobs.post_date.asc()).all():
@@ -1161,7 +1169,8 @@ def feed_category(feed_category_string):
         fe.title(row.title)
         fe.summary(config.categories[row.category_id])
         fe.link(href=os.path.join(config.job_announcements_url, row.job_slug))
-        fe.published(row.post_date.replace(tzinfo=datetime.UTC))
+        fe.published(row.post_date.strftime('%Y-%m-%dT%H:%M:%S') + 'Z')
+        fe.updated(now.strftime('%Y-%m-%dT%H:%M:%S') + 'Z')
         fe.content(row.description, type='html')
 
     response = make_response(fg.atom_str(pretty=True))
