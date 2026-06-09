@@ -1133,10 +1133,10 @@ def feeds():
         fe.published(row.post_date.strftime('%Y-%m-%dT%H:%M:%S') + 'Z')
         fe.content(row.description, type='html')
 
-    response = make_response(fg.rss_str(pretty=True))
-    response.headers.set('Content-Type', 'application/rss+xml')
-    # response = make_response(fg.atom_str(pretty=True))
-    # response.headers.set('Content-Type', 'application/atom+xml')
+    # response = make_response(fg.rss_str(pretty=True))
+    # response.headers.set('Content-Type', 'application/rss+xml')
+    response = make_response(fg.atom_str(pretty=True))
+    response.headers.set('Content-Type', 'application/atom+xml')
     return response
 
 
@@ -1175,10 +1175,10 @@ def feed_category(feed_category_string):
         fe.updated(now.strftime('%Y-%m-%dT%H:%M:%S') + 'Z')
         fe.content(row.description, type='html')
 
-    response = make_response(fg.rss_str(pretty=True))
-    response.headers.set('Content-Type', 'application/rss+xml')
-    # response = make_response(fg.atom_str(pretty=True))
-    # response.headers.set('Content-Type', 'application/atom+xml')
+    # response = make_response(fg.rss_str(pretty=True))
+    # response.headers.set('Content-Type', 'application/rss+xml')
+    response = make_response(fg.atom_str(pretty=True))
+    response.headers.set('Content-Type', 'application/atom+xml')
     return response
 
 
