@@ -123,7 +123,7 @@ main table.job-table {
   width: 100%;
   font-size: 0.8em;
   border-bottom: 2px solid #aaa;
-  layout: auto;
+  table-layout: fixed;
 }
 main .job-table th {
   border-right: 1px solid #ddd;
@@ -165,6 +165,9 @@ main .job-summary-box td {
 main .job-content {
   max-width: 900px;
   padding-bottom: 4em;
+}
+main .job {
+  color: #3176b1;
 }
 main .link {
   color: #007799;

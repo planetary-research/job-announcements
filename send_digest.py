@@ -68,10 +68,11 @@ with app.app_context():
     message = (
         '<style>' +
         '    table.job-table {' +
+        '    max-width: 1200px;' +
         '    width: 100%;' +
         '    font-size: 0.8em;' +
         '    border-bottom: 2px solid #aaa;' +
-        '    layout: auto;' +
+        '    table-layout: fixed;' +
         '    border-collapse: collapse;' +
         '}' +
         '.job-table th {' +
