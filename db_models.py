@@ -47,6 +47,7 @@ class Jobs(db.Model):
     post_date = db.Column(db.DateTime, default=None)
     closed_date = db.Column(db.DateTime, default=None)
     start_date = db.Column(db.DateTime, default=None)
+    start_date_string = db.Column(db.String, default='')
     deadline_date = db.Column(db.DateTime, default=None)
 
     def __repr__(self):

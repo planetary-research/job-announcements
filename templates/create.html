@@ -162,13 +162,20 @@
             </div>
         </div>
 
+        <p class="create-item">
+            <b>Start date</b><br>Leave empty if there is no precise start date.
+        </p>
         <div class="row">
             <div class="col-md-3">
-                <p class="create-item">
-                    <b>Start date</b>
-                </p>
                 <input type="date" class="form-control" name="start_date" placeholder="" value="{{ form_start_date }}">
             </div>
+        </div>
+
+        <div>
+            <p class="create-item" style="margin-top: 1em;">
+                Leave empty if a precise start date was added above. Possible values: As soon a possible, Fall 2026, flexible.
+            </p>
+            <input type="text" class="form-control" name="start_date_string" placeholder="" value="{{ form_start_date_string }}">
         </div>
 
         <div>

@@ -341,6 +341,7 @@ def action(slug):
         "job_closed_date": closed_date,
         "job_post_date": post_date,
         "job_start_date": start_date,
+        "job_start_date_string": job.start_date_string,
         "job_deadline_date": deadline_date,
         "role_id": role_id,
     }
@@ -653,6 +654,7 @@ def create():
         inquiries_email='',
         owner_orcid=session["orcid"],
         owner_name=session["name"],
+        start_date_string = '',
     )
 
     # If an update is pushed
@@ -704,6 +706,7 @@ def create():
                 closed_date=closed_date,
                 post_date=post_date,
                 start_date=start_date,
+                start_date_string = escape(request.form["start_date_string"]),
                 deadline_date=deadline_date,
             )
 
@@ -788,6 +791,7 @@ def create():
         "form_salary": new_job.salary,
         "form_activate": new_job.is_active,
         "form_start_date": new_job.start_date,
+        "form_start_date_string": new_job.start_date_string,
         "form_deadline_date": new_job.deadline_date,
     }
 
@@ -865,6 +869,7 @@ def edit(slug):
             edit_job.reference_code = escape(request.form["reference_code"])
             edit_job.inquiries_name = escape(request.form["inquiries_name"])
             edit_job.inquiries_email = escape(request.form["inquiries_email"])
+            edit_job.start_date_string = escape(request.form["start_date_string"])
 
             if edit_job.title == '':
                 alerts["danger"] = "You must enter a job title."
@@ -1004,6 +1009,7 @@ def edit(slug):
         "creation_date": edit_job.creation_date,
         "post_date": edit_job.post_date,
         "closed_date": edit_job.closed_date,
+        "form_start_date_string": edit_job.start_date_string,
     }
 
     return render_template("edit.html", **(base_data | data))

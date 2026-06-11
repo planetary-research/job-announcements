@@ -80,9 +80,15 @@
       </p>
       {% endif %}
 
+      {%if job_start_date_string != '' %}
+      <p class="job-label">
+        <b>Start date:</b> {{ job_start_date_string }}
+      </p>
+      {% endif %}
+
       {%if job_official_announcement_url != '' %}
       <p class="job-label">
-        <b>Official announcement:</b> <a href="{{ job_official_announcement_url }}" target="_blank">external link</a>
+        <b>Official announcement:</b> <a href="{{ job_official_announcement_url }}" target="_blank"><i class="bi bi-box-arrow-up-right"></i></a>
       </p>
       {% endif %}
 
