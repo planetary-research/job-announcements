@@ -12,6 +12,7 @@
     <ul>
       <li><a href="#create">How do I create a job announcement?</a></li>
       <li><a href="#modify">How do I modify a job announcement?</a></li>
+      <li><a href="#how-long">How long are job announcements shown?</a></li>
       {% if mastodon_account_url is not none or bluesky_account_url is not none %}
       <li><a href="#social">How to keep up to date: {% if mastodon_account_url is not none %}Mastodon{% endif %}{% if (mastodon_account_url or bluesky_account_url) and not (mastodon_account_url and bluesky_account_url) %}{% else %} and {% endif %}{% if bluesky_account_url is not none %}Bluesky{% endif %}</a></li>
       {% endif %}
@@ -51,6 +52,22 @@
       If the announcement was closed, you can choose to publish it, which will make it
       visible on the home page. You will also have the option to delete the annoucement
       entirely from the database.
+    </p>
+
+    <h3 id="how-long">How long are job announcements shown?</h3>
+    <p>
+      Job announcements will be shown on the website up until one day after
+      the application deadline. When four months have passed since the
+      deadline, the job announcement will be automatically closed: This means
+      that the job will remain in the database, but only the job owner will have
+      access to the announcement. When one year has passed since the deadline,
+      the announcement will be deleted from the database.
+    </p>
+    <p>
+      If the job announcement doesn't have an application deadline, it will be deleted
+      automatically after one year has passed since it was posted. If the job
+      doesn't have an application deadline and it was since closed,
+      it will be deleted one year after the announcement was created.
     </p>
 
     {% if mastodon_account_url is not none or bluesky_account_url is not none %}
