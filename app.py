@@ -233,7 +233,8 @@ def home():
         post_date = row.post_date.replace(tzinfo=datetime.UTC)  # timezone is lost in sqlalchemy
         if row.deadline_date is not None:
             deadline = row.deadline_date.replace(tzinfo=datetime.UTC)
-            if date_now < deadline + relativedelta(days=1):  # add one extra day to the deadline to account for time zone differences
+            # add two extra days, one to make deadline at end of the day, the other for time zone differences
+            if date_now < deadline + relativedelta(days=2):
                 deadline_ok = True
             else:
                 deadline_ok = False
