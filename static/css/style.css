@@ -276,6 +276,26 @@ main .select-button {
 main .back-button {
   padding-top: 2em;
 }
+main .job-description h1 {
+  font-size: 1.6em;
+  margin-bottom: 0.8em;
+  margin-top: 1em;
+}
+main .job-description h2 {
+  font-size: 1.4em;
+  margin-bottom: 0.6em;
+  margin-top: 0.8em;
+}
+main .job-description h3 {
+  font-size: 1.2em;
+  margin-bottom: 0.4em;
+  margin-top: 0.8em;
+}
+main .job-description h4 {
+  font-size: 1.1em;
+  margin-bottom: 0.4em;
+  margin-top: 0.8em;
+}
 
 /* Change how the Quill editor box text appears */
 main .quill-editor {
@@ -304,6 +324,26 @@ main .quill-editor li[data-list=bullet] > .ql-ui:before {
 li[data-list="bullet"] {
   list-style-type: disc!important;
   padding-left: 0px;
+}
+main .quill-editor h1 {
+  font-size: 1.6em;
+  margin-bottom: 0.2em;
+  margin-top: 0em;
+}
+main .quill-editor h2 {
+  font-size: 1.4em;
+  margin-bottom: 0em;
+  margin-top: 1.2em;
+}
+main .quill-editor h3 {
+  font-size: 1.2em;
+  margin-bottom: 0em;
+  margin-top: 1em;
+}
+main .quill-editor h4 {
+  font-size: 1.1em;
+  margin-bottom: 0em;
+  margin-top: 1em;
 }
 
 hr {
