@@ -655,7 +655,7 @@ def create():
         inquiries_email='',
         owner_orcid=session["orcid"],
         owner_name=session["name"],
-        start_date_string = '',
+        start_date_string='',
     )
 
     # If an update is pushed
@@ -707,7 +707,7 @@ def create():
                 closed_date=closed_date,
                 post_date=post_date,
                 start_date=start_date,
-                start_date_string = escape(request.form["start_date_string"]).strip(),
+                start_date_string=escape(request.form["start_date_string"]).strip(),
                 deadline_date=deadline_date,
             )
 
@@ -735,9 +735,13 @@ def create():
                 social_post = (
                         "Planetary Science Job Announcement\n" +
                         config.categories[new_job.category_id] + "\n\n" +
-                        new_job.title + ". " + new_job.institution + ", " +
-                        location + "\n\n"
-                        )
+                        new_job.title + ". "
+                )
+                if new_job.institution != '':
+                    social_post += new_job.institution + ", " + location + "\n\n"
+                else:
+                    social_post += location + "\n\n"
+
                 social_link = os.path.join(config.job_announcements_url, new_job.job_slug)
                 social_warning = None
                 if mastodon_api and new_job.is_active:
@@ -910,9 +914,13 @@ def edit(slug):
             social_post = (
                 "Planetary Science Job Announcement\n" +
                 config.categories[edit_job.category_id] + "\n\n" +
-                edit_job.title + ". " + edit_job.institution + ", " +
-                location + "\n\n"
+                edit_job.title + ". "
             )
+            if edit_job.institution != '':
+                social_post += edit_job.institution + ", " + location + "\n\n"
+            else:
+                social_post += location + "\n\n"
+
             social_link = os.path.join(config.job_announcements_url, edit_job.job_slug)
             social_warning = None
             if mastodon_api and edit_job.is_active and not published:
