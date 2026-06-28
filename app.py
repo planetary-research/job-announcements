@@ -922,6 +922,7 @@ def edit(slug):
                 social_post += edit_job.institution + ", " + location + "\n\n"
             else:
                 social_post += location + "\n\n"
+            social_post = html.unescape(social_post)
 
             social_link = os.path.join(config.job_announcements_url, edit_job.job_slug)
             social_warning = None
