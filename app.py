@@ -4,6 +4,7 @@ import datetime
 from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 import secrets
+import html
 from flask import Flask
 from flask import make_response
 from flask import request, session
@@ -741,6 +742,7 @@ def create():
                     social_post += new_job.institution + ", " + location + "\n\n"
                 else:
                     social_post += location + "\n\n"
+                social_post = html.unescape(social_post)
 
                 social_link = os.path.join(config.job_announcements_url, new_job.job_slug)
                 social_warning = None
