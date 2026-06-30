@@ -65,6 +65,7 @@ site_title = "Job Announcements"  # used in the header
 site_subtitle = "An open source job announcement platform"  # used in the header and as the site description
 site_title_footer = "Job Announcements"  # used in the footer and for the webpage title
 site_path = "/"
+site_description = "Job announcements"  # used in the meta description tag
 
 # Subject categories, separated by semicolons
 categories =  Tenure and tenure-track faculty;Non-tenure track faculty;Visiting positions;Postdocs and fellowships;Ph.D.;Master;Internships;Science management;Scientific and technical staff;Engineering;Outreach and education;Other
