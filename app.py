@@ -175,6 +175,7 @@ base_data = {
     "category_names": config.categories,
     "mastodon_url": config.mastodon_account_url,
     "bluesky_url": config.bluesky_account_url,
+    "site_description": config.site_description,
 }
 
 base_alerts = {

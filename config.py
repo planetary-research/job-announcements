@@ -57,6 +57,7 @@ preview = os.getenv("preview")
 site_title = os.getenv("site_title")
 site_subtitle = os.getenv("site_subtitle")
 site_title_footer = os.getenv("site_title_footer")
+site_description = os.getenv("site_description")
 
 # Job listing categories
 raw_categories = os.getenv("categories")
