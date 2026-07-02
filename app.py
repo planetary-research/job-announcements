@@ -735,12 +735,16 @@ def create():
                         location = new_job.country
 
                 social_post = (
-                        "Planetary Science Job Announcement\n" +
-                        config.categories[new_job.category_id] + "\n\n" +
+                        "Job Announcement\n" +
+                        "Category: " + config.categories[new_job.category_id] + "\n\n" +
                         new_job.title + ". "
                 )
                 if new_job.institution != '':
-                    social_post += new_job.institution + ", " + location + "\n\n"
+                    social_post += new_job.institution
+                    if location != '':
+                        social_post += ", " + location + "\n\n"
+                    else:
+                        social_post += "\n\n"
                 else:
                     social_post += location + "\n\n"
                 social_post = html.unescape(social_post)
@@ -915,12 +919,16 @@ def edit(slug):
                     location = edit_job.country
 
             social_post = (
-                "Planetary Science Job Announcement\n" +
-                config.categories[edit_job.category_id] + "\n\n" +
+                "Job Announcement\n" +
+                "Category: " + config.categories[edit_job.category_id] + "\n\n" +
                 edit_job.title + ". "
             )
             if edit_job.institution != '':
-                social_post += edit_job.institution + ", " + location + "\n\n"
+                social_post += edit_job.institution
+                if location != '':
+                    social_post += ", " + location + "\n\n"
+                else:
+                    social_post += "\n\n"
             else:
                 social_post += location + "\n\n"
             social_post = html.unescape(social_post)
