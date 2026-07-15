@@ -4,7 +4,11 @@
 {% block nav %}{% include "nav-admin.html" %}{% endblock %}
 
 {% block content %}
+
 <div class="job-content">
+{%if show_edit %}
+<p><a href="{{ edit_URL }}"><i class="bi bi-pencil-square"></i>&nbsp;Edit this announcement</a></p>
+{% endif %}
 
 <div>
     <h2 class="job">{{ job_title | safe }}</h2>

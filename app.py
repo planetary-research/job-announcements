@@ -269,6 +269,7 @@ def home():
 
 @app.route(job_URI, methods=["POST", "GET"])
 def action(slug):
+    can_edit = False
     # Show the job announcement
     if session.get("orcid") is None:
         role_id = 0
@@ -276,6 +277,8 @@ def action(slug):
         user = Admin.query.filter_by(orcid=session["orcid"]).first()
         if user is not None:
             role_id = user.role_id
+            if role_id == 3:
+                can_edit = True
         else:
             role_id = 2
     else:
@@ -284,11 +287,18 @@ def action(slug):
             role_id = 0
         else:
             role_id = user.role_id
+            if role_id == 3:
+                can_edit = True
 
     # check if the job announcement exists
     result = Jobs.query.filter_by(job_slug=slug).first()
     if not result:
         return render_template("job-announcement-not-found.html", **base_data)
+
+    # For editors, check if the user is the job announcement owner
+    if role_id == 2:
+        if result.owner_orcid == session["orcid"]:
+            can_edit = True
 
     # check if the job announcement is open
     if result.is_active is False:
@@ -347,6 +357,8 @@ def action(slug):
         "job_start_date_string": job.start_date_string,
         "job_deadline_date": deadline_date,
         "role_id": role_id,
+        "show_edit": can_edit,
+        "edit_URL": os.path.join(config.site_path, result.job_slug, "edit"),
     }
 
     return render_template(job_template, **(base_data | data))
@@ -1067,17 +1079,22 @@ def editor():
         alerts = base_data["redirect_alerts"]
         base_data["redirect_alerts"] = None
 
-    my_jobs = dict()
+    my_jobs_active = dict()
+    my_jobs_inactive = dict()
     all_jobs = dict()
     # Create list of jobs
     for row in Jobs.query.order_by(Jobs.post_date.desc()).all():
         if row.owner_orcid == session["orcid"]:
-            my_jobs[row.job_slug] = [
-                row.title,
-                os.path.join(config.site_path, row.job_slug),
-                row.is_active
-            ]
-
+            if row.is_active:
+                my_jobs_active[row.job_slug] = [
+                    row.title,
+                    os.path.join(config.site_path, row.job_slug)
+                ]
+            else:
+                my_jobs_inactive[row.job_slug] = [
+                    row.title,
+                    os.path.join(config.site_path, row.job_slug)
+                ]
     if role_id == 3:
         for row in Jobs.query.order_by(Jobs.post_date.desc()).all():
             all_jobs[row.job_slug] = [
@@ -1092,7 +1109,8 @@ def editor():
         "role_id": role_id,
         "alert": alerts,
         "page": 'editor',
-        "my_jobs": my_jobs,
+        "my_jobs_active": my_jobs_active,
+        "my_jobs_inactive": my_jobs_inactive,
         "all_jobs": all_jobs,
     }
 
