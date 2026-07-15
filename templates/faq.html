@@ -18,6 +18,7 @@
       {% endif %}
       <li><a href="#email">How to keep up to date: Email</a></li>
       <li><a href="#feeds">How to keep up to date: RSS/Atom feeds</a></li>
+      <li><a href="#owner">How can I change/delete an announcement that was submitted by someone else?</a></li>
       <li><a href="#data">Are any data stored with ORCID?</a></li>
       <li><a href="#code">Can I see the source code?</a></li>
     </ul>
@@ -104,6 +105,11 @@
       <li><a href="{{ job_announcements_url}}/feed/category/{{ loop.index0 }}">{{ category }}</a></li>
       {% endfor %}
     </ul>
+
+    <h3 id="owner">How can I change/delete an announcement that was submitted by someone else?</h3>
+    <p>
+      If someone added one of your job announcements to this site and you would like to modify it, please contact us by <a href="mailto:{{ contact_email }}" target="_blank" title="Contact">email</a>. We will either delete the announcement entirely, or change the ownership so that you can sign in and modify it.
+    </p>
 
     <h3 id="data">Are any data stored with ORCID?</h3>
     <p>

@@ -23,7 +23,7 @@ was developed by the
 * Allow anyone with an ORCID account to create an announcement, or restrict who is allowed to post.
 * Create as many job categories as you would like.
 * Branding is placed in a single file, so there is no need to edit the code.
-* Administrator controls to ban users, delete posts, edit posts, and more.
+* Administrator controls to ban users, delete posts, edit posts, change announcement ownership and more.
 
 # Dependencies
 
