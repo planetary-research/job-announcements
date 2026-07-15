@@ -464,6 +464,7 @@ def faq():
         "mastodon_account_url": config.mastodon_account_url,
         "bluesky_account_name": config.bluesky_account_name,
         "bluesky_account_url": config.bluesky_account_url,
+        "faq_email": config.faq_email,
     }
     return render_template("faq.html", **(base_data | data))
 

@@ -16,7 +16,9 @@
       {% if mastodon_account_url is not none or bluesky_account_url is not none %}
       <li><a href="#social">How to keep up to date: {% if mastodon_account_url is not none %}Mastodon{% endif %}{% if (mastodon_account_url or bluesky_account_url) and not (mastodon_account_url and bluesky_account_url) %}{% else %} and {% endif %}{% if bluesky_account_url is not none %}Bluesky{% endif %}</a></li>
       {% endif %}
+      {% if faq_email != '' and faq_email is not none %}
       <li><a href="#email">How to keep up to date: Email</a></li>
+      {% endif %}
       <li><a href="#feeds">How to keep up to date: RSS/Atom feeds</a></li>
       <li><a href="#owner">How can I change/delete an announcement that was submitted by someone else?</a></li>
       <li><a href="#data">Are any data stored with ORCID?</a></li>
@@ -79,15 +81,12 @@
     </ul>
     {% endif %}
 
-    <!-- This is branding that will need to be removed -->
+    {% if faq_email != '' and faq_email is not none %}
     <h3 id="email">How to keep up to date: Email</h3>
     <p>
-      We send a weekly digest of all new job announcements by email
-      every sunday. To subscribe to this list, you will first need to sign in to your
-      <a href="{{ footer_url }}" target="_blank">{{ footer_url_name }}</a> member account.
-      From the <i>Member Services</i> page, click on the link to <i>Email Lists</i>, and then
-      choose to subscribe to the <i>{{ site_title }} (weekly digest)</i> list.
+      {{ faq_email | safe }}
     </p>
+    {% endif %}
 
     <h3 id="feeds">How to keep up to date: RSS/Atom feeds</h3>
     <p>

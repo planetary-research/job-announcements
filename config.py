@@ -87,6 +87,7 @@ bluesky_account_name = os.getenv("bluesky_account_name")
 bluesky_account_url = os.getenv("bluesky_account_url")
 
 # Email digest parameters
+faq_email = os.getenv("faq_email")
 email_digest = os.getenv("email_digest")
 start_weekday = os.getenv("start_weekday")
 if start_weekday is not None:
