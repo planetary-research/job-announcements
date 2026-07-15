@@ -6,7 +6,7 @@
 {% block content %}
 
 <div class="job-content">
-{%if show_edit %}
+{% if show_edit %}
 <p><a href="{{ edit_URL }}"><i class="bi bi-pencil-square"></i>&nbsp;Edit this announcement</a></p>
 {% endif %}
 
@@ -23,86 +23,86 @@
         <b>Category:</b> {{ job_category }}
       </p>
 
-      {%if job_institution != '' %}
+      {% if job_institution != '' %}
       <p class="job-label">
         <b>Institution:</b> {{ job_institution }}
       </p>
       {% endif %}
 
-      {%if job_department != '' %}
+      {% if job_department != '' %}
       <p class="job-label">
         <b>Department:</b> {{ job_department }}
       </p>
       {% endif %}
 
-      {%if job_location != '' %}
+      {% if job_location != '' %}
       <p class="job-label">
         <b>Location:</b> {{ job_location }}
       </p>
       {% endif %}
 
-      {%if job_work_arrangement != '' %}
+      {% if job_work_arrangement != '' %}
       <p class="job-label">
         <b>Work arrangement:</b> {{ job_work_arrangement}}
       </p>
       {% endif %}
 
-      {%if job_duration != '' %}
+      {% if job_duration != '' %}
       <p class="job-label">
         <b>Duration:</b> {{ job_duration }}
       </p>
       {% endif %}
 
-      {%if job_can_extend != '' %}
+      {% if job_can_extend != '' %}
       <p class="job-label">
         <b>Can be extended:</b> {{ job_can_extend }}
       </p>
       {% endif %}
 
-      {%if job_salary != '' %}
+      {% if job_salary != '' %}
       <p class="job-label">
         <b>Salary:</b> {{ job_salary }}
       </p>
       {% endif %}
     </td>
     <td>
-      {%if job_number_positions != '' %}
+      {% if job_number_positions != '' %}
       <p class="job-label">
         <b>Number of positions:</b> {{ job_number_positions }}
       </p>
       {% endif %}
 
-      {%if job_deadline_date != '' %}
+      {% if job_deadline_date != '' %}
       <p class="job-label">
         <b>Application deadline:</b> {{ job_deadline_date }}
       </p>
       {% endif %}
 
-      {%if job_start_date != '' %}
+      {% if job_start_date != '' %}
       <p class="job-label">
         <b>Start date:</b> {{ job_start_date }}
       </p>
       {% endif %}
 
-      {%if job_start_date_string != '' %}
+      {% if job_start_date_string != '' %}
       <p class="job-label">
         <b>Start date:</b> {{ job_start_date_string }}
       </p>
       {% endif %}
 
-      {%if job_official_announcement_url != '' %}
+      {% if job_official_announcement_url != '' %}
       <p class="job-label">
         <b>Official announcement:</b> <a href="{{ job_official_announcement_url }}" target="_blank"><i class="bi bi-box-arrow-up-right"></i></a>
       </p>
       {% endif %}
 
-      {%if job_reference_code != '' %}
+      {% if job_reference_code != '' %}
       <p class="job-label">
         <b>Reference code:</b> {{ job_reference_code }}
       </p>
       {% endif %}
 
-      {%if job_inquiries_email != '' %}
+      {% if job_inquiries_email != '' %}
       <p class="job-label">
         <b>Inquiries:</b>
         {%if job_inquiries_name != '' %}
@@ -113,7 +113,7 @@
       </p>
       {% endif %}
 
-      {%if job_post_date != '' %}
+      {% if job_post_date != '' %}
       <p class="job-label">
         <b>Posted:</b> {{ job_post_date }}
       </p>
@@ -128,7 +128,7 @@
 </div>
 
 <div>
-  {%if job_description != '' %}
+  {% if job_description != '' %}
   <h3 class="job">Job Description</h3>
   <div class="job-description">
     {{ job_description | safe}}

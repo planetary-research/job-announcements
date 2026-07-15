@@ -1100,7 +1100,6 @@ def editor():
             all_jobs[row.job_slug] = [
                 row.title,
                 os.path.join(config.site_path, row.job_slug),
-                row.is_active
             ]
 
     data = {
