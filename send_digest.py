@@ -113,9 +113,9 @@ with app.app_context():
                     '<table class="job-table">\n' +
                     '<thead>\n' +
                     '<tr>\n' +
-                    '<th>Title</th>\n' +
-                    '<th style="width: 22em;">Institution</th>\n' +
-                    '<th style="width: 15em;">Location</th>\n' +
+                    '<th style="width: 47%">Title</th>\n' +
+                    '<th style="width: 32%;">Institution</th>\n' +
+                    '<th style="width: 21%;">Location</th>\n' +
                     '<th style="width: 7em;">Deadline</th>\n' +
                     '<th style="width: 7em;">Posted</th>\n' +
                     '</tr>\n' +

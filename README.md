@@ -74,7 +74,7 @@ categories =  Tenure and tenure-track faculty;Non-tenure track faculty;Visiting 
 footer_url_name = "My-Organization"
 footer_url = "https://my-organization.example.org/"
 
-# Add a statement in the footer that states Signatories was created by the Planetary Research Cooperative
+# Add a statement in the footer that states this project was created by the Planetary Research Cooperative
 thank_prc = False
 
 # Contact email in the footer
