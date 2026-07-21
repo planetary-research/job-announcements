@@ -5,8 +5,11 @@
 
 {% block content %}
 <div class="intro">
+  {% if everyone_is_editor %}
   <p>Anyone can create a job announcement on this website for free. It is only necessary to <a href="{{ authorization_uri_admin }}">sign in</a> using your ORCID account and then fill out a short form.</p>
-
+  {% else %}
+  <p>It is free to post job announcements on this website. If you have an announcement that you would like to share, please contact us by <a href="mailto:{{ contact_email }}" target="_blank" title="Contact">email</a>.</p>
+  {% endif %}
 </div>
 
 <div class="category-list">

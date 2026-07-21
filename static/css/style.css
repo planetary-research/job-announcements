@@ -320,18 +320,24 @@ li[data-list="bullet"] {
   list-style-type: disc!important;
   padding-left: 0px;
 }
-main .quill-editor h1 {
+main .ql-snow .ql-editor h1 {
   font-size: 1.4em;
+}
+main .ql-snow .ql-editor h2 {
+  font-size: 1.2em;
+}
+main .ql-snow .ql-editor h3 {
+  font-size: 1em;
+}
+main .quill-editor h1 {
   margin-bottom: 0.2em;
   margin-top: 0em;
 }
 main .quill-editor h2 {
-  font-size: 1.2em;
   margin-bottom: 0em;
   margin-top: 1.2em;
 }
 main .quill-editor h3 {
-  font-size: 1em;
   margin-bottom: 0em;
   margin-top: 1em;
 }
