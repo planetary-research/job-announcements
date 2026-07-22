@@ -65,6 +65,12 @@ footer .footer-small {
   font-size: 0.9em;
   margin-bottom: 0.3em;
 }
+footer .footer-thanks {
+  font-size: 0.7em;
+  margin-bottom: 0.3em;
+  padding-top: 0em;
+  line-height: 0.5em;
+}
 footer .social {
   margin-top: 1em;
   margin-bottom: 0.3em;
