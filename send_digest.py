@@ -67,7 +67,15 @@ with app.app_context():
 
     message = (
         '<style>' +
-        '    table.job-table {' +
+        '@media(max-width: 500px) {' +
+        'td {' +
+        '    display: table-row;' + 
+        '}' +
+        'th {' +
+        '    display: table-row;' +
+        '}' +
+        '}' +
+        'table.job-table {' +
         '    max-width: 1200px;' +
         '    width: 100%;' +
         '    font-size: 0.8em;' +
