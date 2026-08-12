@@ -176,6 +176,8 @@ base_data = {
     "mastodon_url": config.mastodon_account_url,
     "bluesky_url": config.bluesky_account_url,
     "site_description": config.site_description,
+    "github_repo": config.github_repo,
+    "codeberg_repo": config.codeberg_repo,
 }
 
 base_alerts = {
