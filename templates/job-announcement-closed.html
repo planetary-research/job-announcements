@@ -10,7 +10,11 @@
 
     <div class="return-to-home">
         <a class="btn btn-primary btn-md" href="{{ home_uri }}">Return to home page</a>
+        {% if can_edit %}
+            <a class="btn btn-danger btn-md" href="{{ edit_URL }}">Edit announcement</a>
+        {% endif %}
     </div>
+
 </div>
 
 {% endblock %}

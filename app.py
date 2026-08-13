@@ -304,7 +304,13 @@ def action(slug):
 
     # check if the job announcement is open
     if result.is_active is False:
-        return render_template("job-announcement-closed.html", **base_data)
+        if can_edit:
+            data = {
+                "can_edit": can_edit,
+                "edit_URL": os.path.join(config.site_path, result.job_slug, "edit"),
+            }
+
+        return render_template("job-announcement-closed.html", **(base_data | data))
 
     job = Jobs.query.filter_by(job_slug=slug).first()
 
@@ -861,6 +867,9 @@ def edit(slug):
 
     # Default alerts (= None)
     alerts = base_alerts.copy()
+
+    if edit_job.is_active is False:
+        alerts["danger"] = "Job announcement is not yet published."
 
     published = edit_job.is_active
     # If an update is pushed
