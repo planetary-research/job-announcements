@@ -16,6 +16,7 @@
   .small-screen {
     padding-left: 0.6em;
     padding-right: 0.6em;
+    display: flex;
   }
 }
 
