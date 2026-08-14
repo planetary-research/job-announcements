@@ -10,6 +10,9 @@
   th {
     display: table-row;
   }
+  td p.job-label {
+    padding-left: 1.2em;
+  }
 }
 
 body {
@@ -73,7 +76,7 @@ footer .footer-thanks {
 }
 footer .social {
   margin-top: 1em;
-  margin-bottom: 0.3em;
+  margin-bottom: 1.5em;
 }
 footer .social i {
   margin-right: 0.5em;
