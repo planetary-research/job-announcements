@@ -32,11 +32,11 @@
       <table class="job-table">
         <thead>
           <tr>
-            <th style="width: 47%">Title</th>
-            <th style="width: 32%;">Institution</th>
-            <th style="width: 21%;">Location</th>
-            <th style="width: 7em;">Deadline</th>
-            <th style="width: 7em;">Posted</th>
+            <th style="width: 47%"><span class="small-screen">Title</span></th>
+            <th style="width: 32%;"><span class="small-screen">Institution</span></th>
+            <th style="width: 21%;"><span class="small-screen">Location</span></th>
+            <th style="width: 7em;"><span class="small-screen">Deadline</span></th>
+            <th style="width: 7em;"><span class="small-screen">Posted</span></th>
           </tr>
         </thead>
         <tbody>
@@ -44,11 +44,11 @@
           {% if desc[0] == id %}
             {% set counter.value = counter.value + 1 %}
             <tr>
-              <td><a href="{{ desc[1] }}">{{ desc[2] | safe }}</a></td>
-              <td>{{ desc[3] | safe }}</td>
-              <td>{{ desc[4] | safe }}</td>
-              <td>{{ desc[5] }}</td>
-              <td>{{ desc[6] }}</td>
+              <td><span class="small-screen"><a href="{{ desc[1] }}">{{ desc[2] | safe }}</a></span></td>
+              <td><span class="small-screen">{{ desc[3] | safe }}</span></td>
+              <td><span class="small-screen">{{ desc[4] | safe }}</span></td>
+              <td><span class="small-screen">{{ desc[5] }}</span></td>
+              <td><span class="small-screen">{{ desc[6] }}</span></td>
             </tr>
           {% endif %}
         {% endfor %}

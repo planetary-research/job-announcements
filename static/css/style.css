@@ -3,7 +3,7 @@
     width: 1200px;
   }
 }
-@media(max-width: 500px) {
+@media(max-width: 600px) {
   td {
     display: table-row;
   }
@@ -12,6 +12,10 @@
   }
   td p.job-label {
     padding-left: 1.2em;
+  }
+  .small-screen {
+    padding-left: 0.6em;
+    padding-right: 0.6em;
   }
 }
 
