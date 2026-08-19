@@ -67,9 +67,9 @@ with app.app_context():
 
     message = (
         '<style>' +
-        '@media(max-width: 500px) {' +
+        '@media(max-width: 600px) {' +
         'td {' +
-        '    display: table-row;' + 
+        '    display: table-row;' +
         '}' +
         'th {' +
         '    display: table-row;' +
@@ -101,6 +101,11 @@ with app.app_context():
         '.job-table tr:nth-of-type(even) {' +
         '    background-color: #f5f5f5;' +
         '}' +
+        '.small-screen {' +
+        '    padding-left: 0.6em;' +
+        '    padding-right: 0.6em;' +
+        '    display: flex;' +
+        '}' +
         '</style>'
     )
 
@@ -121,11 +126,11 @@ with app.app_context():
                     '<table class="job-table">\n' +
                     '<thead>\n' +
                     '<tr>\n' +
-                    '<th style="width: 47%">Title</th>\n' +
-                    '<th style="width: 32%;">Institution</th>\n' +
-                    '<th style="width: 21%;">Location</th>\n' +
-                    '<th style="width: 7em;">Deadline</th>\n' +
-                    '<th style="width: 7em;">Posted</th>\n' +
+                    '<th style="width: 47%"><span class="small-screen">Title</span></th>\n' +
+                    '<th style="width: 32%;"><span class="small-screen">Institution</span></th>\n' +
+                    '<th style="width: 21%;"><span class="small-screen">Location</span></th>\n' +
+                    '<th style="width: 7em;"><span class="small-screen">Deadline</span></th>\n' +
+                    '<th style="width: 7em;"><span class="small-screen">Posted</span></th>\n' +
                     '</tr>\n' +
                     '</thead>\n' +
                     '<tbody>\n'
@@ -135,11 +140,11 @@ with app.app_context():
                     if desc[0] == id:
                         message += (
                             '<tr>\n' +
-                            '<td><a href="' + desc[1] + '">' + desc[2] + '</a></td>\n' +
-                            '<td>' + desc[3] + '</td>\n' +
-                            '<td>' + desc[4] + '</td>\n' +
-                            '<td>' + desc[5] + '</td>\n' +
-                            '<td>' + desc[6] + '</td>\n' +
+                            '<td><span class="small-screen"><a href="' + desc[1] + '">' + desc[2] + '</a></span></td>\n' +
+                            '<td><span class="small-screen">' + desc[3] + '</span></td>\n' +
+                            '<td><span class="small-screen">' + desc[4] + '</span></td>\n' +
+                            '<td><span class="small-screen">' + desc[5] + '</span></td>\n' +
+                            '<td><span class="small-screen">' + desc[6] + '</span></td>\n' +
                             '</tr>\n'
                         )
 

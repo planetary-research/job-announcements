@@ -1,0 +1,31 @@
+{
+    "@context": "https://w3id.org/codemeta/3.0",
+    "type": "SoftwareSourceCode",
+    "author": [
+        {
+            "id": "https://orcid.org/0000-0001-7007-4222",
+            "type": "Person",
+            "affiliation": {
+                "type": "Organization",
+                "name": "Université Paris Cité, Institut de Physique du Globe  de Paris, CNRS"
+            },
+            "familyName": "Wieczorek",
+            "givenName": "Mark"
+        },
+        {
+            "type": "Role",
+            "schema:author": "https://orcid.org/0000-0001-7007-4222",
+            "roleName": "Developer"
+        }
+    ],
+    "codeRepository": "git+https://codeberg.org/planetary-research/job-announcements.git",
+    "dateCreated": "2026-05-27",
+    "description": "Open source job announcement platform",
+    "downloadUrl": "https://codeberg.org/planetary-research/job-announcements/archive/main.tar.gz",
+    "keywords": "job announcements",
+    "license": "https://spdx.org/licenses/BSD-3-Clause",
+    "name": "Job announcements",
+    "programmingLanguage": "Python",
+    "relatedLink": "https://codeberg.org/planetary-research",
+    "issueTracker": "https://codeberg.org/planetary-research/job-announcements/issues"
+}
