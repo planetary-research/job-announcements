@@ -775,19 +775,19 @@ def create():
                 if mastodon_api and new_job.is_active:
                     try:
                         mastodon.toot(social_post + social_link)
-                    except:
-                        social_warning = "Could not post to Mastodon (contact admin). "
+                    except Exception as e:
+                        social_warning = "Could not post to Mastodon (contact admin). " + type(e).__name__
                 if bluesky_api and new_job.is_active:
                     text_builder = client_utils.TextBuilder()
                     text_builder.text(social_post)
                     text_builder.link(social_link, social_link)
                     try:
                         client.send_post(text_builder)
-                    except:
+                    except Exception as e:
                         if social_warning is None:
                             social_warning = "Could not post to Bluesky (contact admin)."
                         else:
-                            social_warning += "Could not post to Bluesky (contact admin)."
+                            social_warning += "Could not post to Bluesky (contact admin). " + type(e).__name__
 
                 base_data["redirect_alerts"] = {
                     "success": "Job created.",
@@ -965,19 +965,19 @@ def edit(slug):
             if mastodon_api and edit_job.is_active and not published:
                 try:
                     mastodon.toot(social_post + social_link)
-                except:
-                    social_warning = "Could not post to Mastodon (contact admin). "
+                except Exception as e:
+                    social_warning = "Could not post to Mastodon (contact admin). " + type(e).__name__
             if bluesky_api and edit_job.is_active:
                 text_builder = client_utils.TextBuilder()
                 text_builder.text(social_post)
                 text_builder.link(social_link, social_link)
                 try:
                     client.send_post(text_builder)
-                except:
+                except Exception as e:
                     if social_warning is None:
-                        social_warning = "Could not post to Bluesky (contact admin)."
+                        social_warning = "Could not post to Bluesky (contact admin). " + type(e).__name__
                     else:
-                        social_warning += "Could not post to Bluesky (contact admin)."
+                        social_warning += "Could not post to Bluesky (contact admin). " + type(e).__name__
 
             base_data["redirect_alerts"] = {
                 "success": alert_text,
@@ -997,12 +997,12 @@ def edit(slug):
                         "info": None,
                         "warning": None,
                     }
-                except:
+                except Exception as e:
                     base_data["redirect_alerts"] = {
                         "success": None,
                         "danger": None,
                         "info": None,
-                        "warning": "Could not post announcement to Mastodon.",
+                        "warning": "Could not post announcement to Mastodon. " + type(e).__name__,
                     }
             else:
                 base_data["redirect_alerts"] = {
@@ -1026,12 +1026,12 @@ def edit(slug):
                         "info": None,
                         "warning": None,
                     }
-                except:
+                except Exception as e:
                     base_data["redirect_alerts"] = {
                         "success": None,
                         "danger": None,
                         "info": None,
-                        "warning": "Could not post announcement to Bluesky.",
+                        "warning": "Could not post announcement to Bluesky. " + type(e).__name__,
                     }
             else:
                 base_data["redirect_alerts"] = {
