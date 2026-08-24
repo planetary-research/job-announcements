@@ -268,6 +268,31 @@
     </form>
 </div>
 
+{% if role_id == 3 and form_activate is true %}
+<hr />
+
+<div class="margin-section">
+    <h3>Repost to social media</h3>
+    <p>
+      To repost an announcement to social media, click on the appropriate button below.
+    </p>
+
+    <form action="{{ edit_uri }}" method="POST" id="repost_mastodon">
+        <input type="hidden">
+        <div>
+            <button type="submit" class="btn btn-success" name="mode" value="repost_mastodon">Repost to Mastodon</button>
+        </div>
+    </form>
+    <p></p>
+    <form action="{{ edit_uri }}" method="POST" id="repost_bluesky">
+        <input type="hidden">
+        <div>
+            <button type="submit" class="btn btn-success" name="mode" value="repost_bluesky">Repost to Bluesky</button>
+        </div>
+    </form>
+</div>
+{% endif %}
+
 <hr />
 
 <div class="margin-section">

@@ -873,6 +873,33 @@ def edit(slug):
 
     published = edit_job.is_active
     # If an update is pushed
+
+    # Create string for republishing social media posts
+    location = edit_job.city
+    if edit_job.country != '':
+        if location != '':
+            location = location + ', ' + edit_job.country
+        else:
+            location = edit_job.country
+
+    social_post = (
+            "Job Announcement\n" +
+            "Category: " + config.categories[edit_job.category_id] + "\n\n" +
+            edit_job.title + ". "
+    )
+    if edit_job.institution != '':
+        social_post += edit_job.institution
+        if location != '':
+            social_post += ", " + location + "\n\n"
+        else:
+            social_post += "\n\n"
+    else:
+        social_post += location + "\n\n"
+    social_post = html.unescape(social_post)
+
+    social_link = os.path.join(config.job_announcements_url, edit_job.job_slug)
+    social_warning = None
+
     if request.method == "POST":
         if request.form.get("mode") == "edit_job":
 
@@ -935,30 +962,6 @@ def edit(slug):
             edit_job.is_active = is_active
             db.session.commit()
 
-            location = edit_job.city
-            if edit_job.country != '':
-                if location != '':
-                    location = location + ', ' + edit_job.country
-                else:
-                    location = edit_job.country
-
-            social_post = (
-                "Job Announcement\n" +
-                "Category: " + config.categories[edit_job.category_id] + "\n\n" +
-                edit_job.title + ". "
-            )
-            if edit_job.institution != '':
-                social_post += edit_job.institution
-                if location != '':
-                    social_post += ", " + location + "\n\n"
-                else:
-                    social_post += "\n\n"
-            else:
-                social_post += location + "\n\n"
-            social_post = html.unescape(social_post)
-
-            social_link = os.path.join(config.job_announcements_url, edit_job.job_slug)
-            social_warning = None
             if mastodon_api and edit_job.is_active and not published:
                 try:
                     mastodon.toot(social_post + social_link)
@@ -982,6 +985,61 @@ def edit(slug):
                 "info": None,
                 "warning": social_warning,
             }
+            return redirect(editor_URI)
+
+        if request.form.get("mode") == "repost_mastodon":
+            if mastodon_api and edit_job.is_active:
+                try:
+                    mastodon.toot(social_post + social_link)
+                    base_data["redirect_alerts"] = {
+                        "success": "Job announcement reposted to Mastodon.",
+                        "danger": None,
+                        "info": None,
+                        "warning": None,
+                    }
+                except:
+                    base_data["redirect_alerts"] = {
+                        "success": None,
+                        "danger": None,
+                        "info": None,
+                        "warning": "Could not post announcement to Mastodon.",
+                    }
+            else:
+                base_data["redirect_alerts"] = {
+                    "success": None,
+                    "danger": None,
+                    "info": None,
+                    "warning": "Mastodon API is not configured.",
+                }
+            return redirect(editor_URI)
+
+        if request.form.get("mode") == "repost_bluesky":
+            if bluesky_api and edit_job.is_active:
+                text_builder = client_utils.TextBuilder()
+                text_builder.text(social_post)
+                text_builder.link(social_link, social_link)
+                try:
+                    client.send_post(text_builder)
+                    base_data["redirect_alerts"] = {
+                        "success": "Job announcement reposted to Bluesky.",
+                        "danger": None,
+                        "info": None,
+                        "warning": None,
+                    }
+                except:
+                    base_data["redirect_alerts"] = {
+                        "success": None,
+                        "danger": None,
+                        "info": None,
+                        "warning": "Could not post announcement to Bluesky.",
+                    }
+            else:
+                base_data["redirect_alerts"] = {
+                    "success": None,
+                    "danger": None,
+                    "info": None,
+                    "warning": "Bluesky API is not configured.",
+                }
             return redirect(editor_URI)
 
         if request.form.get("mode") == "reset_date":
