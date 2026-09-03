@@ -129,7 +129,9 @@
 
 <div>
   {% if job_description != '' %}
-  <h3 class="job">Job Description</h3>
+
+  <p style="margin-top: 4em; font-size: 0.8em; font-weight: bold; color: #444; line-height:0;">JOB DESCRIPTION</p>
+  <hr style="margin-top: 0; border-color: #aaa;">
   <div class="job-description">
     {{ job_description | safe}}
   </div>
@@ -137,7 +139,7 @@
 </div>
 
 <div class="back-button">
-<p><a href="{{ job_announcements_url }}"><i class="bi bi-arrow-left"></i> Back</a></p>
+<p style="margin-bottom: 0;"><a href="{{ job_announcements_url }}"><i class="bi bi-arrow-left"></i> Back</a></p>
 </div>
 
 </div>
