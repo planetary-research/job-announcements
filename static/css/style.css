@@ -10,9 +10,6 @@
   th {
     display: table-row;
   }
-  td p.job-label {
-    padding-left: 1.2em;
-  }
   .small-screen {
     padding-left: 0.6em;
     padding-right: 0.6em;
@@ -172,31 +169,35 @@ th.col4 {
 th.col5 {
   width: 7em;
 }
+main .job {
+  color: #444;
+  font-weight: bold;
+  margin-top: 0em;
+  margin-bottom: 2.5em;
+}
 main .job-label {
-  font-size: 1em;
-  margin-bottom: 0.2em;
+  font-size: 0.8em;
+  margin-bottom: 0.4em;
+  line-height: 1.4em;
+}
+main .job-label-header {
+  margin-right: 1em;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #444;
 }
 main .job-attribute {
   font-size: 1em;
 }
 main .job-summary-box {
-  font-size: 0.9em;
-  margin: 0;
-  padding: 1.2em 0em 0em 0em;
-  background-color: #f9f9f9;
-  border: 1px solid #aaa;
-  border-radius: 0.5em;
+  font-size: 1em;
 }
 main .job-summary-box td {
-   padding-left: 2em;
-   padding-right: 2em;
+   padding-right: 4em;
 }
 main .job-content {
   max-width: 900px;
   padding-bottom: 4em;
-}
-main .job {
-  color: #3176b1;
 }
 main .link {
   color: #007799;
@@ -373,6 +374,7 @@ main .quill-editor h3 {
 
 hr {
   border-top: 1px solid #000;
+  margin-bottom: 1em;
 }
 
 h1 {
