@@ -173,7 +173,7 @@ main .job {
   color: #444;
   font-weight: bold;
   margin-top: 0em;
-  margin-bottom: 2.5em;
+  margin-bottom: 2em;
 }
 main .job-label {
   font-size: 0.8em;
@@ -304,7 +304,7 @@ main .select-button {
   background-color: #e4e4e4;
 }
 main .back-button {
-  padding-top: 2em;
+  padding-top: 0em;
 }
 main .job-description h1 {
   font-size: 1.4em;
