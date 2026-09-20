@@ -21,110 +21,102 @@
 
 <div class="job-summary-box">
 
-<table style="margin-bottom: 1em; " >
-  <tr style="vertical-align: top;">
-    <td style="width: 60%;">
+    {% if job_institution != '' %}
+    <p class="job-label">
+      <span class="job-label-header">Institution</span>{{ job_institution }}
+    </p>
+    {% endif %}
 
-      {% if job_institution != '' %}
-      <p class="job-label">
-        <span class="job-label-header">Institution</span>{{ job_institution }}
-      </p>
-      {% endif %}
+    {% if job_department != '' %}
+    <p class="job-label">
+      <span class="job-label-header">Department</span>{{ job_department }}
+    </p>
+    {% endif %}
 
-      {% if job_department != '' %}
-      <p class="job-label">
-        <span class="job-label-header">Department</span>{{ job_department }}
-      </p>
-      {% endif %}
+    {% if job_location != '' %}
+    <p class="job-label">
+      <span class="job-label-header">Location</span>{{ job_location }}
+    </p>
+    {% endif %}
 
-      {% if job_location != '' %}
-      <p class="job-label">
-        <span class="job-label-header">Location</span>{{ job_location }}
-      </p>
-      {% endif %}
+    {% if job_work_arrangement != '' %}
+    <p class="job-label">
+      <span class="job-label-header">Work arrangement</span>{{ job_work_arrangement}}
+    </p>
+    {% endif %}
 
-      {% if job_work_arrangement != '' %}
-      <p class="job-label">
-        <span class="job-label-header">Work arrangement</span>{{ job_work_arrangement}}
-      </p>
-      {% endif %}
+    {% if job_duration != '' %}
+    <p class="job-label">
+      <span class="job-label-header">Duration</span>{{ job_duration }}
+    </p>
+    {% endif %}
 
-      {% if job_duration != '' %}
-      <p class="job-label">
-        <span class="job-label-header">Duration</span>{{ job_duration }}
-      </p>
-      {% endif %}
+    {% if job_can_extend != '' %}
+    <p class="job-label">
+      <span class="job-label-header">Can be extended</span>{{ job_can_extend }}
+    </p>
+    {% endif %}
 
-      {% if job_can_extend != '' %}
-      <p class="job-label">
-        <span class="job-label-header">Can be extended</span>{{ job_can_extend }}
-      </p>
-      {% endif %}
+    {% if job_salary != '' %}
+    <p class="job-label">
+      <span class="job-label-header">Salary</span>{{ job_salary }}
+    </p>
+    {% endif %}
 
-      {% if job_salary != '' %}
-      <p class="job-label">
-        <span class="job-label-header">Salary</span>{{ job_salary }}
-      </p>
-      {% endif %}
-    </td>
-    <td>
-      {% if job_number_positions != '' %}
-      <p class="job-label">
-        <span class="job-label-header">Number of positions</span>{{ job_number_positions }}
-      </p>
-      {% endif %}
+    {% if job_number_positions != '' %}
+    <p class="job-label">
+      <span class="job-label-header">Number of positions</span>{{ job_number_positions }}
+    </p>
+    {% endif %}
 
-      {% if job_deadline_date != '' %}
-      <p class="job-label">
-        <span class="job-label-header">Application deadline</span>{{ job_deadline_date }}
-      </p>
-      {% endif %}
+    {% if job_deadline_date != '' %}
+    <p class="job-label">
+      <span class="job-label-header">Application deadline</span>{{ job_deadline_date }}
+    </p>
+    {% endif %}
 
-      {% if job_start_date != '' %}
-      <p class="job-label">
-        <span class="job-label-header">Start date</span>{{ job_start_date }}
-      </p>
-      {% endif %}
+    {% if job_start_date != '' %}
+    <p class="job-label">
+      <span class="job-label-header">Start date</span>{{ job_start_date }}
+    </p>
+    {% endif %}
 
-      {% if job_start_date_string != '' %}
-      <p class="job-label">
-        <span class="job-label-header">Start date</span>{{ job_start_date_string }}
-      </p>
-      {% endif %}
+    {% if job_start_date_string != '' %}
+    <p class="job-label">
+      <span class="job-label-header">Start date</span>{{ job_start_date_string }}
+    </p>
+    {% endif %}
 
-      {% if job_official_announcement_url != '' %}
-      <p class="job-label">
-        <span class="job-label-header">Official announcement</span><a href="{{ job_official_announcement_url }}" target="_blank"><i class="bi bi-box-arrow-up-right"></i></a>
-      </p>
-      {% endif %}
+    {% if job_official_announcement_url != '' %}
+    <p class="job-label">
+      <span class="job-label-header">Official announcement</span><a href="{{ job_official_announcement_url }}" target="_blank"><i class="bi bi-box-arrow-up-right"></i></a>
+    </p>
+    {% endif %}
 
-      {% if job_reference_code != '' %}
-      <p class="job-label">
-        <span class="job-label-header">Reference code</span>{{ job_reference_code }}
-      </p>
-      {% endif %}
+    {% if job_reference_code != '' %}
+    <p class="job-label">
+      <span class="job-label-header">Reference code</span>{{ job_reference_code }}
+    </p>
+    {% endif %}
 
-      {% if job_inquiries_email != '' %}
-      <p class="job-label">
-        <span class="job-label-header">Inquiries</span>{%if job_inquiries_name != '' %}<a href="mailto:{{ job_inquiries_email }}">{{ job_inquiries_name }}</a>
-        {% else %}
-        <a href="mailto:{{ job_inquiries_email }}">{{ job_inquiries_email }}</a>
-        {% endif %}
-      </p>
+    {% if job_inquiries_email != '' %}
+    <p class="job-label">
+      <span class="job-label-header">Inquiries</span>{%if job_inquiries_name != '' %}<a href="mailto:{{ job_inquiries_email }}">{{ job_inquiries_name }}</a>
+      {% else %}
+      <a href="mailto:{{ job_inquiries_email }}">{{ job_inquiries_email }}</a>
       {% endif %}
+    </p>
+    {% endif %}
 
-      {% if job_post_date != '' %}
-      <p class="job-label">
-        <span class="job-label-header">Posted</span>{{ job_post_date }}
-      </p>
-      {% endif %}
+    {% if job_post_date != '' %}
+    <p class="job-label">
+      <span class="job-label-header">Posted</span>{{ job_post_date }}
+    </p>
+    {% endif %}
 
-      <p class="job-label">
-        <span class="job-label-header">Posted by</span><a href="https://orcid.org/{{ job_owner_orcid }}" target="_blank">{{ job_owner_orcid }}</a>
-      </p>
-    </td>
-  </tr>
-</table>
+    <p class="job-label">
+      <span class="job-label-header">Posted by</span><a href="https://orcid.org/{{ job_owner_orcid }}" target="_blank">{{ job_owner_orcid }}</a>
+    </p>
 </div>
 
 <div>
