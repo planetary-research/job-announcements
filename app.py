@@ -341,7 +341,7 @@ def action(slug):
     data = {
         "job_category": config.categories[job.category_id],
         "job_title": job.title,
-        "job_description": job.description,
+        "job_description": job.description.removesuffix('<p><br></p>'),
         # "job_application_instructions": job.application_instructions,
         "job_institution": job.institution,
         "job_department": job.department,
@@ -709,7 +709,7 @@ def create():
                 job_slug=job_slug,
                 category_id=request.form["new_category"],
                 title=escape(request.form["title"]).strip(),
-                description=request.form["description"],
+                description=request.form["description"].removesuffix('<p><br></p>'),
                 # application_instructions=request.form["application_instructions"],
                 institution=escape(request.form["institution"]).strip(),
                 department=escape(request.form["department"]).strip(),
@@ -807,7 +807,7 @@ def create():
         "page": 'create',
         "form_slug": new_job.job_slug,
         "form_title": new_job.title,
-        "form_description": new_job.description,
+        "form_description": new_job.description.removesuffix('<p><br></p>'),
         # "form_application_instructions": new_job.application_instructions,
         "form_institution": new_job.institution,
         "form_department": new_job.department,
@@ -917,7 +917,7 @@ def edit(slug):
             edit_job.deadline_date = deadline_date
             edit_job.category_id = request.form["new_category"]
             edit_job.title = escape(request.form["title"]).strip()
-            edit_job.description = request.form["description"]
+            edit_job.description = description = request.form["description"].removesuffix('<p><br></p>')
             # edit_job.application_instructions=request.form["application_instructions"]
             edit_job.institution = escape(request.form["institution"]).strip()
             edit_job.department = escape(request.form["department"]).strip()
@@ -1127,7 +1127,7 @@ def edit(slug):
         "page": 'edit',
         "form_slug": edit_job.job_slug,
         "form_title": edit_job.title,
-        "form_description": edit_job.description,
+        "form_description": edit_job.description.removesuffix('<p><br></p>'),
         # "form_application_instructions": edit_job.application_instructions,
         "form_institution": edit_job.institution,
         "form_department": edit_job.department,
