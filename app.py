@@ -17,6 +17,8 @@ from feedgen.feed import FeedGenerator
 import numpy as np
 from mastodon import Mastodon
 from atproto import Client, client_utils
+import json
+from io import BytesIO
 
 import config
 from db_models import db, Jobs, JobCategory, Admin, UserRole, Block
@@ -212,7 +214,7 @@ def home():
     else:
         user = Admin.query.filter_by(orcid=session["orcid"]).first()
         if user is None:
-            role_id = 0
+            role_id = 1
         else:
             role_id = user.role_id
 
@@ -286,7 +288,7 @@ def action(slug):
     else:
         user = Admin.query.filter_by(orcid=session["orcid"]).first()
         if user is None:
-            role_id = 0
+            role_id = 1
         else:
             role_id = user.role_id
             if role_id == 3:
@@ -338,6 +340,24 @@ def action(slug):
         else:
             location = job.country
 
+    if request.method == "POST":
+        if request.form.get("mode") == "download-json":
+            dict_export = {}
+            for column in job.__table__.columns:
+                temp = getattr(job, column.name)
+                if type(temp) == bool or type(temp) == int or temp == None:
+                    dict_export[column.name] = temp
+                else:
+                    dict_export[column.name] = str(getattr(job, column.name))
+
+            json_str = json.dumps(dict_export, indent=4, ensure_ascii=False).encode('utf-8')
+
+            return send_file(
+                BytesIO(json_str),
+                as_attachment=True,
+                download_name=job.job_slug+".json",
+            )
+
     data = {
         "job_category": config.categories[job.category_id],
         "job_title": job.title,
@@ -367,6 +387,7 @@ def action(slug):
         "role_id": role_id,
         "show_edit": can_edit,
         "edit_URL": os.path.join(config.site_path, result.job_slug, "edit"),
+        "download_uri": os.path.join(config.site_path, job.job_slug),
     }
 
     return render_template(job_template, **(base_data | data))
@@ -438,7 +459,7 @@ def privacy():
     else:
         user = Admin.query.filter_by(orcid=session["orcid"]).first()
         if user is None:
-            role_id = 0
+            role_id = 1
         else:
             role_id = user.role_id
 
@@ -462,7 +483,7 @@ def faq():
     else:
         user = Admin.query.filter_by(orcid=session["orcid"]).first()
         if user is None:
-            role_id = 0
+            role_id = 1
         else:
             role_id = user.role_id
 

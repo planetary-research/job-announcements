@@ -93,7 +93,7 @@ footer .social a:visited {
 main {
   flex: 1;
   margin-top: 1.2em;
-  margin-bottom: 1.2em;
+  margin-bottom: 0em;
 }
 main a {
   color: #007799;

@@ -6,8 +6,13 @@
 {% block content %}
 
 <div class="job-content">
+{% if role_id >= 1 %}
 {% if show_edit %}
-<p><a href="{{ edit_URL }}"><i class="bi bi-pencil-square"></i>&nbsp;Edit this announcement</a></p>
+<p><a href="{{ edit_URL }}"><i class="bi bi-pencil-square"></i>&nbsp;&nbsp;Edit this announcement</a></p>
+{% endif %}
+<form action="{{ download_uri }}" method="POST" id="download-json">
+    <p style="padding-bottom: 2em; line-height:0em;"><button type="submit" name="mode" value="download-json" class="btn btn-link link" style="padding:0; border: 0; font-size: 1em; line-height:0em;"><i class="bi bi-download"></i>&nbsp;&nbsp;Download as JSON</button></p>
+</form>
 {% endif %}
 
 <p style="text-transform: uppercase; padding-bottom: 0.5em;">
@@ -130,7 +135,7 @@
   {% endif %}
 </div>
 
-<hr style="margin-top: 2em; margin-bottom: 0.5em; border-color: #aaa;">
+<hr style="margin-top: 2em; margin-bottom: 1em; border-color: #aaa;">
 <div class="back-button">
 <p style="margin-bottom: 0;"><a href="{{ job_announcements_url }}"><i class="bi bi-arrow-left"></i> Back</a></p>
 </div>
