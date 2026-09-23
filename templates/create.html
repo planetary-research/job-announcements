@@ -52,11 +52,25 @@
     <h3>CREATE A NEW JOB ANNOUNCEMENT</h3>
     <p>
         Fill in the following fields and then click on the button <b>Submit</b>.
+    </p>
+    <p>
         All fields are optional with the exception of the job category, announcement
         title and job announcement slug. Any fields that are left blank will not be
         shown on the announcement. You will be able to edit this announcement
         later by signing in with your ORCID account.
     </p>
+    <p>
+        To import a job announcement from a JSON file, choose the file on your
+        computer and then click on the button <b>Import</b>.
+    </p>
+
+    <form action="{{ create_uri }}" method="POST" enctype="multipart/form-data" id="import_json">
+      <input type="hidden" name="mode" value="import_json">
+      <div style="font-size: 0.85em; padding-bottom: 2em;">
+        <input type="file" name="file" accept=".json" style="margin-bottom: 0.85em;">
+        <input type="submit" value="Import">
+      </div>
+    </form>
 
     <form action="{{ create_uri }}" method="POST" id="create_job">
         <input type="hidden" name="mode" value="create_job">
@@ -211,7 +225,7 @@
                 <b>Job description</b><br>Will appear below the job title and job summary
             </p>
 
-            <div class="quill-editor" id="editor"></div>
+            <div class="quill-editor" id="editor">{{ form_description | safe }}</div>
             <input type="hidden" name="description" id="description">
 
             <script>

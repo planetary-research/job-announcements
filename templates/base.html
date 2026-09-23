@@ -13,9 +13,7 @@
     <!-- <link href='//fonts.googleapis.com/css?family=Source+Code+Pro:300' rel='stylesheet' type='text/css'> -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
-    {% if mastodon_url is not none %}
-    <link href="{{ mastodon_url }}" rel="me" />
-    {% endif %}
+    {% if mastodon_url is not none %}<link href="{{ mastodon_url }}" rel="me" />{% endif %}
 
     <script src="{{ url_for('static', filename='js/jquery-2.0.3.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>

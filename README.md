@@ -17,6 +17,7 @@ was developed by the
 * Create a job announcement effortlessly by filling out a simple form.
 * Add a job description using a graphical editor.
 * Edit an announcement later, or close the announcement when it has been filled.
+* Import and export announcements as JSON files.
 * Automatically post new job announcements to Mastodon and Bluesky.
 * Generate RSS/Atom feeds for all jobs and for individual job categories.
 * Send a weekly digest by email to a mailing list,

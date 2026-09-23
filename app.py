@@ -345,7 +345,7 @@ def action(slug):
             dict_export = {}
             for column in job.__table__.columns:
                 temp = getattr(job, column.name)
-                if type(temp) == bool or type(temp) == int or temp == None:
+                if type(temp) is bool or type(temp) is int or temp is None:
                     dict_export[column.name] = temp
                 else:
                     dict_export[column.name] = str(getattr(job, column.name))
@@ -700,10 +700,47 @@ def create():
         owner_orcid=session["orcid"],
         owner_name=session["name"],
         start_date_string='',
+        start_date=None,
+        deadline_date=None,
     )
 
     # If an update is pushed
     if request.method == "POST":
+        if request.form.get("mode") == "import_json":
+            file = request.files['file']
+            if file.filename == '':
+                alerts["warning"] = "Please choose a file to import."
+            else:
+                try:
+                    data = file.read()
+                    json_data = json.loads(data)
+                    new_job.title = json_data['title']
+                    new_job.description = json_data['description']
+                    new_job.institution = json_data['institution']
+                    new_job.department = json_data['department']
+                    new_job.country = json_data['country']
+                    new_job.city = json_data['city']
+                    new_job.work_arrangement = json_data['work_arrangement']
+                    new_job.official_announcement_url = json_data['official_announcement_url']
+                    new_job.duration = json_data['duration']
+                    new_job.can_extend = json_data['can_extend']
+                    new_job.salary = json_data['salary']
+                    new_job.number_positions = json_data['number_positions']
+                    new_job.reference_code = json_data['reference_code']
+                    new_job.inquiries_name = json_data['inquiries_name']
+                    new_job.inquiries_email = json_data['inquiries_email']
+                    new_job.start_date_string = json_data['start_date_string']
+                    if json_data['start_date'] is not None:
+                        start_date = datetime.datetime.strptime(json_data['start_date'], '%Y-%m-%d %H:%M:%S')
+                        new_job.start_date = start_date
+                    if json_data['deadline_date'] is not None:
+                        deadline_date = datetime.datetime.strptime(json_data['deadline_date'], '%Y-%m-%d %H:%M:%S')
+                        new_job.deadline_date = deadline_date
+                    alerts["success"] = "JSON file imported successfully. Choose a job category and then click submit."
+
+                except Exception as e:
+                    alerts["danger"] = f"Could not parse JSON file {file.filename}: {type(e).__name__}"
+
         if request.form.get("mode") == "create_job":
             if request.form["activate_job"] == 'True':
                 is_active = True
@@ -797,7 +834,7 @@ def create():
                     try:
                         mastodon.toot(social_post + social_link)
                     except Exception as e:
-                        social_warning = "Could not post to Mastodon (contact admin). " + type(e).__name__
+                        social_warning = f"Could not post to Mastodon (contact admin). {type(e).__name__}"
                 if bluesky_api and new_job.is_active:
                     text_builder = client_utils.TextBuilder()
                     text_builder.text(social_post)
@@ -808,7 +845,7 @@ def create():
                         if social_warning is None:
                             social_warning = "Could not post to Bluesky (contact admin)."
                         else:
-                            social_warning += "Could not post to Bluesky (contact admin). " + type(e).__name__
+                            social_warning += f"Could not post to Bluesky (contact admin). {type(e).__name__}"
 
                 base_data["redirect_alerts"] = {
                     "success": "Job created.",
@@ -817,6 +854,15 @@ def create():
                     "warning": social_warning,
                 }
                 return redirect(editor_URI)
+
+    if new_job.start_date is None:
+        form_start_date = None
+    else:
+        form_start_date = new_job.start_date.strftime('%Y-%m-%d')
+    if new_job.deadline_date is None:
+        form_deadline_date = None
+    else:
+        form_deadline_date = new_job.deadline_date.strftime('%Y-%m-%d')
 
     data = {
         "categories": list(enumerate(config.categories)),
@@ -844,9 +890,9 @@ def create():
         "form_inquiries_email": new_job.inquiries_email,
         "form_salary": new_job.salary,
         "form_activate": new_job.is_active,
-        "form_start_date": new_job.start_date,
+        "form_start_date": form_start_date,
         "form_start_date_string": new_job.start_date_string,
-        "form_deadline_date": new_job.deadline_date,
+        "form_deadline_date": form_deadline_date,
     }
 
     return render_template("create.html", **(base_data | data))
@@ -938,7 +984,7 @@ def edit(slug):
             edit_job.deadline_date = deadline_date
             edit_job.category_id = request.form["new_category"]
             edit_job.title = escape(request.form["title"]).strip()
-            edit_job.description = description = request.form["description"].removesuffix('<p><br></p>')
+            edit_job.description = request.form["description"].removesuffix('<p><br></p>')
             # edit_job.application_instructions=request.form["application_instructions"]
             edit_job.institution = escape(request.form["institution"]).strip()
             edit_job.department = escape(request.form["department"]).strip()
@@ -987,7 +1033,7 @@ def edit(slug):
                 try:
                     mastodon.toot(social_post + social_link)
                 except Exception as e:
-                    social_warning = "Could not post to Mastodon (contact admin). " + type(e).__name__
+                    social_warning = f"Could not post to Mastodon (contact admin). {type(e).__name__}"
             if bluesky_api and edit_job.is_active:
                 text_builder = client_utils.TextBuilder()
                 text_builder.text(social_post)
@@ -996,9 +1042,9 @@ def edit(slug):
                     client.send_post(text_builder)
                 except Exception as e:
                     if social_warning is None:
-                        social_warning = "Could not post to Bluesky (contact admin). " + type(e).__name__
+                        social_warning = f"Could not post to Bluesky (contact admin). {type(e).__name__}"
                     else:
-                        social_warning += "Could not post to Bluesky (contact admin). " + type(e).__name__
+                        social_warning += f"Could not post to Bluesky (contact admin). {type(e).__name__}"
 
             base_data["redirect_alerts"] = {
                 "success": alert_text,
@@ -1023,7 +1069,7 @@ def edit(slug):
                         "success": None,
                         "danger": None,
                         "info": None,
-                        "warning": "Could not post announcement to Mastodon. " + type(e).__name__,
+                        "warning": f"Could not post announcement to Mastodon. {type(e).__name__}",
                     }
             else:
                 base_data["redirect_alerts"] = {
@@ -1052,7 +1098,7 @@ def edit(slug):
                         "success": None,
                         "danger": None,
                         "info": None,
-                        "warning": "Could not post announcement to Bluesky. " + type(e).__name__,
+                        "warning": f"Could not post announcement to Bluesky. {type(e).__name__}",
                     }
             else:
                 base_data["redirect_alerts"] = {
