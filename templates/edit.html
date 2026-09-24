@@ -201,7 +201,7 @@
 
         <div>
             <p class="create-item">
-                <b>Job description</b><br>Will appear below the job title and job summary
+                {% if require_description is true %}<span style="color: red">*</span> {% endif %}<b>Job description</b><br>Will appear below the job title and job summary
             </p>
 
             <div class="quill-editor" id="editor">

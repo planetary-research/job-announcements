@@ -82,6 +82,9 @@ codeberg_repo = https://codeberg.org/planetary-research/job-announcements
 # Add a statement in the footer that states this project was created by the Planetary Research Cooperative
 thank_prc = False
 
+# Require that all job announcements have a job description
+require_description = True
+
 # Contact email in the footer
 contact_email = "tech@my-organization.example.org"
 

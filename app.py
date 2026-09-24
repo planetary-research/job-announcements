@@ -763,34 +763,28 @@ def create():
             else:
                 deadline_date = datetime.datetime.strptime(request.form["deadline_date"], '%Y-%m-%d')
 
-            new_job = Jobs(
-                job_slug=job_slug,
-                category_id=request.form["new_category"],
-                title=escape(request.form["title"]).strip(),
-                description=request.form["description"].removesuffix('<p><br></p>'),
-                # application_instructions=request.form["application_instructions"],
-                institution=escape(request.form["institution"]).strip(),
-                department=escape(request.form["department"]).strip(),
-                country=escape(request.form["country"]).strip(),
-                city=escape(request.form["city"]).strip(),
-                work_arrangement=escape(request.form["work_arrangement"]).strip(),
-                official_announcement_url=request.form["official_announcement_url"].strip(),
-                duration=escape(request.form["duration"]).strip(),
-                can_extend=escape(request.form["can_extend"]).strip(),
-                salary=escape(request.form["salary"]).strip(),
-                number_positions=escape(request.form["number_positions"]).strip(),
-                reference_code=escape(request.form["reference_code"]).strip(),
-                inquiries_name=escape(request.form["inquiries_name"]).strip(),
-                inquiries_email=escape(request.form["inquiries_email"]).strip(),
-                owner_orcid=session["orcid"],
-                owner_name=session["name"],
-                is_active=is_active,
-                closed_date=closed_date,
-                post_date=post_date,
-                start_date=start_date,
-                start_date_string=escape(request.form["start_date_string"]).strip(),
-                deadline_date=deadline_date,
-            )
+            new_job.category_id = request.form["new_category"]
+            new_job.title = escape(request.form["title"]).strip()
+            new_job.description = request.form["description"].removesuffix('<p><br></p>')
+            new_job.institution = escape(request.form["institution"]).strip()
+            new_job.department = escape(request.form["department"]).strip()
+            new_job.country = escape(request.form["country"]).strip()
+            new_job.city = escape(request.form["city"]).strip()
+            new_job.work_arrangement = escape(request.form["work_arrangement"]).strip()
+            new_job.official_announcement_url = request.form["official_announcement_url"].strip()
+            new_job.duration = escape(request.form["duration"]).strip()
+            new_job.can_extend = escape(request.form["can_extend"]).strip()
+            new_job.salary = escape(request.form["salary"]).strip()
+            new_job.number_positions = escape(request.form["number_positions"]).strip()
+            new_job.reference_code = escape(request.form["reference_code"]).strip()
+            new_job.inquiries_name = escape(request.form["inquiries_name"]).strip()
+            new_job.inquiries_email = escape(request.form["inquiries_email"]).strip()
+            new_job.is_active = is_active
+            new_job.closed_date = closed_date
+            new_job.post_date = post_date
+            new_job.start_date = start_date
+            new_job.start_date_string = escape(request.form["start_date_string"]).strip()
+            new_job.deadline_date = deadline_date
 
             if Jobs.query.filter_by(job_slug=job_slug).first() is not None:
                 alerts["danger"] = "Job slug already exists. Please choose another."
@@ -802,6 +796,8 @@ def create():
                 alerts["danger"] = "Job slug is reserved. Please choose another."
             elif new_job.title == '':
                 alerts["danger"] = "You must enter a job title."
+            elif config.require_description and new_job.description == '':
+                alerts["danger"] = "You must enter a job description."
             else:
                 db.session.add(new_job)
                 db.session.commit()
@@ -893,6 +889,7 @@ def create():
         "form_start_date": form_start_date,
         "form_start_date_string": new_job.start_date_string,
         "form_deadline_date": form_deadline_date,
+        "require_description": config.require_description,
     }
 
     return render_template("create.html", **(base_data | data))
@@ -1003,6 +1000,8 @@ def edit(slug):
 
             if edit_job.title == '':
                 alerts["danger"] = "You must enter a job title."
+            elif config.require_description and edit_job.description == '':
+                alerts["danger"] = "You must enter a job description."
             else:
                 db.session.commit()
 
@@ -1218,6 +1217,7 @@ def edit(slug):
         "post_date": edit_job.post_date,
         "closed_date": edit_job.closed_date,
         "form_start_date_string": edit_job.start_date_string,
+        "require_description": config.require_description,
     }
 
     return render_template("edit.html", **(base_data | data))

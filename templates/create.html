@@ -55,7 +55,7 @@
     </p>
     <p>
         All fields are optional with the exception of the job category, announcement
-        title and job announcement slug. Any fields that are left blank will not be
+        title{% if require_description is true %}, job description{% endif %} and job announcement slug. Any fields that are left blank will not be
         shown on the announcement. You will be able to edit this announcement
         later by signing in with your ORCID account.
     </p>
@@ -64,11 +64,11 @@
         computer and then click on the button <b>Import</b>.
     </p>
 
-    <form action="{{ create_uri }}" method="POST" enctype="multipart/form-data" id="import_json">
+    <form action="{{ create_uri }}" method="POST" enctype="multipart/form-data" id="import_json" >
       <input type="hidden" name="mode" value="import_json">
       <div style="font-size: 0.85em; padding-bottom: 2em;">
         <input type="file" name="file" accept=".json" style="margin-bottom: 0.85em;">
-        <input type="submit" value="Import">
+        <button type="submit">Import</button>
       </div>
     </form>
 
@@ -222,10 +222,12 @@
 
         <div>
             <p class="create-item">
-                <b>Job description</b><br>Will appear below the job title and job summary
+                {% if require_description is true %}<span style="color: red">*</span> {% endif %}<b>Job description</b><br>Will appear below the job title and job summary
             </p>
 
-            <div class="quill-editor" id="editor">{{ form_description | safe }}</div>
+            <div class="quill-editor" id="editor">
+              {{ form_description | safe }}
+            </div>
             <input type="hidden" name="description" id="description">
 
             <script>
@@ -246,7 +248,7 @@
                     },
                     theme: 'snow'
                 });
-                document.querySelector('form').onsubmit = function() {
+                document.querySelectorAll('form')[1].onsubmit = function() {
                     var hiddenField = document.getElementById('description');
                     hiddenField.value = document.querySelector('.ql-editor').innerHTML;
                 };
