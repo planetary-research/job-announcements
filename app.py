@@ -160,6 +160,7 @@ base_data = {
     "admin_uri": admin_URI,
     "create_uri": create_URI,
     "editor_uri": editor_URI,
+    "feed_uri": feed_URI,
     "job_announcements_url": config.job_announcements_url,
     "footer_url_name": config.footer_url_name,
     "footer_url": config.footer_url,
