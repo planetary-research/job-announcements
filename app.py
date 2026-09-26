@@ -106,6 +106,7 @@ create_URI = os.path.join(config.site_path, "create")
 editor_URI = os.path.join(config.site_path, "editor")
 edit_URI = os.path.join(config.site_path, "<slug>", "edit")
 banned_URI = os.path.join(config.site_path, "user-banned")
+feed_URI = os.path.join(config.site_path, "feed")
 
 job_template = "job-single-column.html"  # default template for job announcements
 
@@ -1326,7 +1327,7 @@ def page_not_found(e):
     return render_template("404.html", **base_data), 404
 
 
-@app.route('/feed')
+@app.route(feed_URI)
 def feeds():
     # atom feeds of all announcements
     now = datetime.datetime.now()
@@ -1343,6 +1344,50 @@ def feeds():
 
     # Create list of feed entries
     for row in Jobs.query.filter_by(is_active=True).order_by(Jobs.post_date.asc()).all():
+        if row.deadline_date is None:
+            deadline_date = ''
+        else:
+            deadline_date = row.deadline_date.strftime('%Y-%m-%d')
+        if row.start_date is None:
+            start_date = ''
+        else:
+            start_date = row.start_date.strftime('%Y-%m-%d')
+        if row.post_date is None:
+            post_date = ''
+        else:
+            post_date = row.post_date.strftime('%Y-%m-%d')
+        location = row.city
+        if row.country != '':
+            if location != '':
+                location = location + ', ' + row.country
+            else:
+                location = row.country
+        data = {
+            "job_category": config.categories[row.category_id],
+            "job_title": row.title,
+            "job_description": row.description.removesuffix('<p><br></p>'),
+            "job_institution": row.institution,
+            "job_department": row.department,
+            "job_country": row.country,
+            "job_city": row.city,
+            "job_location": location,
+            "job_work_arrangement": row.work_arrangement,
+            "job_official_announcement_url": row.official_announcement_url,
+            "job_duration": row.duration,
+            "job_can_extend": row.can_extend,
+            "job_salary": row.salary,
+            "job_number_positions": row.number_positions,
+            "job_reference_code": row.reference_code,
+            "job_inquiries_name": row.inquiries_name,
+            "job_inquiries_email": row.inquiries_email,
+            "job_owner_orcid": row.owner_orcid,
+            "job_post_date": post_date,
+            "job_start_date": start_date,
+            "job_start_date_string": row.start_date_string,
+            "job_deadline_date": deadline_date,
+        }
+        content = render_template("rss.html", **(base_data | data))
+
         fe = fg.add_entry()
         fe.id(os.path.join(config.job_announcements_url, row.job_slug))
         fe.title(row.title)
@@ -1350,7 +1395,7 @@ def feeds():
         fe.link(href=os.path.join(config.job_announcements_url, row.job_slug), rel='alternate')
         fe.updated(now.strftime('%Y-%m-%dT%H:%M:%S') + 'Z')
         fe.published(row.post_date.strftime('%Y-%m-%dT%H:%M:%S') + 'Z')
-        fe.content(row.description, type='html')
+        fe.content(content, type='html')
 
     # response = make_response(fg.rss_str(pretty=True))
     # response.headers.set('Content-Type', 'application/rss+xml')
@@ -1359,7 +1404,7 @@ def feeds():
     return response
 
 
-@app.route('/feed/category/<feed_category_string>')
+@app.route(os.path.join(feed_URI, 'category/<feed_category_string>'))
 def feed_category(feed_category_string):
     # atom feeds for each announcement category
     now = datetime.datetime.now()
@@ -1385,6 +1430,50 @@ def feed_category(feed_category_string):
 
     # Create list of feed entries
     for row in Jobs.query.filter_by(is_active=True).filter_by(category_id=feed_num).order_by(Jobs.post_date.asc()).all():
+        if row.deadline_date is None:
+            deadline_date = ''
+        else:
+            deadline_date = row.deadline_date.strftime('%Y-%m-%d')
+        if row.start_date is None:
+            start_date = ''
+        else:
+            start_date = row.start_date.strftime('%Y-%m-%d')
+        if row.post_date is None:
+            post_date = ''
+        else:
+            post_date = row.post_date.strftime('%Y-%m-%d')
+        location = row.city
+        if row.country != '':
+            if location != '':
+                location = location + ', ' + row.country
+            else:
+                location = row.country
+        data = {
+            "job_category": config.categories[row.category_id],
+            "job_title": row.title,
+            "job_description": row.description.removesuffix('<p><br></p>'),
+            "job_institution": row.institution,
+            "job_department": row.department,
+            "job_country": row.country,
+            "job_city": row.city,
+            "job_location": location,
+            "job_work_arrangement": row.work_arrangement,
+            "job_official_announcement_url": row.official_announcement_url,
+            "job_duration": row.duration,
+            "job_can_extend": row.can_extend,
+            "job_salary": row.salary,
+            "job_number_positions": row.number_positions,
+            "job_reference_code": row.reference_code,
+            "job_inquiries_name": row.inquiries_name,
+            "job_inquiries_email": row.inquiries_email,
+            "job_owner_orcid": row.owner_orcid,
+            "job_post_date": post_date,
+            "job_start_date": start_date,
+            "job_start_date_string": row.start_date_string,
+            "job_deadline_date": deadline_date,
+        }
+        content = render_template("rss.html", **(base_data | data))
+
         fe = fg.add_entry()
         fe.id(os.path.join(config.job_announcements_url, row.job_slug))
         fe.title(row.title)
@@ -1392,7 +1481,7 @@ def feed_category(feed_category_string):
         fe.link(href=os.path.join(config.job_announcements_url, row.job_slug), rel='alternate')
         fe.published(row.post_date.strftime('%Y-%m-%dT%H:%M:%S') + 'Z')
         fe.updated(now.strftime('%Y-%m-%dT%H:%M:%S') + 'Z')
-        fe.content(row.description, type='html')
+        fe.content(content, type='html')
 
     # response = make_response(fg.rss_str(pretty=True))
     # response.headers.set('Content-Type', 'application/rss+xml')

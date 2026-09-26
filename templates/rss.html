@@ -1,0 +1,18 @@
+<style>
+.job {color: #444; font-weight: bold; margin-top: 0em; margin-bottom: 2em;}
+.job-summary-box {font-size: 1em;}
+.job-label {font-size: 0.8em; margin-bottom: 0.4em; line-height: 1.4em;}
+.job-label-header {margin-right: 1em; font-weight: bold; text-transform: uppercase; color: #444;}
+.job-description h1 {font-size: 1.4em; margin-bottom: 0.8em; margin-top: 1em;}
+.job-description h2 {font-size: 1.2em; margin-bottom: 0.6em; margin-top: 0.8em;}
+.job-description h3 {font-size: 1em; margin-bottom: 0.4em; margin-top: 0.8em;}
+</style>
+<p style="text-transform: uppercase; padding-bottom: 0.5em;">{{ job_category }}</p>
+<h2 class="job">{{ job_title | safe }}</h2>
+<p style="margin-top: 4em; font-size: 0.8em; font-weight: bold; color: #444; line-height:0;">SUMMARY</p>
+<hr style="margin-top: 0; border-color: #aaa;">
+<div class="job-summary-box">
+{% if job_institution != '' %}<p class="job-label"><span class="job-label-header">Institution</span>{{ job_institution }}</p>{% endif %}{% if job_department != '' %}<p class="job-label"><span class="job-label-header">Department</span>{{ job_department }}</p>{% endif %}{% if job_location != '' %}<p class="job-label"><span class="job-label-header">Location</span>{{ job_location }}</p>{% endif %}{% if job_work_arrangement != '' %}<p class="job-label"><span class="job-label-header">Work arrangement</span>{{ job_work_arrangement}}</p>{% endif %}{% if job_duration != '' %}<p class="job-label"><span class="job-label-header">Duration</span>{{ job_duration }}</p>{% endif %}{% if job_can_extend != '' %}<p class="job-label"><span class="job-label-header">Can be extended</span>{{ job_can_extend }}</p>{% endif %}{% if job_salary != '' %}<p class="job-label"><span class="job-label-header">Salary</span>{{ job_salary }}</p>{% endif %}{% if job_number_positions != '' %}<p class="job-label"><span class="job-label-header">Number of positions</span>{{ job_number_positions }}</p>{% endif %}{% if job_deadline_date != '' %}<p class="job-label"><span class="job-label-header">Application deadline</span>{{ job_deadline_date }}</p>{% endif %}{% if job_start_date != '' %}<p class="job-label"><span class="job-label-header">Start date</span>{{ job_start_date }}</p>{% endif %}{% if job_start_date_string != '' %}<p class="job-label"><span class="job-label-header">Start date</span>{{ job_start_date_string }}</p>{% endif %}{% if job_official_announcement_url != '' %}<p class="job-label"><span class="job-label-header">Official announcement</span><a href="{{ job_official_announcement_url }}" target="_blank">external link</a></p>{% endif %}{% if job_reference_code != '' %}<p class="job-label"><span class="job-label-header">Reference code</span>{{ job_reference_code }}</p>{% endif %}{% if job_inquiries_email != '' %}<p class="job-label"><span class="job-label-header">Inquiries</span>{%if job_inquiries_name != '' %}<a href="mailto:{{ job_inquiries_email }}">{{ job_inquiries_name }}</a>{% else %}<a href="mailto:{{ job_inquiries_email }}">{{ job_inquiries_email }}</a>{% endif %}</p>{% endif %}{% if job_post_date != '' %}<p class="job-label"><span class="job-label-header">Posted</span>{{ job_post_date }}</p>{% endif %}
+<p class="job-label"><span class="job-label-header">Posted by</span><a href="https://orcid.org/{{ job_owner_orcid }}" target="_blank">{{ job_owner_orcid }}</a></p>
+</div>
+<div>{% if job_description != '' %}<p style="margin-top: 4em; font-size: 0.8em; font-weight: bold; color: #444; line-height:0;">JOB DESCRIPTION</p><hr style="margin-top: 0; border-color: #aaa;"><div class="job-description">{{ job_description | safe}}</div>{% endif %}</div>
