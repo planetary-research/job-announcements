@@ -308,9 +308,11 @@ def action(slug):
 
     # check if the job announcement is open
     if result.is_active is False:
+        data = {
+            "can_edit": can_edit,
+        }
         if can_edit:
             data = {
-                "can_edit": can_edit,
                 "edit_URL": os.path.join(config.site_path, result.job_slug, "edit"),
             }
 
