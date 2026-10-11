@@ -101,21 +101,21 @@
             <p class="create-item">
                 <span style="color: red">*</span> <b>Announcement title</b>
             </p>
-            <input type="text" class="form-control" name="title" placeholder="" value="{{ form_title }}">
+            <input type="text" class="form-control" name="title" placeholder="" value="{{ form_title | safe }}">
         </div>
 
         <div>
             <p class="create-item">
                 <b>Institution</b>
             </p>
-            <input type="text" class="form-control" name="institution" placeholder="" value="{{ form_institution }}">
+            <input type="text" class="form-control" name="institution" placeholder="" value="{{ form_institution | safe }}">
         </div>
 
         <div>
             <p class="create-item">
                 <b>Department</b>
             </p>
-            <input type="text" class="form-control" name="department" placeholder="" value="{{ form_department }}">
+            <input type="text" class="form-control" name="department" placeholder="" value="{{ form_department | safe }}">
         </div>
 
         <div>

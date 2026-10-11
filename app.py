@@ -299,7 +299,10 @@ def action(slug):
     # check if the job announcement exists
     result = Jobs.query.filter_by(job_slug=slug).first()
     if not result:
-        return render_template("job-announcement-not-found.html", **base_data)
+        data = {
+            "role_id": role_id,
+        }
+        return render_template("job-announcement-not-found.html", **(base_data | data))
 
     # For editors, check if the user is the job announcement owner
     if role_id == 2:
@@ -313,6 +316,7 @@ def action(slug):
         }
         if can_edit:
             data = {
+                "role_id": role_id,
                 "edit_URL": os.path.join(config.site_path, result.job_slug, "edit"),
             }
 
@@ -925,7 +929,10 @@ def edit(slug):
 
     edit_job = Jobs.query.filter_by(job_slug=slug).first()
     if not edit_job:
-        return render_template("job-announcement-not-found.html", **(base_data))
+        data = {
+            "role_id": role_id,
+        }
+        return render_template("job-announcement-not-found.html", **(base_data | data))
 
     # For editors, check if the user is the job announcement owner
     if role_id == 2:
@@ -1297,7 +1304,25 @@ def editor():
 
 @app.route(insufficient_privileges_URI)
 def insufficient_privileges():
-    return render_template("insufficient-privileges.html", **base_data)
+    if session.get("orcid") is None:
+        role_id = 0
+    elif base_data["everyone_is_editor"] is True:
+        user = Admin.query.filter_by(orcid=session["orcid"]).first()
+        if user is not None:
+            role_id = user.role_id
+        else:
+            role_id = 2
+    else:
+        user = Admin.query.filter_by(orcid=session["orcid"]).first()
+        if user is None:
+            role_id = 1
+        else:
+            role_id = user.role_id
+
+    data = {
+        "role_id": role_id,
+    }
+    return render_template("insufficient-privileges.html", **(base_data | data))
 
 
 @app.route(logout_URI)
@@ -1327,7 +1352,25 @@ def banned():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template("404.html", **base_data), 404
+    if session.get("orcid") is None:
+        role_id = 0
+    elif base_data["everyone_is_editor"] is True:
+        user = Admin.query.filter_by(orcid=session["orcid"]).first()
+        if user is not None:
+            role_id = user.role_id
+        else:
+            role_id = 2
+    else:
+        user = Admin.query.filter_by(orcid=session["orcid"]).first()
+        if user is None:
+            role_id = 1
+        else:
+            role_id = user.role_id
+
+    data = {
+        "role_id": role_id,
+    }
+    return render_template("404.html", **(base_data | data)), 404
 
 
 @app.route(feed_URI)
