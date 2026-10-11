@@ -28,13 +28,13 @@
 
     {% if job_institution != '' %}
     <p class="job-label">
-      <span class="job-label-header">Institution</span>{{ job_institution }}
+      <span class="job-label-header">Institution</span>{{ job_institution | safe }}
     </p>
     {% endif %}
 
     {% if job_department != '' %}
     <p class="job-label">
-      <span class="job-label-header">Department</span>{{ job_department }}
+      <span class="job-label-header">Department</span>{{ job_department | safe }}
     </p>
     {% endif %}
 
