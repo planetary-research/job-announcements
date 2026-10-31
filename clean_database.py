@@ -4,20 +4,22 @@ This script will clean the database of old job announcements.
 All jobs that have exceed the application deadline by 120 days
 (4 months) will be closed.
 
+All jobs that don't have an application deadline will be closed 9 months
+after they are posted.
+
 All jobs that have exceeded the application deadline by 1 year
 will be deleted from the database.
 
 All jobs that do not have an application deadline will be
-deleted 1 year after they are posted.
-
-All jobs that do not have an application deadline and that are closed
-will be deleted 1 year after they were created.
+deleted 1 year after they are closed (that is 1 year and 9 months since
+it was created).
 """
 from db_models import db, Jobs
 from app import app
 import datetime
 
 close_interval = 4 * 30
+close_interval_no_deadline = 9 * 30
 delete_interval = 365
 
 now = datetime.datetime.now(datetime.UTC)
@@ -39,7 +41,18 @@ with app.app_context():
             else:
                 total_days = (now - creation_date).days
 
-            if total_days > delete_interval:
+            if total_days > close_interval_no_deadline:
+                print('---')
+                print(row.title)
+                print('deadline_date: ', deadline_date)
+                print('post_date: ', post_date)
+                print('closed_date: ', closed_date)
+                print('creation_date: ', creation_date)
+                print('Days since deadline_date: ', total_days)
+                print("Closing job")
+                row.is_active = False
+
+            if total_days > delete_interval + close_interval_no_deadline:
                 print('---')
                 print(row.title)
                 print('post_date: ', post_date)

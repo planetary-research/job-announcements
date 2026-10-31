@@ -61,10 +61,9 @@
       the announcement will be deleted from the database.
     </p>
     <p>
-      If the job announcement doesn't have an application deadline, it will be deleted
-      automatically after one year has passed since it was posted. If the job
-      doesn't have an application deadline and it was since closed,
-      it will be deleted one year after the announcement was created.
+      If the job announcement doesn't have an application deadline, the
+      announcement will be closed 9 months after it was posted. After the
+      announcement is closed, it will be deleted from the database 1 year later.
     </p>
 
     {% if mastodon_account_url is not none or bluesky_account_url is not none %}
