@@ -20,10 +20,11 @@ was developed by the
 * Import and export announcements as JSON files.
 * Automatically post new job announcements to Mastodon and Bluesky.
 * Generate RSS/Atom feeds for all jobs and for individual job categories.
-* Send a weekly digest by email to a mailing list,
-* Allow anyone with an ORCID account to create an announcement, or restrict who is allowed to post.
+* Send a weekly digest by email to a mailing list.
 * Create as many job categories as you would like.
 * Branding is placed in a single file, so there is no need to edit the code.
+* Allow anyone with an ORCID account to create an announcement, or restrict who is allowed to post.
+* Give editor access by entering an invitation code.
 * Administrator controls to ban users, delete posts, edit posts, change announcement ownership and more.
 
 # Dependencies
@@ -48,9 +49,14 @@ port = 3000  # port used by the web server when in sandbox mode
 # Orcid ID of the site admin that is added to the database at creation
 admin_orcid = 'xxxx-xxxx-xxxx-xxxx'
 
-# If everyone_is_editor is False, admins must add editors to the database manually.
-# Otherwise, everyone with an ORCID account can create announcements.
+# If everyone_is_editor is False, editors must be added manually to the database
+# by admins or have an editor invitation code. Otherwise, everyone with an
+# ORCID account is an editor.
 everyone_is_editor = True
+
+# If everyone_is editor is False, allow users to become an editor by entering
+# the following editor invitation code (use None to disable)
+editor_invitation_secret = None
 
 # Set favicon (use "" for none). File name is with respect to static/img
 favicon = ""
