@@ -19,6 +19,7 @@ from mastodon import Mastodon
 from atproto import Client, client_utils
 import json
 from io import BytesIO
+from urllib.parse import urljoin
 
 import config
 from db_models import db, Jobs, JobCategory, Admin, UserRole, Block
@@ -1628,12 +1629,11 @@ def api_posts():
                 deadline_ok = True
             else:
                 deadline_ok = False
-
         if deadline_ok:
             if config.categories[row.category_id] not in jobs_list.keys():
                 jobs_list[config.categories[row.category_id]] = []
             jobs_list[config.categories[row.category_id]].append({
-                'link': os.path.join(config.site_path, row.job_slug),
+                'link': urljoin(base_data["job_announcements_url"], os.path.join(config.site_path, row.job_slug)),
                 'title': row.title,
                 'institution': row.institution,
                 'location': location,
