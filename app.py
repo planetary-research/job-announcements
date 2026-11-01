@@ -1633,7 +1633,7 @@ def api_posts():
             if config.categories[row.category_id] not in jobs_list.keys():
                 jobs_list[config.categories[row.category_id]] = []
             jobs_list[config.categories[row.category_id]].append({
-                'link': urljoin(base_data["job_announcements_url"], os.path.join(config.site_path, row.job_slug)),
+                'link': urljoin(base_data["job_announcements_url"], row.job_slug),
                 'title': row.title,
                 'institution': row.institution,
                 'location': location,
