@@ -108,6 +108,7 @@ edit_URI = os.path.join(config.site_path, "<slug>", "edit")
 banned_URI = os.path.join(config.site_path, "user-banned")
 feed_URI = os.path.join(config.site_path, "feed")
 editor_invitation_URI = os.path.join(config.site_path, "editor-invitation")
+api_URI = os.path.join(config.site_path, "api/v1")
 
 job_template = "job-single-column.html"  # default template for job announcements
 
@@ -239,7 +240,6 @@ def home():
                 location = row.country
 
         date_now = datetime.datetime.now(datetime.UTC)
-        date_expire = date_now + relativedelta(months=9)
         post_date = row.post_date.replace(tzinfo=datetime.UTC)  # timezone is lost in sqlalchemy
         if row.deadline_date is not None:
             deadline = row.deadline_date.replace(tzinfo=datetime.UTC)
@@ -249,9 +249,13 @@ def home():
             else:
                 deadline_ok = False
         else:
-            deadline_ok = True
+            date_expire = post_date + relativedelta(months=9)
+            if date_now < date_expire:
+                deadline_ok = True
+            else:
+                deadline_ok = False
 
-        if (post_date < date_expire) and deadline_ok:
+        if deadline_ok:
             jobs_list[row.job_slug] = [
                 row.category_id,
                 os.path.join(config.site_path, row.job_slug),
@@ -1589,6 +1593,55 @@ def feed_category(feed_category_string):
     response = make_response(fg.atom_str(pretty=True))
     response.headers.set('Content-Type', 'application/atom+xml')
     return response
+
+
+@app.route(os.path.join(api_URI, 'posts'))
+def api_posts():
+    # Return all posts on home page
+    jobs_list = dict()
+    # Create list of job announcements
+    for row in Jobs.query.filter_by(is_active=True).order_by(Jobs.post_date.desc()).all():
+        if row.deadline_date is None:
+            deadline_date = ''
+        else:
+            deadline_date = row.deadline_date.strftime('%Y-%m-%d')
+
+        location = row.city
+        if row.country != '':
+            if location != '':
+                location = location + ', ' + row.country
+            else:
+                location = row.country
+
+        date_now = datetime.datetime.now(datetime.UTC)
+        post_date = row.post_date.replace(tzinfo=datetime.UTC)  # timezone is lost in sqlalchemy
+        if row.deadline_date is not None:
+            deadline = row.deadline_date.replace(tzinfo=datetime.UTC)
+            # add two extra days, one to make deadline at end of the day, the other for time zone differences
+            if date_now < deadline + relativedelta(days=2):
+                deadline_ok = True
+            else:
+                deadline_ok = False
+        else:
+            date_expire = post_date + relativedelta(months=9)
+            if date_now < date_expire:
+                deadline_ok = True
+            else:
+                deadline_ok = False
+
+        if deadline_ok:
+            if config.categories[row.category_id] not in jobs_list.keys():
+                jobs_list[config.categories[row.category_id]] = []
+            jobs_list[config.categories[row.category_id]].append({
+                'link': os.path.join(config.site_path, row.job_slug),
+                'title': row.title,
+                'institution': row.institution,
+                'location': location,
+                'deadline': deadline_date,
+                'posted': row.post_date.strftime('%Y-%m-%d')
+            })
+
+    return jobs_list
 
 
 if __name__ == "__main__":
