@@ -779,6 +779,7 @@ def create():
                 deadline_date = datetime.datetime.strptime(request.form["deadline_date"], '%Y-%m-%d')
 
             new_job.category_id = request.form["new_category"]
+            new_job.job_slug = job_slug
             new_job.title = escape(request.form["title"]).strip()
             new_job.description = request.form["description"].removesuffix('<p><br></p>')
             new_job.institution = escape(request.form["institution"]).strip()
