@@ -1639,7 +1639,7 @@ def api_posts():
                 'institution': row.institution,
                 'location': location,
                 'deadline': deadline_date,
-                'posted': row.post_date.strftime('%Y-%m-%d')
+                'posted': post_date.isoformat(),
             })
 
     return jobs_list
