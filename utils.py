@@ -5,11 +5,16 @@ def get_orcid_name(api, orcid):
     try:
         token = api.get_search_token_from_orcid()
         user_data = api.read_record_public(orcid, 'record', token)
+        name = ''
         if user_data["person"]["name"] is not None:
-            name = (user_data["person"]["name"]["given-names"]["value"]
-                    + " " + user_data["person"]["name"]["family-name"]["value"])
-        else:
-            name = ''
+            if user_data["person"]["name"]["given-names"] is not None:
+                name += user_data["person"]["name"]["given-names"]["value"]
+                if user_data["person"]["name"]["family-name"] is not None:
+                    name += " " + user_data["person"]["name"]["family-name"]["value"]
+            else:
+                if user_data["person"]["name"]["family-name"] is not None:
+                    name += user_data["person"]["name"]["family-name"]["value"]
+
     except RequestException:
         name = ''
     return name
